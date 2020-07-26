@@ -10,4 +10,6 @@ import os
 class WeChat:
     def __init__(self):
         self.CORPID = 'ww3ffaaf40c09cf232'  #企业ID，在管理后台获取
-  
+        self.CORPSECRET = 'IZ1XYgpPlldPAnGf3j-q1lx5tFTuLXz9kSt2DVkRRFM'#自建应用的Secret，每个自建应用里都有单独的secret
+        self.AGENTID = '1000004'  #应用ID，在后台应用中获取
+        self.TOUSER = "ZhouJian"  # 接收者用
