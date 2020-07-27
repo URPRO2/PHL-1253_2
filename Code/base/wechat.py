@@ -24,4 +24,10 @@ class WeChat:
         return data["access_token"]
 
     def get_access_token(self):
-        if not os.path.i
+        if not os.path.isdir('./tmp'):
+            os.mkdir('./tmp')
+        try:
+            with open('./tmp/wechat.config', 'r') as f:
+                t, access_token = f.read().split()
+        except:
+            with open('./tmp/wechat.config', 'w')
