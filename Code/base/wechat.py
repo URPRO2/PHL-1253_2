@@ -18,4 +18,10 @@ class WeChat:
         url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken'
         values = {'corpid': self.CORPID,
                   'corpsecret': self.CORPSECRET,
-        
+                  }
+        req = requests.post(url, params=values)
+        data = json.loads(req.text)
+        return data["access_token"]
+
+    def get_access_token(self):
+        if not os.path.i
