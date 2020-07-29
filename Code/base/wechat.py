@@ -30,4 +30,10 @@ class WeChat:
             with open('./tmp/wechat.config', 'r') as f:
                 t, access_token = f.read().split()
         except:
-            with open('./tmp/wechat.config', 'w')
+            with open('./tmp/wechat.config', 'w') as f:
+                access_token = self._get_access_token()
+                cur_time = time.time()
+                f.write('\t'.join([str(cur_time), access_token]))
+                return access_token
+        else:
+        
