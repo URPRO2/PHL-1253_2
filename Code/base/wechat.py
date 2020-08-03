@@ -36,4 +36,9 @@ class WeChat:
                 f.write('\t'.join([str(cur_time), access_token]))
                 return access_token
         else:
-        
+            cur_time = time.time()
+            if 0 < cur_time - float(t) < 7260:
+                return access_token
+            else:
+                with open('./tmp/wechat.config', 'w') as f:
+         
