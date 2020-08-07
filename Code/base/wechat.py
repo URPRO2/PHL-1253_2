@@ -62,4 +62,7 @@ class WeChat:
         return respone["errmsg"]
 
 
-if __name__ == '__main_
+if __name__ == '__main__':
+    wx = WeChat()
+    wx.send_data("这是程序发送的第1条消息！\n Python程序调用企业微信API,从自建应用“告警测试应用”发送给管理员的消息！")
+    wx.send_data("这是程序发送的第2条消息！")
