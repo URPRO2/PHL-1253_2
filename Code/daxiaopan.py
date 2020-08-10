@@ -18,4 +18,8 @@ smallSymbol = 'ETH/USDT'
 ex = ccxt.binance()
 
 
-def getMom(symbo
+def getMom(symbol):
+    obj = ex.fetch_ohlcv(symbol, timeframe=rule_type, limit=num * 2)
+    df = pd.DataFrame(obj, dtype=float)
+    df['mom'] = df[4].pct_change(periods=num - 1)
+    df[0] = pd.to_datetime(df[0], unit='ms') + timedelta(hours=8)
