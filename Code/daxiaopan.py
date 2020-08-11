@@ -22,4 +22,14 @@ def getMom(symbol):
     obj = ex.fetch_ohlcv(symbol, timeframe=rule_type, limit=num * 2)
     df = pd.DataFrame(obj, dtype=float)
     df['mom'] = df[4].pct_change(periods=num - 1)
-    df[0] = pd.to_datetime(df[0], unit='ms') + timedelta(hours=8)
+    df[0] = pd.to_datetime(df[0], unit='ms') + timedelta(hours=8)  # 整理时间
+    df = df.tail(2)
+    df = df.head(1)
+    return df
+
+symbolList = [bigSymbol,smallSymbol]
+dList = []
+for symbol in symbolList:
+    d = getMom(symbol)
+    time.sleep(ex.rateLimit / 1000)
+    dList.append(
