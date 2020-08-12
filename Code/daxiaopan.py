@@ -43,4 +43,11 @@ wx.send_data(dd)
 
 
 
-sy
+symbolList = filterUSDT(ex)
+dList = []
+for symbol in symbolList:
+    d = getMom(symbol)
+    time.sleep(0.5)
+    dList.append([symbol, str(round(d['mom'].values[0], 5))])
+
+df = pd.DataFrame(dList, columns=
