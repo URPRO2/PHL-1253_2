@@ -32,4 +32,15 @@ dList = []
 for symbol in symbolList:
     d = getMom(symbol)
     time.sleep(ex.rateLimit / 1000)
-    dList.append(
+    dList.append([symbol, str(round(d['mom'].values[0], 5))])
+
+df = pd.DataFrame(dList, columns=['symbol', 'mom'])
+df.sort_values(by=['mom'], inplace=True)
+df = df.tail(50)
+dd = df.to_string()
+
+wx.send_data(dd)
+
+
+
+sy
