@@ -18,4 +18,7 @@ for symbol in symbols:
 print(quarterly_symbols_ID)
 while True:
     quarterly_symbols_price_list = []  # 初始化当季交易对的价格信息列表
-    mar
+    markPrice_indexPrice = exchange.dapiPublicGetPremiumIndex()  # 获取所有币本位合约的价格信息
+    for price in markPrice_indexPrice:
+        if price['symbol'] in quarterly_symbols_ID:
+            quarterly_symbols_pric
