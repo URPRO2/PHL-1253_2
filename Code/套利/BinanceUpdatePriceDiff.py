@@ -13,4 +13,9 @@ symbols = exchange.dapiPublicGetExchangeInfo()['symbols']  # 币本位所有交�
 
 quarterly_symbols_ID = []  # 初始化当季交易对
 for symbol in symbols:
-    if '06' in symbol['symb
+    if '06' in symbol['symbol']:  # 目标合约时间 06代表6月当季
+        quarterly_symbols_ID.append(symbol['symbol'])  # 获取币本位当季交易对
+print(quarterly_symbols_ID)
+while True:
+    quarterly_symbols_price_list = []  # 初始化当季交易对的价格信息列表
+    mar
