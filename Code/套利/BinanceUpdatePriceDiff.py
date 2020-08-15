@@ -21,4 +21,7 @@ while True:
     markPrice_indexPrice = exchange.dapiPublicGetPremiumIndex()  # 获取所有币本位合约的价格信息
     for price in markPrice_indexPrice:
         if price['symbol'] in quarterly_symbols_ID:
-            quarterly_symbols_pric
+            quarterly_symbols_price_dict = price
+            quarterly_symbols_price_dict['diff'] = (float(price['markPrice']) - float(price['indexPrice'])) / float(
+                price['indexPrice'])  # (期货价格-现货价格)/现货价格
+          
