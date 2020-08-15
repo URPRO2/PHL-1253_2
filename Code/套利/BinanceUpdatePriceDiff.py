@@ -24,4 +24,7 @@ while True:
             quarterly_symbols_price_dict = price
             quarterly_symbols_price_dict['diff'] = (float(price['markPrice']) - float(price['indexPrice'])) / float(
                 price['indexPrice'])  # (期货价格-现货价格)/现货价格
-          
+            quarterly_symbols_price_list.append(quarterly_symbols_price_dict)  # 获取当季交易对的价格信息
+    df = pandas.DataFrame(quarterly_symbols_price_list)[['symbol', 'diff', 'markPrice', 'indexPrice']].sort_values(
+        'diff')
+    print(
