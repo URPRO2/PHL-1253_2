@@ -27,4 +27,8 @@ while True:
             quarterly_symbols_price_list.append(quarterly_symbols_price_dict)  # 获取当季交易对的价格信息
     df = pandas.DataFrame(quarterly_symbols_price_list)[['symbol', 'diff', 'markPrice', 'indexPrice']].sort_values(
         'diff')
-    print(
+    print(df.to_string(index=False))  # 打印当季交易对的价格信息，可注释掉
+    max_diff = df['diff'].max()  # 最高价差
+    if max_diff > diff_target:  # 最高价差是否大于目标价差
+        print(datetime.datetime.now())
+        print('====最大价
