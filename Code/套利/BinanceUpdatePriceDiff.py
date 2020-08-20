@@ -34,4 +34,7 @@ while True:
         print('====最大价差：' + str(max_diff) + ' >目标价差：' + str(diff_target) + '，开始交易，下面插入交易代码' + "====")
         print(df[df['diff'] == max_diff].to_string(index=False))  # 打印最高价差的交易对、价差值等相关信息
     else:
-        print('
+        print('最大价差：' + str(max_diff) + ' <目标价差：' + str(diff_target) + ', '
+              + str(time_interval) + '秒后重新抓取最大价差')
+    time.sleep(time_interval)
+ ‘
