@@ -22,4 +22,10 @@ contact_size = {
 }  # 你套利的币种一定要在这个dict里面
 
 # ===创建交易所
-e
+exchange = ccxt.binance()
+exchange.apiKey = apiSecretDict['171'][0]
+exchange.secret = apiSecretDict['171'][1]
+
+# ===开始套利
+execute_num = 0
+spot_symbol_name = {'type1': coin + 'USDT', 'type2': coin + '/US
