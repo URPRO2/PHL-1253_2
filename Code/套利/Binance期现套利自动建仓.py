@@ -37,4 +37,9 @@ while True:
     spot_sell1_price = exchange.publicGetTickerBookTicker(params={'symbol': spot_symbol_name['type1']})['askPrice']
     # 获取期货买一数据。因为期货是卖出，取买一。
     # noinspection PyUnresolvedReferences
-    future_buy1_price = exchange.dapiPublicGetTickerBookTicker(params
+    future_buy1_price = exchange.dapiPublicGetTickerBookTicker(params={'symbol': future_symbol_name['type1']})[0][
+        'bidPrice']   # zj! 这2个数据打印出来看看长啥样
+
+    # 计算价差
+    r = float(future_buy1_price) / float(spot_sell1_price) - 1
+    print('现货价格：%.4f，期货价格：%.4f，价差：%.4f%%' % (float(s
