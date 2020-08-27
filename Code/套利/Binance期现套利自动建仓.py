@@ -42,4 +42,13 @@ while True:
 
     # 计算价差
     r = float(future_buy1_price) / float(spot_sell1_price) - 1
-    print('现货价格：%.4f，期货价格：%.4f，价差：%.4f%%' % (float(s
+    print('现货价格：%.4f，期货价格：%.4f，价差：%.4f%%' % (float(spot_sell1_price), float(future_buy1_price), r * 100))
+
+    # ===判断价差是否满足要求
+    if r < r_threshold:
+        print('利差小于目标阀值，不入金')
+    else:
+        print('利差大于目标阀值，开始入金')
+
+        # 计算开空合约的数量、买入现货币的数量
+        futu
