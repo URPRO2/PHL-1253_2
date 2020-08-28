@@ -51,4 +51,6 @@ while True:
         print('利差大于目标阀值，开始入金')
 
         # 计算开空合约的数量、买入现货币的数量
-        futu
+        future_contract_num = int(execute_amount / contact_size[coin])  # 买入合约张数
+        future_coin_num = future_contract_num * contact_size[coin] / float(future_buy1_price)  # 合约对应币数量
+        future_fee = future_coin_num * 
