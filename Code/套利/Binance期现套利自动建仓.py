@@ -75,4 +75,11 @@ while True:
         num = balance[coin]['free']
         print('待转账的币的数量：', num)
 
-        # 将币
+        # 将币币交易所买到的币转到合约账户
+        binance_account_transfer(exchange=exchange, currency=coin, amount=num, from_account='币币',
+                                 to_account='合约')
+
+        # 计数
+        execute_num += 1
+
+       
