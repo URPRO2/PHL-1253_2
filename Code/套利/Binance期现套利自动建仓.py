@@ -67,4 +67,12 @@ while True:
         price = float(future_buy1_price) * 0.98
         price = round(price, coin_precision)
         future_order_info = binance_future_place_order(exchange=exchange, symbol=future_symbol_name['type1'],
-                                                       long_or_short='开空', 
+                                                       long_or_short='开空', price=price, amount=future_contract_num)
+
+        # 获取币币账户买入币的数量
+        time.sleep(2)
+        balance = exchange.fetch_balance()
+        num = balance[coin]['free']
+        print('待转账的币的数量：', num)
+
+        # 将币
