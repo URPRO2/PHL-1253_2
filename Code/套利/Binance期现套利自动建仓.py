@@ -82,4 +82,12 @@ while True:
         # 计数
         execute_num += 1
 
-       
+        print(spot_order_info['average'])
+        print(future_order_info)
+
+    # ===循环结束
+    print('*' * 20, '本次循环结束，暂停', '*' * 20, '\n')
+    time.sleep(2)
+
+    if execute_num >= max_execute_num:
+        print('达到最大下
