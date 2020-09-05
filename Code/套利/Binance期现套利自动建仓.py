@@ -90,4 +90,5 @@ while True:
     time.sleep(2)
 
     if execute_num >= max_execute_num:
-        print('达到最大下
+        print('达到最大下单次数，完成建仓计划，退出程序')
+        break
