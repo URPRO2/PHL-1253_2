@@ -14,4 +14,10 @@ DOGE   101.100000     0.0
 def update_account(exchange):
     # 获取账户信息
     account_info = exchange.privateGetAccount()
-    # 将持仓信息转变成datafra
+    # 将持仓信息转变成dataframe格式
+    positions_df = pd.DataFrame(account_info['balances'], dtype=float)
+    positions_df = positions_df.set_index('asset')
+    positions_df = positions_df[positions_df['free'] > 0]
+    return positions_df
+
+def getSymbolFree(exchange, symbo
