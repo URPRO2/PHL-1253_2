@@ -20,4 +20,8 @@ def update_account(exchange):
     positions_df = positions_df[positions_df['free'] > 0]
     return positions_df
 
-def getSymbolFree(exchange, symbo
+def getSymbolFree(exchange, symbol):
+    df = update_account(exchange)
+    if symbol in df.index.values:
+        return df.at[symbol, 'free']
+    return 0
