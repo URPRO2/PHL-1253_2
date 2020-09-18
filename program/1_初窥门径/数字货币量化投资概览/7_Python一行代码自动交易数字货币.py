@@ -14,4 +14,10 @@ import time
 # 申明okex交易所
 # exchange = ccxt.okex3()
 
-# 获取最新的ticker数据，运行需
+# 获取最新的ticker数据，运行需要翻墙，btc、ltc
+# data = exchange.fetchTicker(symbol='BTC/USDT')
+# 获取最新的K线数据：日线、小时线
+# data = exchange.fetch_ohlcv(symbol='BTC/USDT', timeframe='1h', limit=50)  # '1h'，'1d'
+
+# 获取币安交易所的相关数据
+# exchange = ccxt.bi
