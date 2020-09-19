@@ -20,4 +20,17 @@ import time
 # data = exchange.fetch_ohlcv(symbol='BTC/USDT', timeframe='1h', limit=50)  # '1h'，'1d'
 
 # 获取币安交易所的相关数据
-# exchange = ccxt.bi
+# exchange = ccxt.binance()
+# data = exchange.fetchTicker(symbol='BTC/USDT')
+
+# ===下单交易
+# 申明币安交易所
+exchange = ccxt.binance()
+# 填写API秘钥
+exchange.apiKey = ''
+exchange.secret = ''
+
+# 获取账户余额
+balance = exchange.fetch_balance()
+
+# 限价单卖出：交易对、买卖数量、价格。如
