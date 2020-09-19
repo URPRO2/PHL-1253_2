@@ -33,4 +33,12 @@ exchange.secret = ''
 # 获取账户余额
 balance = exchange.fetch_balance()
 
-# 限价单卖出：交易对、买卖数量、价格。如
+# 限价单卖出：交易对、买卖数量、价格。如何买？
+# order_info = exchange.create_limit_sell_order('BTC/USDT', 0.01, 13000)
+
+# 撤单
+# order_info = exchange.cancel_order(id='486207276', symbol='BTC/USDT')
+
+# ===完整案例程序1：反复下单、撤单
+# while True:
+#     order_info = exchange.c
