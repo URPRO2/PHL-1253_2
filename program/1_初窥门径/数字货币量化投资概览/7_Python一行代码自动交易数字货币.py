@@ -46,4 +46,14 @@ balance = exchange.fetch_balance()
 #     time.sleep(2)
 #     order_info = exchange.cancel_order(id=order_info['id'], symbol='BTC/USDT')
 #     print('撤单完成')
-#     time.sleep
+#     time.sleep(2)
+
+
+# # ===完整案例程序2：实时监测价格达到止损条件后，卖出止损
+# while True:
+#     # 获取最新价格数据
+#     data = exchange.fetchTicker(symbol='BTC/USDT')
+#     new_price = data['bid']
+#     print('最新买一价格：', new_price)
+#
+#     # 判
