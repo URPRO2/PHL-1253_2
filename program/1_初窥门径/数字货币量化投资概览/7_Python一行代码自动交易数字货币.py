@@ -41,4 +41,9 @@ balance = exchange.fetch_balance()
 
 # ===完整案例程序1：反复下单、撤单
 # while True:
-#     order_info = exchange.c
+#     order_info = exchange.create_limit_sell_order('BTC/USDT', 0.01, 14000)
+#     print('下单完成')
+#     time.sleep(2)
+#     order_info = exchange.cancel_order(id=order_info['id'], symbol='BTC/USDT')
+#     print('撤单完成')
+#     time.sleep
