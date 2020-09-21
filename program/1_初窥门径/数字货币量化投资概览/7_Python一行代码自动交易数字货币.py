@@ -56,4 +56,10 @@ balance = exchange.fetch_balance()
 #     new_price = data['bid']
 #     print('最新买一价格：', new_price)
 #
-#     # 判
+#     # 判断是否交易
+#     if new_price < 10000:
+#         # 下单卖出，止损
+#         order_info = exchange.create_market_sell_order('BTC/USDT', 0.01)
+#         print('达到止损价，下单卖出。', new_price)
+#         break
+#     else
