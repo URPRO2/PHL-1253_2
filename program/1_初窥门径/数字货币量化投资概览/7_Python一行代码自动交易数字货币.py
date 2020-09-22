@@ -62,4 +62,11 @@ balance = exchange.fetch_balance()
 #         order_info = exchange.create_market_sell_order('BTC/USDT', 0.01)
 #         print('达到止损价，下单卖出。', new_price)
 #         break
-#     else
+#     else:
+#         print('价格未达止损价，5s后继续监测\n')
+#         time.sleep(5)
+
+# ===实盘量化程序流程
+# 1. 通过行情接口，获取实时数据
+# 2. 根据策略处理数据，产生交易信号
+# 3. 根据交易信号实际下单。
