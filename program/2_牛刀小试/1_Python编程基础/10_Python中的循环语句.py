@@ -51,3 +51,80 @@
 # for symbol in symbol_list:
 #     if symbol.endswith('usdt'):
 #         print(symbol, '以USDT计价')
+#         continue  # continue用于不执行之后的语句，立即进入下一个循环，
+#     if symbol.endswith('btc'):
+#         print(symbol, '以比特币计价')
+#         continue
+#     if symbol.endswith('eth'):
+#         print(symbol, '以以太坊计价')
+#         continue
+#     print(symbol, '不知道以什么计价')
+
+# ·案例4：遍历一个dict中所有的元素
+# dict_var = {
+#     'symbol': 'BTC/USDT',
+#     'open': 8754.9,
+#     'high': 8776.6,
+#     'low': 8754,
+#     'close': 8774.5,
+# }
+#
+# for key, value in dict_var.items():
+#     print(key, value)
+
+# ·案例5：for循环语句高级写法
+"""
+# 口语化的循环表达
+变量名 = [针对循环中临时变量名的操作语句 for 循环中临时变量名 in 列表]
+"""
+# 我们这边把所有的数字都用四舍五入一下
+# change_list = [0.01375654, 0.004547676, 0.037813431]
+# change_list_rounded = []
+# for change in change_list:
+#     change_rounded = round(change, 4)
+#     change_list_rounded.append(change_rounded)
+#
+# print(change_list_rounded)
+#
+# change_list_rounded = [round(change, 4) for change in change_list]
+# print(change_list_rounded)
+
+
+# =====while语句
+# while语句语法如下：
+"""
+while 条件A:
+    执行相关操作1（需要使用tab缩进）
+    ......
+"""
+
+# 条件语句解释说明如下：
+"""
+1. 判断条件A，若条件A为False，那么程序结束。
+2. 判断条件A，若条件A为True，那么执行相关操作1。
+3. 然后再次判断条件A，重复上面的步骤
+"""
+
+# while语句案例1：计算1+2+3+……+10
+# num = 1
+# max_num = 10
+# sum_result = 0  # 存储计算结果
+# while num <= max_num:
+#     sum_result += num
+#     num += 1
+#     print(num, sum_result)
+#
+# print(sum_result, num, max_num)
+
+# while语句案例2：计算1+2+3+……+10
+# num = 1
+# max_num = 10
+# sum_result = 0
+# while True:
+#     sum_result += num
+#     num += 1
+#     print(sum_result, num)
+#     if num == max_num + 1:
+#         break  # 跳出循环，for也适用
+
+# 关于什么时候用for，什么时候用while
