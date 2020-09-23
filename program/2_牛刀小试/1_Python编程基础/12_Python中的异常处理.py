@@ -42,3 +42,40 @@ else:
 
 
 # =====异常处理的一个例子
+def buy():
+    """
+    此程序用于下单买入，但是买入过程中，程序有80%的概率报错。
+    """
+    random_num = random.random()  # 0, 1
+    print(random_num)
+    if random_num < 0.2:
+        print('成功买入')
+        return
+    else:
+        raise ValueError('程序报错！')  # 介绍raise的用法，之后常用
+
+# buy()
+
+# === 下单操作，若买入失败的话尝试重新买入。重点理解本段内容，之后常用
+# 最多尝试五次
+# max_try_count = 5
+# try_count = 0
+#
+# while True:
+#     try:  # 尝试做以下事情
+#         buy()
+#     except Exception as e:  # 如果因为各种原因报错
+#         print(e)  # 把exception输出出来
+#         print('警告！下单出错，停止1秒再尝试')
+#         try_count += 1
+#         time.sleep(1)
+#         if try_count >= max_try_count:
+#             print('超过最大尝试次数，下单失败')
+#             # 此处需要执行相关程序，通知某些人
+#             break
+#         else:
+#             continue
+#     else:  # 如果没有报错
+#         try_count = 0
+#         print('下单成功了')
+#         break
