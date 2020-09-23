@@ -8,3 +8,9 @@
 
 我们课程中推荐的，是通过Anaconda来安装Python，一下是常用的地址。
 
+# Anaconda课程用版本下载链接
+Mac：https://repo.anaconda.com/archive/Anaconda3-2019.10-MacOSX-x86_64.pkg
+Win：https://repo.anaconda.com/archive/Anaconda3-2019.10-Windows-x86_64.exe
+
+如果希望和课程保持一致，可以使用上面的两个链接。
+如果希望使用最新的版本（不推荐），可以去下方官网链
