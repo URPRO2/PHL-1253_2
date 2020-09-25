@@ -94,3 +94,74 @@
 
 
 # === 字符串（string）：str：python中的文字的表达
+# · 字符串的定义
+# 字符串：以单引号’，双引号”，三引号’’’开始，同样符号结束
+# trade_coin = 'btc'
+# print(trade_coin, type(trade_coin))
+# trade_coin_name = "比特币"
+# print(trade_coin_name, type(trade_coin_name))
+# 更多的内容我们之后会有专门的课程展开
+
+
+# === 布尔值（Boolean）：bool，只有两个，True和False。大小写敏感
+# print(True, False, type(True))
+
+
+# === 空值：只有一个，None。大小写敏感。表示没有值的值
+# print(None, type(None))
+
+
+# === 变量
+# · 变量的定义
+# 变量需要名称
+# 不要使用a、b、c、aa等无意义的变量名
+# 取名规则：首字母需要是字母或下划线，其余部分可以是字母，下划线和数字
+# 补充：最新的版本中，放宽了限制，建议大家不要
+
+# 我们上面的例子就是一个比较好的示范
+
+
+# === 算术符号, + - * / %
+# · 以加法为例子，可以把下面的加号变成- * /其他符号。
+# buy_amount = 3  # 假设我当前要买入3个BTC
+# new_buy_amount = 2  # 假设老板发了年终奖，我要再入两个BTC
+# total_buy_amount = buy_amount + new_buy_amount  # 总共买入了几个BTC？
+# print(total_buy_amount)
+
+# · 取余数的操作：%
+# print(9 % 4)
+
+# · 乘方操作：**
+# print(3 ** 4)
+# 提问：假设余额宝每天收益为万分之一，那300天后总收益怎么计算？
+# print((1 / 10000 + 1) ** 300)
+
+# · 自运算的快速写法
+# buy_amount = 3
+# buy_amount += 2  # 效果等同于：buy_amount = buy_amount + 2。可以把加号变成- * /等其他符号。
+# print(buy_amount)
+
+# · 算术符号可以连接两个不同类型的变量
+# print(23 + 7.5)
+# print(3 * 'abc')
+# print(3 + 'abc')  # TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+# === 比较运算：> < >= <= == !=
+# num1 = 10
+# num2 = 20
+# print(num1 > num2)  # 判断num1是否大于num2，输出结果是布尔变量
+# print(num1 >= num2)  # 判断num1是否大于等于num2
+# print(num1 == num2)  # 判断num1是否等于num2
+# print(num1 != num2)  # 判断num1是否不等于于num2
+
+
+# ===布尔运算：and和or
+# · and：两者都为真，才是真
+# print((2 > 1) and (2 != 1))  # 两者都是True，输出结果就是True
+# print((2 > 1) and (2 == 1))
+# 注意：and 在大部分情况下也可以用 &
+
+# · or：至少一个为真，就是真
+# print((2 > 1) or (2 == 1))  # 其中有一个为True，输出结果就是True
+# 注意：or 在大部分情况下也可以用 |
