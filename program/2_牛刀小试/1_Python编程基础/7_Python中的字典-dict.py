@@ -28,3 +28,43 @@
 
 # 字典是无顺序，key不可重复
 # print(dict_var[0])  # 因为没有顺序，所以dict_var[0]并不能取出第0个位置的元素，此处会报错。
+
+
+# =====dict常见操作：根据key的值，取相应的value的值
+# dict_var = {
+#     'btc': '比特币',
+#     'eth': '以太坊',
+#     'xrp': '瑞波币'
+# }
+
+# print(dict_var['btc'])  # 获取'btc'这个key对应的名称
+# print(dict_var.get('xrp'))  # 效果同上
+
+# list_var = ['比特币', '以太坊', '瑞波币']  # 如果用list，我们可以这样表达
+
+
+# =====dict常见操作：增加、修改一对key：value
+# dict_var = {
+#     'btc': '比特币',
+#     'eth': '以太坊',
+#     'xrp': '瑞波币'
+# }
+# print(dict_var)  # 先看一下
+
+# dict_var['bch'] = '比特现金'
+# print(dict_var)
+
+# dict_var['bch'] = '比特币现金'
+# print(dict_var['bch'])
+
+
+# =====dict常见操作：判断一个key是不是在dict里面
+# print('bch' in dict_var)
+# print('eos' in dict_var)
+
+
+# =====dict常见操作：输出一个dict中所有的key和value
+# print(dict_var.keys())  # 输出所有的key
+# print(dict_var.values())  # 输出所有的value
+
+# 如何访问dict中所有元素，我们会在循环的课程中为大家讲解
