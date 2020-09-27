@@ -20,3 +20,10 @@
 # email = 'xingbuxing@quantclass.cn'
 # phone = '18820198888'
 
+# =====字符串转义，特殊字符的表达
+# print('what is up')  # 如何输入what's up
+# print('what\'s up\t')  # 使用\对特殊字符进行转义。转义也可以用于表达不可见字符，例如tab符号：\t。
+# print('\\')  # 如果要表达\本身，也需要转义，写为\\。
+
+# Windows中的地址
+# print('/Users/Shared
