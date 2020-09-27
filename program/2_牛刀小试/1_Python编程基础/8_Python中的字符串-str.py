@@ -10,4 +10,13 @@
 - 字符串中的转义
 - 字符串常见操作
 
-功能：本程序主要
+功能：本程序主要介绍python的常用内置数据结果，如list、dict、str等。希望以后大家只要看这个程序，就能回想起相关的基础知识。
+"""
+
+# =====字符
+# class_name = '邢不行量化'
+# symbol = 'BTC/USDT'
+# trade_coin_name = '比特币'
+# email = 'xingbuxing@quantclass.cn'
+# phone = '18820198888'
+
