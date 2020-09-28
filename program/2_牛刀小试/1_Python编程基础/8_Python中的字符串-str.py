@@ -26,4 +26,6 @@
 # print('\\')  # 如果要表达\本身，也需要转义，写为\\。
 
 # Windows中的地址
-# print('/Users/Shared
+# print('/Users/Shared/xbx-coin-2020/xbx_coin_2020/data/OKEX_20200302_5T.csv')  # mac下的地址表达
+# print('C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv')  # win下的地址表达
+# print(r'C:\Users\Si
