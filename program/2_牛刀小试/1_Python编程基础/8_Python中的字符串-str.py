@@ -28,4 +28,11 @@
 # Windows中的地址
 # print('/Users/Shared/xbx-coin-2020/xbx_coin_2020/data/OKEX_20200302_5T.csv')  # mac下的地址表达
 # print('C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv')  # win下的地址表达
-# print(r'C:\Users\Si
+# print(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv')  # 在字符串的开始加r（Raw String），使得字符串中不发生转义。
+
+
+# =====字符串常见操作：字符串相加，相乘
+# str1 = 'btc'
+# str2 = 'usdt'
+# print(str1 + str2)  # 字符串可以直接相加
+# print(str
