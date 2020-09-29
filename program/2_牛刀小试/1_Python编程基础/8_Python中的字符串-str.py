@@ -43,4 +43,16 @@
 # symbol = 'btcusdt'
 # print(symbol.startswith('btc'))  # 判断字符串是否是以'btc'开头
 # print(stock_code.startswith('b'))
-# print
+# print(stock_code.startswith('BTC'))
+# print(stock_code.endswith('usdt'))
+
+
+# =====字符串常见操作：判断
+# name = '邢不行'
+# print('行' in name)  # 判断字符串中是否包含'行'
+# print('x' in name)
+
+
+# =====字符串常见操作：替换
+# symbol = 'btcusdt'
+# print(symbol.rep
