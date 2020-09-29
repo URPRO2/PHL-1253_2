@@ -35,4 +35,12 @@
 # str1 = 'btc'
 # str2 = 'usdt'
 # print(str1 + str2)  # 字符串可以直接相加
-# print(str
+# print(str1 * 3)  # 字符串可以乘以整数
+# print('*' * 30)
+
+
+# =====字符串常见操作：startswith、endswith
+# symbol = 'btcusdt'
+# print(symbol.startswith('btc'))  # 判断字符串是否是以'btc'开头
+# print(stock_code.startswith('b'))
+# print
