@@ -62,4 +62,14 @@
 # =====字符串常见操作：split
 # symbol = 'btcusdt, ethusdt, xrpusdt'
 # print(symbol.split(', '))
-# p
+# print(symbol.split(', ')[0])
+# print(symbol.split('usdt'))
+# 逆操作
+# symbol_list = ['btcusdt', 'ethusdt', 'xrpusdt']
+# print(', '.join(symbol_list))
+
+
+# =====字符串常见操作：strip
+# symbol = '  btcusd  '
+# print(symbol)
+# print(symbol.strip())  # 去除两边
