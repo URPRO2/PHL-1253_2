@@ -55,4 +55,11 @@
 
 # =====字符串常见操作：替换
 # symbol = 'btcusdt'
-# print(symbol.rep
+# print(symbol.replace('btc', 'eth'))  # 将字符串中的'btc'替换成'eth'
+# print('ethusdt, xrpusdt'.replace('usdt', 'btc'))
+
+
+# =====字符串常见操作：split
+# symbol = 'btcusdt, ethusdt, xrpusdt'
+# print(symbol.split(', '))
+# p
