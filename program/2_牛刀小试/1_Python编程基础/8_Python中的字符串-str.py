@@ -72,4 +72,15 @@
 # =====字符串常见操作：strip
 # symbol = '  btcusd  '
 # print(symbol)
-# print(symbol.strip())  # 去除两边
+# print(symbol.strip())  # 去除两边的空格
+
+# symbol = 'btcusdt'
+# print(symbol)
+# print(symbol.strip('usdt'))  # 去除首末的usd
+# print(symbol.strip('btc'))  # 去除首末的btc
+
+
+# =====字符串的选取：把字符串当做list
+# name = '邢不行量化课程'
+# print(name[0])
+# print(name[:3])
