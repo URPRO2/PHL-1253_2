@@ -84,3 +84,14 @@
 # name = '邢不行量化课程'
 # print(name[0])
 # print(name[:3])
+# print(name[3:])
+# print(len(name))
+# print(name[-1])
+
+
+# =====字符串的高级拼接，除了加号之外，如何穿插
+# 最常用方法：%s
+# today = '20200302'
+# print(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_%s_5T.csv' % today)
+#
+# rule_ty
