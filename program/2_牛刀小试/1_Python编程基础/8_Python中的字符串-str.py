@@ -94,4 +94,5 @@
 # today = '20200302'
 # print(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_%s_5T.csv' % today)
 #
-# rule_ty
+# rule_type = '1H'
+# print(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_%s_%s.csv' % (today, rule_type))
