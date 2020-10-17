@@ -24,4 +24,10 @@ df = pd.read_csv(
     sep=',',
     # 该参数代表跳过数据文件的的第1行不读入
     skiprows=1,
-    # nrows，只读取前n行数据，若不指定，读入全部的数据。一般在初步
+    # nrows，只读取前n行数据，若不指定，读入全部的数据。一般在初步查看数据时使用
+    # nrows=15,
+    # 将指定列的数据识别为日期格式。若不指定，时间数据将会以字符串形式读入。一开始先不用。
+    parse_dates=['candle_begin_time'],
+    # 将指定列设置为index。若不指定，index默认为0, 1, 2, 3, 4...
+    index_col=['candle_begin_time'],
+    # 读取指定的
