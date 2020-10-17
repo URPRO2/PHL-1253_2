@@ -30,4 +30,9 @@ df = pd.read_csv(
     parse_dates=['candle_begin_time'],
     # 将指定列设置为index。若不指定，index默认为0, 1, 2, 3, 4...
     index_col=['candle_begin_time'],
-    # 读取指定的
+    # 读取指定的这几列数据，其他数据不读取。若不指定，读入全部列
+    # usecols=['candle_begin_time', 'close'],
+    # 当某行数据有问题时，报错。设定为False时即不报错，直接跳过该行。当数据比较脏乱的时候用这个。
+    # error_bad_lines=False,
+    # 将数据中的null识别为空值
+    # na
