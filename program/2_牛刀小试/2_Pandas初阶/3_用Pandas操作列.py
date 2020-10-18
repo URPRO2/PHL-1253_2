@@ -11,4 +11,11 @@
 """
 import pandas as pd  # 将pandas作为第三方库导入，我们一般为pandas取一个别名叫做pd
 
-pd.set_option('expand_frame_repr', False)  # 当列太多
+pd.set_option('expand_frame_repr', False)  # 当列太多时显示完整
+
+# =====导入数据
+df = pd.read_csv(
+    # 该参数为数据在电脑中的路径，
+    # 要注意字符串转义符号 \ ，可以使用加r变为raw string或者每一个进行\\转义
+    filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_BTC-USDT_20200302_1T.csv',
+   
