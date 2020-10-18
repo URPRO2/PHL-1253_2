@@ -47,4 +47,4 @@ print(df)
 # 导入的数据的数据类型是DataFrame。
 
 # 导入数据主要使用read系列函数
-# 还有read_table、read_excel、read_json等，他们的
+# 还有read_table、read_excel、read_json等，他们的参数内容都是大同小异，可以自行搜索查看。
