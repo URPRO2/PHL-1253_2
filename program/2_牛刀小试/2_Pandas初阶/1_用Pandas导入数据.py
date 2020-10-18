@@ -35,4 +35,16 @@ df = pd.read_csv(
     # 当某行数据有问题时，报错。设定为False时即不报错，直接跳过该行。当数据比较脏乱的时候用这个。
     # error_bad_lines=False,
     # 将数据中的null识别为空值
-    # na
+    # na_values='NULL',
+
+    # 更多其他参数，请直接在搜索引擎搜索"pandas read_csv"，要去逐个查看一下。比较重要的，header等
+)
+
+print(df)
+
+# 使用read_csv导入数据非常方便
+
+# 导入的数据的数据类型是DataFrame。
+
+# 导入数据主要使用read系列函数
+# 还有read_table、read_excel、read_json等，他们的
