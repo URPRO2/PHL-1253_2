@@ -18,4 +18,10 @@ df = pd.read_csv(
     # 该参数为数据在电脑中的路径，
     # 要注意字符串转义符号 \ ，可以使用加r变为raw string或者每一个进行\\转义
     filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_BTC-USDT_20200302_1T.csv',
-   
+    # 编码格式，不同的文件有不同的编码方式，一般文件中有中文的，编码是gbk，默认是utf8
+    # ** 大家不用去特意记住很多编码，我们常用的就是gbk和utf8，切换一下看一下程序不报错就好了
+    encoding='gbk',
+    nrows=15,
+    # 该参数代表跳过数据文件的的第1行不读入
+    skiprows=1,
+    # 将指定列设置为index。若不
