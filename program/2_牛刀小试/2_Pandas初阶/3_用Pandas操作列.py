@@ -24,4 +24,11 @@ df = pd.read_csv(
     nrows=15,
     # 该参数代表跳过数据文件的的第1行不读入
     skiprows=1,
-    # 将指定列设置为index。若不
+    # 将指定列设置为index。若不指定，index默认为0, 1, 2, 3, 4...
+    # index_col=['candle_begin_time'],
+)
+
+# =====列操作
+# 行列加减乘除
+# print(df['candle_begin_time'] + ' UTC时间')  # 字符串列可以直接加上字符串，对整列进行操作
+# print(df['close'] * 
