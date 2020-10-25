@@ -37,3 +37,9 @@ df = pd.read_csv(
 # 新增一列
 # df['candle_begin_time2'] = df['candle_begin_time'] + ' UTC'
 # df['交易所'] = 'OKEX'
+
+# =====统计函数
+# print(df['close'].mean())  # 求一整列的均值，返回一个数。会自动排除空值。
+# print(df[['close', 'volume']].mean())  # 求两列的均值，返回两个数，Series
+# print(df[['close', 'volume']])
+# print(df[['close', 'volume']].mean(axis=1))  
