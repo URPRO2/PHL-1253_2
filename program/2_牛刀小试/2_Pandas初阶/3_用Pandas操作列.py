@@ -31,4 +31,9 @@ df = pd.read_csv(
 # =====列操作
 # 行列加减乘除
 # print(df['candle_begin_time'] + ' UTC时间')  # 字符串列可以直接加上字符串，对整列进行操作
-# print(df['close'] * 
+# print(df['close'] * 100)  # 数字列直接加上或者乘以数字，对整列进行操作。
+# print(df[['close', 'volume']])
+# print(df['close'] * df['volume'])  # 两列之间可以直接操作。收盘价*成交量计算出的是什么？
+# 新增一列
+# df['candle_begin_time2'] = df['candle_begin_time'] + ' UTC'
+# df['交易所'] = 'OKEX'
