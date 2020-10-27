@@ -47,4 +47,12 @@ df = pd.read_csv(
 
 # print(df['high'].max())  # 最大值
 # print(df['low'].min())  # 最小值
-# print(df['close'].std()) 
+# print(df['close'].std())  # 标准差
+# print(df['close'].count())  # 非空的数据的数量
+# print(df['close'].median())  # 中位数
+# print(df['close'].quantile(0.25))  # 25%分位数
+# 还有其他的函数计算其他的指标，在实际使用中遇到可以自己搜索
+
+
+# =====shift类函数、删除列的方式
+# df['下周期收盘价'] = df['close
