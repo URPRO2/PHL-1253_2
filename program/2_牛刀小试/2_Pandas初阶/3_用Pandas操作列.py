@@ -42,4 +42,9 @@ df = pd.read_csv(
 # print(df['close'].mean())  # 求一整列的均值，返回一个数。会自动排除空值。
 # print(df[['close', 'volume']].mean())  # 求两列的均值，返回两个数，Series
 # print(df[['close', 'volume']])
-# print(df[['close', 'volume']].mean(axis=1))  
+# print(df[['close', 'volume']].mean(axis=1))  # 求两列的均值，返回DataFrame。axis=0或者1要搞清楚。
+# axis=1，代表对整几列进行操作。axis=0（默认）代表对几行进行操作。实际中弄混很正常，到时候试一下就知道了。
+
+# print(df['high'].max())  # 最大值
+# print(df['low'].min())  # 最小值
+# print(df['close'].std()) 
