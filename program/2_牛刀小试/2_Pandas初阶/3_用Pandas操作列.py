@@ -59,4 +59,9 @@ df = pd.read_csv(
 # del df['下周期收盘价']  # 删除某一列的方法
 
 # df['涨跌'] = df['close'].diff(1)  # 求本行数据和上一行数据相减得到的值
-# df.drop(['涨跌'], axis=1, inplace=True)  # 删
+# df.drop(['涨跌'], axis=1, inplace=True)  # 删除某一列的另外一种方式，inplace参数指是否替代原来的df
+# df['涨跌幅'] = df['close'].pct_change(1)  # 类似于diff，但是求的是两个数直接的比例，相当于求涨跌幅
+
+# =====cum(cumulative)类函数
+# df['累计成交量'] = df['volume'].cumsum()  # 该列的累加值
+# print(df[['candle_beg
