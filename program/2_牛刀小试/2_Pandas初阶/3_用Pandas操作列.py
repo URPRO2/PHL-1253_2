@@ -64,4 +64,9 @@ df = pd.read_csv(
 
 # =====cum(cumulative)类函数
 # df['累计成交量'] = df['volume'].cumsum()  # 该列的累加值
-# print(df[['candle_beg
+# print(df[['candle_begin_time', 'volume', '累计成交量','涨跌幅']])
+# print((df['涨跌幅'] + 1.0).cumprod())  # 该列的累乘值，此处计算的就是资金曲线，假设初始1元钱。
+
+
+# =====其他列函数
+# df['收盘价_排名'] = df['close'].rank(ascending=True, pct=False)  # 输出排名。ascending参数代表是顺
