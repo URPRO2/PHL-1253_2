@@ -69,4 +69,11 @@ df = pd.read_csv(
 
 
 # =====其他列函数
-# df['收盘价_排名'] = df['close'].rank(ascending=True, pct=False)  # 输出排名。ascending参数代表是顺
+# df['收盘价_排名'] = df['close'].rank(ascending=True, pct=False)  # 输出排名。ascending参数代表是顺序还是逆序。pct参数代表输出的是排名还是排名比例
+# print(df[['close', '收盘价_排名']])
+# del df['收盘价_排名']
+# print(df['close'].value_counts())  # 计数。统计该列中每个元素出现的次数。返回的数据是Series
+
+# =====文档
+# 以上是我认为最常用的函数
+# 哪里可以看到全部的函数？http://pandas.pydata.org/pa
