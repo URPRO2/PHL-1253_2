@@ -76,4 +76,4 @@ df = pd.read_csv(
 
 # =====文档
 # 以上是我认为最常用的函数
-# 哪里可以看到全部的函数？http://pandas.pydata.org/pa
+# 哪里可以看到全部的函数？http://pandas.pydata.org/pandas-docs/stable/api.html
