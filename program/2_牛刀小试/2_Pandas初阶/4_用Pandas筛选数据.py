@@ -8,4 +8,12 @@
 # 课程内容
 - 数据筛选
 """
-import panda
+import pandas as pd  # 将pandas作为第三方库导入，我们一般为pandas取一个别名叫做pd
+
+pd.set_option('expand_frame_repr', False)  # 当列太多时清楚展示
+
+# =====导入数据
+df = pd.read_csv(
+    # 该参数为数据在电脑中的路径，
+    # 要注意字符串转义符号 \ ，可以使用加r变为raw string或者每一个进行\\转义
+    
