@@ -19,3 +19,10 @@ df = pd.read_csv(
     filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv',
     # 编码格式，不同的文件有不同的编码方式，一般文件中有中文的，编码是gbk，默认是utf8
     # ** 大家不用去特意记住很多编码，我们常用的就是gbk和utf8，切换一下看一下程序不报错就好了
+    skiprows=1,
+    encoding='gbk',
+)
+
+# =====数据筛选，根据指定的条件，筛选出相关的数据。
+# print(df['symbol'] == 'BTC/USDT')  # 判断交易交易对是否等于BTC/USDT
+# print(df[df['symbol'] == 'BTC/USDT'])  # 将判断为True的输出：选取交易对等于BTC
