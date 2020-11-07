@@ -25,4 +25,8 @@ df = pd.read_csv(
 
 # =====数据筛选，根据指定的条件，筛选出相关的数据。
 # print(df['symbol'] == 'BTC/USDT')  # 判断交易交易对是否等于BTC/USDT
-# print(df[df['symbol'] == 'BTC/USDT'])  # 将判断为True的输出：选取交易对等于BTC
+# print(df[df['symbol'] == 'BTC/USDT'])  # 将判断为True的输出：选取交易对等于BTC/USDT的行
+# print(df[df['symbol'] == 'BTC/USDT'].index)  # 输出判断为True的行的index
+# print(df[df['symbol'].isin(
+#     ['BTC/USDT', 'ETH/USDT', 'EOS/BTC']
+# )])  # 选取交易对等于'BTC/USDT'或'ETH/USDT'或'EOS/BTC'的都
