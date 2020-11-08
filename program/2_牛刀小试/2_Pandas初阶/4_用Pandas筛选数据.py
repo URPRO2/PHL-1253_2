@@ -29,4 +29,6 @@ df = pd.read_csv(
 # print(df[df['symbol'] == 'BTC/USDT'].index)  # 输出判断为True的行的index
 # print(df[df['symbol'].isin(
 #     ['BTC/USDT', 'ETH/USDT', 'EOS/BTC']
-# )])  # 选取交易对等于'BTC/USDT'或'ETH/USDT'或'EOS/BTC'的都
+# )])  # 选取交易对等于'BTC/USDT'或'ETH/USDT'或'EOS/BTC'的都行
+# print(df[df['close'] < 8500])  # 选取收盘价小于8500的行
+# print(df[(df['close'] < 8888) & (df['candle_begin_time'] > '2020-03-02 23:30:00+00:00')])  # 两个条件，或者的话就是|
