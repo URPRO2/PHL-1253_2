@@ -23,4 +23,9 @@ df = pd.read_csv(
 
 # ===== 缺失值处理：原始数据中存在缺失值，如何处理？
 # 0.创建缺失值
-#
+# index = df[df['candle_begin_time'].isin(['2020-03-02 00:00:00+00:00', '2020-03-02 12:00:00+00:00'])].index
+# df.loc[index, '12小时'] = df['candle_begin_time']
+
+
+# 1.删除缺失值
+# print(df.dropna(how='any'))  # 将带有空值的行删除。how='any'意味着，该行中只
