@@ -28,4 +28,9 @@ df = pd.read_csv(
 
 
 # 1.删除缺失值
-# print(df.dropna(how='any'))  # 将带有空值的行删除。how='any'意味着，该行中只
+# print(df.dropna(how='any'))  # 将带有空值的行删除。how='any'意味着，该行中只要有一个空值，就会删除，可以改成all。
+# print(df.dropna(subset=['12小时', 'close'], how='all'))  # subset参数指定在特定的列中判断空值。
+# all代表全部为空，才会删除该行；any只要一个为空，就删除该行。
+
+# 2.补全缺失值
+# print(df.fillna(value=0))  # 直接将缺失值赋值为固定的值
