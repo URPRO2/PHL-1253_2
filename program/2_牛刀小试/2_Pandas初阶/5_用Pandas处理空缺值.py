@@ -34,3 +34,7 @@ df = pd.read_csv(
 
 # 2.补全缺失值
 # print(df.fillna(value=0))  # 直接将缺失值赋值为固定的值
+# df['12小时'].fillna(value=df['close'], inplace=True)  # 直接将缺失值赋值其他列的数据
+# print(df)
+# print(df.fillna(method='ffill'))  # 向上寻找最近的一个非空值，以该值来填充缺失的位置，全称forward fill，非常有用
+# print(
