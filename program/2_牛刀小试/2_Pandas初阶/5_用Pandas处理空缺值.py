@@ -37,4 +37,8 @@ df = pd.read_csv(
 # df['12小时'].fillna(value=df['close'], inplace=True)  # 直接将缺失值赋值其他列的数据
 # print(df)
 # print(df.fillna(method='ffill'))  # 向上寻找最近的一个非空值，以该值来填充缺失的位置，全称forward fill，非常有用
-# print(
+# print(df.fillna(method='bfill'))  # 向下寻找最近的一个非空值，以该值来填充确实的位置，全称backward fill
+
+# 3.找出缺失值
+# print(df.notnull())  # 判断是否为空值，反向函数为isnull()
+# print(df[df['12小时'].notnull()])  # 将'12小时'列为空的行输出
