@@ -18,4 +18,10 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时清楚展示
 # =====导入数据
 df = pd.read_csv(
     filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv',
-    skiprows=
+    skiprows=1,
+    encoding='gbk'
+)
+
+# =====排序函数
+# print(df.sort_values(by=['candle_begin_time'], ascending=True))  # by参数指定按照什么进行排序，ascending参数指定是顺序还是逆序
+# print(df.sort_values(by=['symbol', 'candle_begin_time'], ascendi
