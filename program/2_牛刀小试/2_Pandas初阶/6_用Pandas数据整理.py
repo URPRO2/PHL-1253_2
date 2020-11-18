@@ -24,4 +24,10 @@ df = pd.read_csv(
 
 # =====排序函数
 # print(df.sort_values(by=['candle_begin_time'], ascending=True))  # by参数指定按照什么进行排序，ascending参数指定是顺序还是逆序
-# print(df.sort_values(by=['symbol', 'candle_begin_time'], ascendi
+# print(df.sort_values(by=['symbol', 'candle_begin_time'], ascending=[1, 0]))  # 按照多列进行排序
+
+
+# =====两个df上下合并操作，append操作
+# df1 = df.iloc[0:10][['candle_begin_time', 'symbol', 'close', 'volume']]
+# print(df1)
+# df2 = df.iloc[5:15][['candle_begin_time', 'symbol', 'clo
