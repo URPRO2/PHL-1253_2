@@ -30,4 +30,12 @@ df = pd.read_csv(
 # =====两个df上下合并操作，append操作
 # df1 = df.iloc[0:10][['candle_begin_time', 'symbol', 'close', 'volume']]
 # print(df1)
-# df2 = df.iloc[5:15][['candle_begin_time', 'symbol', 'clo
+# df2 = df.iloc[5:15][['candle_begin_time', 'symbol', 'close', 'volume']]
+# print(df2)
+# print(df1.append(df2))  # append操作，将df1和df2上下拼接起来。注意观察拼接之后的index。index可以重复
+# df3 = df1.append(df2, ignore_index=True)  # ignore_index参数，用户重新确定index
+# print(df3)
+
+
+# =====两个df左右合并操作，merge操作
+# 
