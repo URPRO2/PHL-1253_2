@@ -43,4 +43,12 @@ df = pd.read_csv(
 # df2 = df.iloc[5:15][['candle_begin_time', 'symbol', 'close', 'volume']]
 # print(df2)
 #
-# df_merged = pd.merge(left=df1, ri
+# df_merged = pd.merge(left=df1, right=df2, left_on='candle_begin_time', right_on='candle_begin_time',
+#                      suffixes=['_left', '_right'])
+# print(df_merged)
+
+
+# =====对数据进行去重
+# df3中有重复的行数，我们如何将重复的行数去除？
+# print(df3)
+# df3.drop
