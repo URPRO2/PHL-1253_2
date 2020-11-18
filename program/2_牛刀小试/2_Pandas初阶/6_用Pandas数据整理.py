@@ -38,4 +38,9 @@ df = pd.read_csv(
 
 
 # =====两个df左右合并操作，merge操作
-# 
+# df1 = df.iloc[0:10][['candle_begin_time', 'symbol', 'close', 'volume']]
+# print(df1)
+# df2 = df.iloc[5:15][['candle_begin_time', 'symbol', 'close', 'volume']]
+# print(df2)
+#
+# df_merged = pd.merge(left=df1, ri
