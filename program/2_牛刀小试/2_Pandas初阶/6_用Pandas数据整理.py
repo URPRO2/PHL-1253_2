@@ -58,3 +58,12 @@ df = pd.read_csv(
 # )
 # print(df3)
 
+
+# =====其他常用重要函数
+# df.reset_index(inplace=True, drop=True)  # 重置index
+# df.rename(columns={
+#     'close': '收盘价',
+#     'open': '开盘价',
+#     'symbol': '交易对',
+#     'candle_begin_time': '交易时间',
+#     '
