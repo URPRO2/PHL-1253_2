@@ -66,4 +66,9 @@ df = pd.read_csv(
 #     'open': '开盘价',
 #     'symbol': '交易对',
 #     'candle_begin_time': '交易时间',
-#     '
+#     'high': '最高价',
+#     'low': '最低价',
+#     'volume': '成交量'
+# }, inplace=True)  # rename函数给变量修改名字。使用dict将要修改的名字传给columns参数
+# print(df.empty)  # 判断一个df是不是为空，此处输出不为空
+# print(pd.DataFrame().empty)  # pd.DataFrame()创建一个空的DataFrame，此处输出
