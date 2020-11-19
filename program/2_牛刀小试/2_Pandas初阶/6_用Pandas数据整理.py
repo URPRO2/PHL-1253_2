@@ -51,4 +51,10 @@ df = pd.read_csv(
 # =====对数据进行去重
 # df3中有重复的行数，我们如何将重复的行数去除？
 # print(df3)
-# df3.drop
+# df3.drop_duplicates(
+#     subset=['candle_begin_time', 'symbol'],  # subset参数用来指定根据哪类类数据来判断是否重复。若不指定，则用全部列的数据来判断是否重复
+#     keep='first',  # 在去除重复值的时候，我们是保留上面一行还是下面一行？first保留上面一行，last保留下面一行，False就是一行都不保留
+#     inplace=True
+# )
+# print(df3)
+
