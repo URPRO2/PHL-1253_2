@@ -23,4 +23,9 @@ df = pd.read_csv(
 # print(df['symbol'])
 # print('BTC/USDT'[:3])
 # print(df['symbol'].str[:3])
-# print(df['symbol'].str.upper())  # 加上str之后可以使用常见的字符串函数对整列进行操
+# print(df['symbol'].str.upper())  # 加上str之后可以使用常见的字符串函数对整列进行操作
+# print(df['symbol'].str.lower())
+# print(df['symbol'].str.len())  # 计算字符串的长度,length
+# df['symbol'].str.strip()  # strip操作，把字符串两边的空格去掉
+# print(df['symbol'])
+# print(df['symbol'].str.contains('BTC'))  # 判断字符串中是否包
