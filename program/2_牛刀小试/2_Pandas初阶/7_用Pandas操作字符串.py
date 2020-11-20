@@ -14,4 +14,13 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时清楚展示
 
 # =====导入数据
 df = pd.read_csv(
-    filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin
+    filepath_or_buffer=r'C:\Users\Simons\Desktop\xbx_coin_2020\data\OKEX_20200302_5T.csv',
+    skiprows=1,
+    encoding='gbk'
+)
+
+# =====字符串处理
+# print(df['symbol'])
+# print('BTC/USDT'[:3])
+# print(df['symbol'].str[:3])
+# print(df['symbol'].str.upper())  # 加上str之后可以使用常见的字符串函数对整列进行操
