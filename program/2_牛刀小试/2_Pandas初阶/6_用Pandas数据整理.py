@@ -71,4 +71,5 @@ df = pd.read_csv(
 #     'volume': '成交量'
 # }, inplace=True)  # rename函数给变量修改名字。使用dict将要修改的名字传给columns参数
 # print(df.empty)  # 判断一个df是不是为空，此处输出不为空
-# print(pd.DataFrame().empty)  # pd.DataFrame()创建一个空的DataFrame，此处输出
+# print(pd.DataFrame().empty)  # pd.DataFrame()创建一个空的DataFrame，此处输出为空
+# print(df.T)  # 将数据转置，行变成列，很有用
