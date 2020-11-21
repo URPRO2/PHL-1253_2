@@ -28,4 +28,6 @@ df = pd.read_csv(
 # print(df['symbol'].str.len())  # 计算字符串的长度,length
 # df['symbol'].str.strip()  # strip操作，把字符串两边的空格去掉
 # print(df['symbol'])
-# print(df['symbol'].str.contains('BTC'))  # 判断字符串中是否包
+# print(df['symbol'].str.contains('BTC'))  # 判断字符串中是否包含某些特定字符
+# print(df['symbol'].str.replace('/', '-'))  # 进行替换，'/'号变成'-'
+# 更多字符串函数请见：http://pandas.pydata.org/pandas-docs/stable/text.html#method-summary
