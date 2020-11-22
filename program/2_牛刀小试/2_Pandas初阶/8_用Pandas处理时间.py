@@ -20,4 +20,8 @@ df = pd.read_csv(
 )
 
 # ===== 时间处理
-# print(df[
+# print(df['candle_begin_time'])
+# print(df.at[0, 'candle_begin_time'])
+# print(type(df.at[0, 'candle_begin_time']))
+# df['candle_begin_time'] = pd.to_datetime(df['candle_begin_time'])  # 将交易日期由字符串改为时间变量
+# print
