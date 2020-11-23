@@ -35,4 +35,7 @@ df = pd.read_csv(
 # print(df['candle_begin_time'].dt.dayofyear)  # 这一天是一年当中的第几天
 # print(df['candle_begin_time'].dt.dayofweek)  # 这一天是这一周当中的第几天，0代表星期一
 # print(df['candle_begin_time'].dt.weekday)  # 和上面函数相同，更加常用
-# print(df['candle_begin_time'].dt.weekday_name)  # 和上面函数
+# print(df['candle_begin_time'].dt.weekday_name)  # 和上面函数相同，返回的是星期几的英文，用于报表的制作。
+# print(df['candle_begin_time'].dt.days_in_month)  # 这一天所在月份有多少天
+# print(df['candle_begin_time'].dt.is_month_end)  # 这一天是否是该月的开头，是否存在is_month_end？
+# print(df['ca
