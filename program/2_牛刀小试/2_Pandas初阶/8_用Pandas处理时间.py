@@ -32,4 +32,7 @@ df = pd.read_csv(
 # print(df['candle_begin_time'])
 # print(df['candle_begin_time'].dt.year)  # 输出这个日期的年份。相应的month是月份，day是天数，还有hour, minute, second
 # print(df['candle_begin_time'].dt.week)  # 这一天是一年当中的第几周
-# print(df['candle_begin_time'
+# print(df['candle_begin_time'].dt.dayofyear)  # 这一天是一年当中的第几天
+# print(df['candle_begin_time'].dt.dayofweek)  # 这一天是这一周当中的第几天，0代表星期一
+# print(df['candle_begin_time'].dt.weekday)  # 和上面函数相同，更加常用
+# print(df['candle_begin_time'].dt.weekday_name)  # 和上面函数
