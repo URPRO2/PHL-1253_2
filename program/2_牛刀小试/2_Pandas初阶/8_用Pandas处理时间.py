@@ -29,4 +29,7 @@ df = pd.read_csv(
 
 # print(pd.to_datetime('1999年1月11日'))  # pd.to_datetime函数：将字符串转变为时间变量
 
-# print(df['can
+# print(df['candle_begin_time'])
+# print(df['candle_begin_time'].dt.year)  # 输出这个日期的年份。相应的month是月份，day是天数，还有hour, minute, second
+# print(df['candle_begin_time'].dt.week)  # 这一天是一年当中的第几周
+# print(df['candle_begin_time'
