@@ -24,4 +24,9 @@ df = pd.read_csv(
 # print(df.at[0, 'candle_begin_time'])
 # print(type(df.at[0, 'candle_begin_time']))
 # df['candle_begin_time'] = pd.to_datetime(df['candle_begin_time'])  # 将交易日期由字符串改为时间变量
-# print
+# print(df.at[0, 'candle_begin_time'])
+# print(type(df.at[0, 'candle_begin_time']))
+
+# print(pd.to_datetime('1999年1月11日'))  # pd.to_datetime函数：将字符串转变为时间变量
+
+# print(df['can
