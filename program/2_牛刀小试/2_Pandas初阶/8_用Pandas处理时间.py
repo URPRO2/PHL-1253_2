@@ -38,4 +38,5 @@ df = pd.read_csv(
 # print(df['candle_begin_time'].dt.weekday_name)  # 和上面函数相同，返回的是星期几的英文，用于报表的制作。
 # print(df['candle_begin_time'].dt.days_in_month)  # 这一天所在月份有多少天
 # print(df['candle_begin_time'].dt.is_month_end)  # 这一天是否是该月的开头，是否存在is_month_end？
-# print(df['ca
+# print(df['candle_begin_time'] + pd.Timedelta(days=1))  # 增加一天，Timedelta用于表示时间差数据，[weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds]
+# print((df['candle_begin_time'] + pd.Timedelta(days=1)) - df['candle_
