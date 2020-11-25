@@ -26,4 +26,9 @@ df = pd.read_csv(
 # print(df['close'])
 # 如何得到每个周期的最近3个周期收盘价的均值呢？即如何计算常用的移动平均线？
 # 使用rolling函数
-# df['收盘价_移动平均线'] = df['close'].r
+# df['收盘价_移动平均线'] = df['close'].rolling(3).mean()
+# print(df[['close', '收盘价_移动平均线']])
+# rolling(n)即为取最近n行数据的意思，只计算这n行数据。后面可以接各类计算函数，例如max、min、std等
+# print(df['close'].rolling(3).max())
+# print(df['close'].rolling(3).min())
+# print(df['close'].
