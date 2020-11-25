@@ -49,4 +49,5 @@ df = pd.read_csv(
 
 
 # =====输出到本地文件
-# print
+# print(df)
+# df.to_csv('output.csv', encoding='gbk', index=False)
