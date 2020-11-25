@@ -40,4 +40,13 @@ df = pd.read_csv(
 # df['收盘价_至今均值'] = df['close'].expanding().mean()
 # print(df[['close', '收盘价_至今均值']])
 
-# expandi
+# expanding即为取从头至今的数据。后面可以接各类计算函数
+# print(df['close'].expanding().max())
+# print(df['close'].expanding().min())
+# print(df['close'].expanding().std())
+
+# rolling和expanding简直是为量化领域量身定制的方法，经常会用到。
+
+
+# =====输出到本地文件
+# print
