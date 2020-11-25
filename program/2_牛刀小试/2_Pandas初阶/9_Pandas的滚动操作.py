@@ -31,4 +31,13 @@ df = pd.read_csv(
 # rolling(n)即为取最近n行数据的意思，只计算这n行数据。后面可以接各类计算函数，例如max、min、std等
 # print(df['close'].rolling(3).max())
 # print(df['close'].rolling(3).min())
-# print(df['close'].
+# print(df['close'].rolling(3).std())
+
+
+# =====expanding操作
+# rolling可以计算每个周期的最近3个周期收盘价的均值，如果想计算每个周期的从一开始至今的均值，应该如何计算？
+# 使用expanding操作
+# df['收盘价_至今均值'] = df['close'].expanding().mean()
+# print(df[['close', '收盘价_至今均值']])
+
+# expandi
