@@ -15,4 +15,8 @@ from dateutil.relativedelta import relativedelta
 def updateSymbolData(ex, symbol, timeframe, startTime, endTime):
     dfList = []
     while startTime < endTime:
-        data = ex.fetch_ohlcv(symbol, timeframe=timeframe, limit=2000, since=ex.pars
+        data = ex.fetch_ohlcv(symbol, timeframe=timeframe, limit=2000, since=ex.parse8601(str(startTime)))
+        df = pd.DataFrame(data, dtype=float)
+        df['candle_begin_time'] = pd.to_datetime(df.iloc[:, 0], unit='ms')
+        dfList.append(df)
+        startTime = pd.to_datetime(df.iat[-1
