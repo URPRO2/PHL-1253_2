@@ -19,4 +19,8 @@ def updateSymbolData(ex, symbol, timeframe, startTime, endTime):
         df = pd.DataFrame(data, dtype=float)
         df['candle_begin_time'] = pd.to_datetime(df.iloc[:, 0], unit='ms')
         dfList.append(df)
-        startTime = pd.to_datetime(df.iat[-1
+        startTime = pd.to_datetime(df.iat[-1, 0], unit='ms')
+        time.sleep(ex.rateLimit / 1000)
+        print(startTime)
+    df = pd.concat(dfList, ignore_index=True)
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume', 6: '
