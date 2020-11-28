@@ -23,4 +23,7 @@ def updateSymbolData(ex, symbol, timeframe, startTime, endTime):
         time.sleep(ex.rateLimit / 1000)
         print(startTime)
     df = pd.concat(dfList, ignore_index=True)
-    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume', 6: '
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume', 6: 'candle_begin_time'}, inplace=True)
+    df = df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume']]
+    df = df[df['candle_begin_time'] < endTime]
+    df.sort_values('candle_begin_time', inpla
