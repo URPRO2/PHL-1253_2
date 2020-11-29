@@ -33,4 +33,10 @@ def updateSymbolData(ex, symbol, timeframe, startTime, endTime):
 
 if __name__ == '__main__':
     pd.set_option('expand_frame_repr', False)
-    pd.s
+    pd.set_option('display.max_rows', 5000)
+    exchange = ccxt.okex()
+
+    # 计算 上一个整月时间
+    now = datetime.datetime.now().date()
+    startTime = datetime.datetime(now.year, now.month - 1, 1)
+    endTime = datetime.dateti
