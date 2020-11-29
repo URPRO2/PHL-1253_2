@@ -39,4 +39,7 @@ if __name__ == '__main__':
     # 计算 上一个整月时间
     now = datetime.datetime.now().date()
     startTime = datetime.datetime(now.year, now.month - 1, 1)
-    endTime = datetime.dateti
+    endTime = datetime.datetime(now.year, now.month, 1)  # 小于结束时间
+
+    for symbol in ['BTC/USDT']:
+        updateSymbolData(exchange, symbol, '5m', startTime, endTime)
