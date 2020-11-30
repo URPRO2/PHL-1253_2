@@ -12,4 +12,4 @@
 
 # =====神奇的网址-API示例
 # okex：https://www.okex.com/api/spot/v3/instruments/BTC-USDT/ticker
-# 返
+# 返回结果示例：{"best_ask":"7871.9","best_bid":"7871.8","instrument_id":"BTC-USDT","product_id":"BTC-USDT","last":"7872.7","last_qty":"0.00294821","ask":"7871.9","best_ask_size":"2.47032541","bid":
