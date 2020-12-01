@@ -12,4 +12,7 @@
 
 # =====神奇的网址-API示例
 # okex：https://www.okex.com/api/spot/v3/instruments/BTC-USDT/ticker
-# 返回结果示例：{"best_ask":"7871.9","best_bid":"7871.8","instrument_id":"BTC-USDT","product_id":"BTC-USDT","last":"7872.7","last_qty":"0.00294821","ask":"7871.9","best_ask_size":"2.47032541","bid":"7871.8","best_bid_size":"0.3586146","open_24h":"8090.4","high_24h":"8090.4","low_24h":"7637.4","base_volume_24h":"71999.67613995","timestamp":"2020-03-10T03:27:31.069Z","quote_volume_24h":"56451
+# 返回结果示例：{"best_ask":"7871.9","best_bid":"7871.8","instrument_id":"BTC-USDT","product_id":"BTC-USDT","last":"7872.7","last_qty":"0.00294821","ask":"7871.9","best_ask_size":"2.47032541","bid":"7871.8","best_bid_size":"0.3586146","open_24h":"8090.4","high_24h":"8090.4","low_24h":"7637.4","base_volume_24h":"71999.67613995","timestamp":"2020-03-10T03:27:31.069Z","quote_volume_24h":"564510343.1"}
+
+# 火币：https://api.huobi.pro/market/detail/merged?symbol=btcusdt
+# 返回结果示例：{"status":"ok","ch":"market.btcusdt.detail.merged","ts":1583810974164,"tick":{"amount":71311.9480485466
