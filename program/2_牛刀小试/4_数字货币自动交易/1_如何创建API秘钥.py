@@ -22,4 +22,6 @@ exchange.secret = ''
 exchange.password = ''  # okex在创建第三代api的时候，需要填写一个Passphrase。这个填写到这里即可
 
 # 获取账户信息
-balan
+balance = exchange.fetch_balance()  # 现货
+print(balance)
+
