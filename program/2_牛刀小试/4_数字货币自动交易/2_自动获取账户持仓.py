@@ -23,4 +23,9 @@ exchange.password = ''  # okex在创建第三代api的时候，需要填写一�
 # ===通过fetch_balance获取账户信息
 balance = exchange.fetch_balance()  # 现货
 balance = exchange.fetch_balance(params={'type': 'margin'})  # 杠杆账户
-balance = exchange.fet
+balance = exchange.fetch_balance(params={'type': 'swap'})  # 永续账户
+balance = exchange.fetch_balance(params={'type': 'futures'})  # 交割合约账户
+
+# ===通过ccxt私有函数获取现货账户
+balance = exchange.spotGetAccounts()  # 所有账户
+params = {'currency': '
