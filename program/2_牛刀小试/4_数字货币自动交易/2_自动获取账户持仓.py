@@ -18,4 +18,9 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 exchange = ccxt.okex3()  # 此处是okex第三代api接口，所以是okex3
 exchange.apiKey = ''
 exchange.secret = ''
-exchange.password
+exchange.password = ''  # okex在创建第三代api的时候，需要填写一个Passphrase。这个填写到这里即可
+
+# ===通过fetch_balance获取账户信息
+balance = exchange.fetch_balance()  # 现货
+balance = exchange.fetch_balance(params={'type': 'margin'})  # 杠杆账户
+balance = exchange.fet
