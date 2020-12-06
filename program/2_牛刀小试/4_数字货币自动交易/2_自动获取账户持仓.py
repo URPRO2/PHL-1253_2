@@ -28,4 +28,10 @@ balance = exchange.fetch_balance(params={'type': 'futures'})  # 交割合约账�
 
 # ===通过ccxt私有函数获取现货账户
 balance = exchange.spotGetAccounts()  # 所有账户
-params = {'currency': '
+params = {'currency': 'eos'}
+balance = exchange.spotGetAccountsCurrency(params=params)  # 指定币种
+
+# ===通过ccxt私有函数获取永续账户
+balance = exchange.swapGetAccounts()  # 所有账户
+position = exchange.swapGetPosition()  # 所有持仓
+params = {'instrument_id': 'BTC
