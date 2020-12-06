@@ -34,4 +34,13 @@ balance = exchange.spotGetAccountsCurrency(params=params)  # 指定币种
 # ===通过ccxt私有函数获取永续账户
 balance = exchange.swapGetAccounts()  # 所有账户
 position = exchange.swapGetPosition()  # 所有持仓
-params = {'instrument_id': 'BTC
+params = {'instrument_id': 'BTC-USD-SWAP'}
+balance = exchange.swapGetInstrumentIdAccounts(params=params)  # 指定账户
+position = exchange.swapGetInstrumentIdPosition(params=params)  # 指定持仓
+
+# ===通过ccxt私有函数获取杠杆账户、交割合约账户
+# 自己尝试获取
+
+
+# =====binance交易所
+#
