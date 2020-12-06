@@ -43,4 +43,11 @@ position = exchange.swapGetInstrumentIdPosition(params=params)  # 指定持仓
 
 
 # =====binance交易所
-#
+# ===创建交易所
+exchange = ccxt.binance()
+exchange.apiKey = ''
+exchange.secret = ''
+
+# ===通过fetch_balance获取账户信息
+balance = exchange.fetch_balance()  # 现货账户
+balance = exchange.fetch_balance(params={'type': 'margin
