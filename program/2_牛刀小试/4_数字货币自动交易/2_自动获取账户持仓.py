@@ -50,4 +50,14 @@ exchange.secret = ''
 
 # ===通过fetch_balance获取账户信息
 balance = exchange.fetch_balance()  # 现货账户
-balance = exchange.fetch_balance(params={'type': 'margin
+balance = exchange.fetch_balance(params={'type': 'margin'})
+
+# ===通过ccxt私有函数获现货账户数据
+balance = exchange.privateGetAccount()
+# ===通过ccxt私有函数获取杠杆账户数据
+balance = exchange.sapiGetMarginAccount()
+# ===通过ccxt私有函数获取合约账户数据
+balance = exchange.fapiPrivateGetAccount()
+
+
+# =====火币交易所
