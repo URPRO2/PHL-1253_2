@@ -61,3 +61,5 @@ balance = exchange.fapiPrivateGetAccount()
 
 
 # =====火币交易所
+# 自己尝试获取
+
