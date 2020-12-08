@@ -628,3 +628,207 @@ def update_order_info(symbol_config, symbol_order, max_try_amount=5):
                 if order_info['side'] == 'sell' and order_info['posSide'] == 'long': # 平多
                     symbol_order.at[order_id, "开仓方向"] = okex_order_type['3']
                 if order_info['side'] == 'buy' and order_info['posSide'] == 'short': # 平空
+                    symbol_order.at[order_id, "开仓方向"] = okex_order_type['4']
+
+                symbol_order.at[order_id, "委托数量"] = order_info["sz"]
+                symbol_order.at[order_id, "成交数量"] = order_info["accFillSz"]
+                symbol_order.at[order_id, "委托价格"] = order_info["px"]
+                symbol_order.at[order_id, "成交均价"] = order_info["avgPx"]
+                symbol_order.at[order_id, "委托时间"] =pd.to_datetime(order_info["cTime"], unit='ms')
+            else:
+                print('根据订单号获取订单信息失败次数超过max_try_amount，发送钉钉')
+
+    return symbol_order
+
+# ===为了达到成交的目的，计算实际委托价格会向上或者向下浮动一定比例默认为0.02
+def cal_order_price(price, order_type, ratio=0.02):
+    if order_type in [1, 4]:
+        return price * (1 + ratio)
+    elif order_type in [2, 3]:
+        return price * (1 - ratio)
+
+
+# ===计算实际开仓张数
+def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
+    """
+    根据实际持仓以及杠杆数，计算实际开仓张数
+    :param symbol:
+    :param symbol_info:
+    :param leverage:
+    :param volatility_ratio:
+    :return:
+    """
+    # 当账户目前有持仓的时候，必定是要平仓，所以直接返回持仓量即可
+    hold_amount = symbol_info.at[symbol, "持仓量"]
+    if pd.notna(hold_amount):  # 不为空
+        return hold_amount
+
+    # 当账户没有持仓时，是开仓
+    price = float(symbol_info.at[symbol, "信号价格"])
+    coin_value = coin_value_table[symbol]
+    e = float(symbol_info.loc[symbol, "账户权益"])
+    # 不超过账户最大杠杆
+    l = min(float(leverage), float(symbol_info.at[symbol, "最大杠杆"]))
+    size = math.floor(e * l * volatility_ratio / (price * coin_value))
+    return max(size, 1)  # 防止出现size为情形0，设置最小下单量为1
+
+def get_hmac_sha256(message, secret):
+    """
+    该函数用于生成每次请求的数字签名
+    :param message:
+    :param secret:
+    :return:
+    """
+    message = message.encode('utf-8')
+    secret = secret.encode('utf-8')
+    signature = base64.b64encode(hmac.new(secret, message, digestmod=sha256).digest()).decode("utf-8")
+    return signature
+
+# ===下次运行时间，和课程里面讲的函数是一样的
+def next_run_time(time_interval, ahead_seconds=5):
+    """
+    根据time_interval，计算下次运行的时间，下一个整点时刻。
+    目前只支持分钟和小时。
+    :param time_interval: 运行的周期，15m，1h
+    :param ahead_seconds: 预留的目标时间和当前时间的间隙
+    :return: 下次运行的时间
+    案例：
+    15m  当前时间为：12:50:51  返回时间为：13:00:00
+    15m  当前时间为：12:39:51  返回时间为：12:45:00
+    10m  当前时间为：12:38:51  返回时间为：12:40:00
+    5m  当前时间为：12:33:51  返回时间为：12:35:00
+
+    5m  当前时间为：12:34:51  返回时间为：12:40:00
+
+    30m  当前时间为：21日的23:33:51  返回时间为：22日的00:00:00
+
+    30m  当前时间为：14:37:51  返回时间为：14:56:00
+
+    1h  当前时间为：14:37:51  返回时间为：15:00:00
+
+    """
+    if time_interval.endswith('m') or time_interval.endswith('h'):
+        pass
+    elif time_interval.endswith('T'):
+        time_interval = time_interval.replace('T', 'm')
+    elif time_interval.endswith('H'):
+        time_interval = time_interval.replace('H', 'h')
+    else:
+        print('time_interval格式不符合规范。程序exit')
+        exit()
+
+    ti = pd.to_timedelta(time_interval)
+    now_time = datetime.datetime.now()
+    # now_time = datetime(2019, 5, 9, 23, 50, 30)  # 修改now_time，可用于测试
+    this_midnight = now_time.replace(hour=0, minute=0, second=0, microsecond=0)
+    min_step = datetime.timedelta(minutes=1)
+
+    target_time = now_time.replace(second=0, microsecond=0)
+
+    while True:
+        target_time = target_time + min_step
+        delta = target_time - this_midnight
+        if delta.seconds % ti.seconds == 0 and (target_time - now_time).seconds >= ahead_seconds:
+            # 当符合运行周期，并且目标时间有足够大的余地，默认为60s
+            break
+
+    print('程序下次运行的时间：', target_time, '\n')
+    return target_time
+
+
+# ===依据时间间隔, 自动计算并休眠到指定时间
+def sleep_until_run_time(time_interval, ahead_time=1):
+    """
+    根据next_run_time()函数计算出下次程序运行的时候，然后sleep至该时间
+    :param time_interval:
+    :param ahead_time:
+    :return:
+    """
+    # 计算下次运行时间
+    run_time = next_run_time(time_interval, ahead_time)
+    # sleep
+    time.sleep(max(0, (run_time - datetime.datetime.now()).seconds))
+    while True:  # 在靠近目标时间时
+        if datetime.datetime.now() > run_time:
+            break
+
+    return run_time
+
+
+# ===发送钉钉相关函数
+# 计算钉钉时间戳\
+# ===在每个循环的末尾，编写报告并且通过订订发送
+def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_time, robot_id_secret):
+    """
+    :param symbol_info:
+    :param symbol_signal:
+    :param symbol_order:
+    :param run_time:
+    :param robot_id_secret:
+    :return:
+    """
+    content = ''
+
+    # 订单信息
+    if symbol_signal:
+        symbol_order_str = ['\n\n' + y.to_string() for x, y in symbol_order.iterrows()]  # 持仓信息
+        content += '# =====订单信息' + ''.join(symbol_order_str) + '\n\n'
+
+    # 持仓信息
+    symbol_info_str = ['\n\n' + str(x) + '\n' + y.to_string() for x, y in symbol_info.iterrows()]
+    content += '# =====持仓信息' + ''.join(symbol_info_str) + '\n\n'
+
+    # 发送，每间隔30分钟或者有交易的时候，发送一次
+    if run_time.minute % 30 == 0 or symbol_signal:
+        send_dingding_msg(content, robot_id=robot_id_secret[0], secret=robot_id_secret[1])
+
+
+def cal_timestamp_sign(secret):
+    # 根据钉钉开发文档，修改推送消息的安全设置https://ding-doc.dingtalk.com/doc#/serverapi2/qf2nxq
+    # 也就是根据这个方法，不只是要有robot_id，还要有secret
+    # 当前时间戳，单位是毫秒，与请求调用时间误差不能超过1小时
+    # python3用int取整
+    timestamp = int(round(time.time() * 1000))
+    # 密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
+    secret_enc = bytes(secret.encode('utf-8'))
+    string_to_sign = '{}\n{}'.format(timestamp, secret)
+    string_to_sign_enc = bytes(string_to_sign.encode('utf-8'))
+    hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=sha256).digest()
+    # 得到最终的签名值
+    sign = parse.quote_plus(base64.b64encode(hmac_code))
+    return str(timestamp), str(sign)
+
+
+# 发送钉钉消息
+def send_dingding_msg(content, robot_id='写入钉钉ID',
+                      secret=''):
+    """
+    :param content:
+    :param robot_id:  你的access_token，即webhook地址中那段access_token。例如如下地址：https://oapi.dingtalk.com/robot/
+n    :param secret: 你的secret，即安全设置加签当中的那个密钥
+    :return:
+    """
+    try:
+        msg = {
+            "msgtype": "text",
+            "text": {"content": '模拟盘V5API测试'+'\n'+content + '\n' + datetime.datetime.now().strftime("%m-%d %H:%M:%S")}}
+        headers = {"Content-Type": "application/json;charset=utf-8"}
+        # https://oapi.dingtalk.com/robot/send?access_token=XXXXXX&timestamp=XXX&sign=XXX
+        timestamp, sign_str = cal_timestamp_sign(secret)
+        url = 'https://oapi.dingtalk.com/robot/send?access_token=' + robot_id
+        body = json.dumps(msg)
+        requests.post(url, data=body, headers=headers, timeout=10)
+        print('成功发送钉钉')
+    except Exception as e:
+        print("发送钉钉失败:", e)
+
+
+# price 价格 money 资金量 leverage 杠杆 ratio 最小变动单位
+def calculate_max_size(price, money, leverage, ratio):
+    return math.floor(money * leverage / price / ratio)
+
+
+def send_dingding_and_raise_error(content):
+    print(content)
+    send_dingding_msg(content)
+    raise ValueError(content)
