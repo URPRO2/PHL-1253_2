@@ -202,3 +202,207 @@ def fetch_candle_data( symbol, time_interval, limit, max_try_amount=5):
 
     _ = '获取fetch_ohlcv合约K线数据，失败次数过多，程序Raise Error'
     send_dingding_and_raise_error(_)
+
+
+# =========获取行情数据函数============
+# 获取历史k线数据
+def fetch_okex_symbol_history_candle_data(symbol, time_interval, max_len, max_try_amount=5):
+    """
+    获取某个币种在okex交易所所有能获取的历史数据，目前v5接口最多获取1440根。
+    :param exchange:
+    :param symbol:
+    :param time_interval:
+    :param max_len:
+    :param max_try_amount:
+    :return:
+
+    函数核心逻辑：
+    1.找到最早那根K线的开始时间，以此为参数获取数据
+    2.获取数据的最后一行数据，作为新的k线开始时间，继续获取数据
+    3.如此循环直到最新的数据
+    """
+    # 获取当前时间
+    now_milliseconds = int(time.time() * 1e3)
+
+    # 每根K线的间隔时间
+    time_interval_int = int(time_interval[:-1])  # 若15m，则time_interval_int = 15；若2h，则time_interval_int = 2
+    if time_interval.endswith('m'):
+        time_segment = time_interval_int * 60 * 1000  # 15分钟 * 每分钟60s
+    elif time_interval.endswith('h'):
+        time_segment = time_interval_int * 60 * 60 * 1000  # 2小时 * 每小时60分钟 * 每分钟60s
+
+    # 计算开始和结束的时间
+    end = now_milliseconds - time_segment
+    since = end - max_len * time_segment
+
+
+    # 循环获取历史数据
+    all_kline_data = []
+    while end - since >= time_segment:
+        kline_data = []
+        klineUrl = baseUrl+'api/v5/market/history-candles?instId={symbol}&before={before}&after={after}&bar={bar}&limit=100'.format(
+            symbol=symbol, before=since,after=int(since + 100 * time_segment), bar=time_interval)
+
+        # 获取K线使，要多次尝试
+        for i in range(max_try_amount):
+            try:
+                kline_data = session.get(klineUrl, headers=headers,timeout=3).json()['data']
+                break
+            except Exception as e:
+                time.sleep(medium_sleep_time)
+                if i == (max_try_amount - 1):
+                    _ = '【获取需要交易币种的历史数据】阶段，fetch_okex_symbol_history_candle_data函数中，' \
+                        '使用ccxt的fetch_ohlcv获取K线数据失败，程序Raise Error'
+                    send_dingding_and_raise_error(_)
+
+        if kline_data:
+            since = int(kline_data[0][0])  # 更新since，为下次循环做准备
+            all_kline_data += reversed(kline_data)
+
+
+        else:
+            print('【获取需要交易币种的历史数据】阶段，fetch_ohlcv失败次数过多，程序exit，请检查原因。')
+            exit()
+        # 对数据进行整理
+    df = pd.DataFrame(all_kline_data, dtype=float)
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
+    df['candle_begin_time'] = pd.to_datetime(df['MTS'], unit='ms')
+    df['candle_begin_time_GMT8'] = df['candle_begin_time'] + datetime.timedelta(hours=8)
+    df = df[['candle_begin_time_GMT8', 'open', 'high', 'low', 'close', 'volume']]
+
+    # 删除重复的数据
+    df.drop_duplicates(subset=['candle_begin_time_GMT8'], keep='last', inplace=True)
+    df.reset_index(drop=True, inplace=True)
+
+    # 为了保险起见，去掉最后一行最新的数据
+    df = df[:-1]
+
+    print(symbol, '获取历史数据行数：', len(df))
+
+    return df
+
+# 获取需要的K线数据，并检测质量。
+def get_candle_data(symbol_config, time_interval, run_time, max_try_amount, candle_num, symbol):
+    """
+    使用ccxt_fetch_candle_data(函数)，获取指定交易对最新的K线数据，并且监测数据质量，用于实盘。
+    :param exchange:
+    :param symbol_config:
+    :param time_interval:
+    :param run_time:
+    :param max_try_amount:
+    :param symbol:
+    :param candle_num:
+    :return:
+    尝试获取K线数据，并检验质量
+    """
+    # 标记开始时间
+    start_time = datetime.datetime.now()
+    print('开始获取K线数据：', symbol, '开始时间：', start_time)
+
+    # 获取数据合约的相关参数
+    instrument_id = symbol_config[symbol]["instrument_id"]  # 合约id
+    signal_price = None
+
+    # 尝试获取数据
+    for i in range(max_try_amount):
+        # 获取symbol该品种最新的K线数据
+        df = fetch_candle_data(instrument_id, time_interval, limit=candle_num)
+        if df.empty:
+            continue  # 再次获取
+
+        # 判断是否包含最新一根的K线数据。例如当time_interval为15分钟，run_time为14:15时，即判断当前获取到的数据中是否包含14:15这根K线
+        # 【其实这段代码可以省略】
+        if time_interval.endswith('m'):
+            _ = df[df['candle_begin_time_GMT8'] == (run_time - datetime.timedelta(minutes=int(time_interval[:-1])))]
+        elif time_interval.endswith('h'):
+            _ = df[df['candle_begin_time_GMT8'] == (run_time - datetime.timedelta(hours=int(time_interval[:-1])))]
+        else:
+            print('time_interval不以m或者h结尾，出错，程序exit')
+            exit()
+        if _.empty:
+            print('获取数据不包含最新的数据，重新获取')
+            time.sleep(short_sleep_time)
+            continue  # 再次获取
+
+        else:  # 获取到了最新数据
+            signal_price = df.iloc[-1]['close']  # 该品种的最新价格
+            df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除run_time周期的数据
+            print('结束获取K线数据', symbol, '结束时间：', datetime.datetime.now())
+            return symbol, df, signal_price
+
+    print('获取candle_data数据次数超过max_try_amount，数据返回空值')
+    return symbol, pd.DataFrame(), signal_price
+
+# 串行获取K线数据
+def single_threading_get_data(symbol_info, symbol_config, time_interval, run_time, candle_num, max_try_amount=5):
+    """
+    串行逐个获取所有交易对的K线数据，速度较慢。和multi_threading_get_data()对应
+    若获取数据失败，返回空的dataframe。
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param time_interval:
+    :param run_time:
+    :param candle_num:
+    :param max_try_amount:
+    :return:
+    """
+    # 函数返回的变量
+    symbol_candle_data = {}
+    for symbol in symbol_config.keys():
+        symbol_candle_data[symbol] = pd.DataFrame()
+
+    # 逐个获取symbol对应的K线数据
+    for symbol in symbol_config.keys():
+        _, symbol_candle_data[symbol], symbol_info.at[symbol, '信号价格'] = get_candle_data(symbol_config, time_interval, run_time, max_try_amount, candle_num, symbol)
+
+    return symbol_candle_data
+
+
+# 根据最新数据，计算最新的signal
+def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
+    """
+    计算交易信号
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_candle_data:
+    :return:
+    """
+
+    # 输出变量
+    symbol_signal = {}
+
+    # 逐个遍历交易对
+    for symbol in symbol_config.keys():
+
+        # 赋值相关数据
+        df = symbol_candle_data[symbol].copy()  # 最新数据
+        now_pos = symbol_info.at[symbol, '持仓方向']  # 当前持仓方向
+        avg_price = symbol_info.at[symbol, '持仓均价']  # 当前持仓均价
+
+        # 需要计算的目标仓位
+        target_pos = None
+
+        # 根据策略计算出目标交易信号。
+        if not df.empty:  # 当原始数据不为空的时候
+            target_pos = getattr(Signals, symbol_config[symbol]['strategy_name'])(df, now_pos, avg_price, symbol_config[symbol]['para'])
+        symbol_info.at[symbol, '目标仓位'] = target_pos  # 这行代码似乎可以删除
+        print(target_pos)
+
+        # 根据目标仓位和实际仓位，计算实际操作，"1": "开多"，"2": "开空"，"3": "平多"， "4": "平空"
+        if now_pos == 1 and target_pos == 0:  # 平多
+            symbol_signal[symbol] = [3]
+        elif now_pos == -1 and target_pos == 0:  # 平空
+            symbol_signal[symbol] = [4]
+        elif now_pos == 0 and target_pos == 1:  # 开多
+            symbol_signal[symbol] = [1]
+        elif now_pos == 0 and target_pos == -1:  # 开空
+            symbol_signal[symbol] = [2]
+        elif now_pos == 1 and target_pos == -1:  # 平多，开空
+            symbol_signal[symbol] = [3, 2]
+        elif now_pos == -1 and target_pos == 1:  # 平空，开多
+            symbol_signal[symbol] = [4, 1]
+
+        symbol_info.at[symbol, '信号时间'] = datetime.datetime.now()  # 计算产生信号的时间
+
+    return symbol_signal,symbol_info
