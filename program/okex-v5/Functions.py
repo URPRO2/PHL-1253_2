@@ -406,3 +406,225 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
         symbol_info.at[symbol, '信号时间'] = datetime.datetime.now()  # 计算产生信号的时间
 
     return symbol_signal,symbol_info
+
+# ===获取指定账户，例如btcusdt合约，目前的现金余额。
+def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
+    """
+    使用okex私有函数，GET/api/futures/v3/accounts/<underlying>，获取指定币种的账户现金余额。
+    :param exchange:
+    :param underlying:  例如btc-usd，btc-usdt
+    :param max_try_amount:
+    :return:
+    """
+    for _ in range(max_try_amount):
+        try:
+            result = exchange.futures_get_accounts_underlying(params={"underlying": symbol.lower()})
+            return float(result['equity'])
+        except Exception as e:
+            print(e)
+            print('ccxt_update_account_equity函数获取账户可用余额失败，稍后重试')
+            time.sleep(short_sleep_time)
+            pass
+
+# 在合约市场下单
+def single_threading_place_order(symbol_info, symbol_config, symbol_signal, max_try_amount=5):
+    """
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_signal:
+    :param max_try_amount:
+    :return:
+    串行使用okex_future_place_order()函数，下单
+
+    函数返回值案例：
+                         symbol      信号价格                       信号时间
+    4476028903965698  eth-usdt  227.1300 2020-03-01 11:53:00.580063
+    4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558
+    """
+    # 函数输出变量
+    symbol_order = pd.DataFrame()
+
+    # 如果有交易信号的话
+    if symbol_signal:
+        # 遍历有交易信号的交易对
+        for symbol in symbol_signal.keys():
+            # 下单
+            _, order_id_list = okex_future_place_order(symbol_info, symbol_config, symbol_signal, max_try_amount, symbol)
+
+            # 记录
+            for order_id in order_id_list:
+                symbol_order.loc[order_id, 'symbol'] = symbol
+                # 从symbol_info记录下单相关信息
+                symbol_order.loc[order_id, '信号价格'] = symbol_info.loc[symbol, '信号价格']
+                symbol_order.loc[order_id, '信号时间'] = symbol_info.loc[symbol, '信号时间']
+
+    return symbol_order
+# 串行下单
+def okex_future_place_order(symbol_info, symbol_config, symbol_signal, max_try_amount, symbol):
+    """
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_signal:
+    :param max_try_amount:
+    :param symbol:
+    :return:
+    """
+    # 下单参数 "ccy": "", "clOrdId": "", "tag": "", "posSide": "short", "px": "", "reduceOnly": ""
+    params = {
+        'instId': symbol_config[symbol]["instrument_id"],  # 合约代码
+        'tdMode':'cross', # 逐仓下单
+        'ordType':'limit', # 限价单
+        "ccy": "",
+        "clOrdId": "",
+        "tag": "",
+        "reduceOnly": ""
+    }
+
+    order_id_list = []
+    # 按照交易信号下单
+    for order_type in symbol_signal[symbol]:
+        update_price_flag = False  # 当触发限价条件时会设置为True、0
+        for i in range(max_try_amount):
+            try:
+                # 当只要开仓或者平仓时，直接下单操作即可。但当本周期即需要平仓，又需要开仓时，需要在平完仓之后，
+                # 重新评估下账户资金，然后根据账户资金计算开仓账户然后开仓。下面这行代码即处理这个情形。
+                # "长度为2的判定"定位【平空，开多】或【平多，开空】两种情形，"下单类型判定"定位 处于开仓的情形。
+                if len(symbol_signal[symbol]) == 2 and order_type in [1, 2]:  # 当两个条件同时满足时，说明当前处于平仓后，需要再开仓的阶段。
+                    time.sleep(short_sleep_time)  # 短暂的休息1s，防止之平仓后，账户没有更新
+                    _,availEq = fetch_future_account()
+                    symbol_info.at[symbol, "账户权益"] = availEq
+
+                # 确定下单参数
+                """
+                side	String	是	订单方向 buy：买 sell：卖
+                posSide	String	可选	持仓方向 在双向持仓模式下必填，且仅可选择 long 或 short
+                """
+                if order_type == 1: # 开多
+                    params['side'] = 'buy'
+                    params['posSide'] = 'long'
+                if order_type == 2: # 开空
+                    params['side'] = 'sell'
+                    params['posSide'] = 'short'
+                if order_type == 3: # 平多
+                    params['side'] = 'sell'
+                    params['posSide'] = 'long'
+                if order_type == 4: # 平空
+                    params['side'] = 'buy'
+                    params['posSide'] = 'short'
+
+
+                params['px'] = str(cal_order_price(symbol_info.at[symbol, "信号价格"], order_type))
+                params['sz'] = str(cal_order_size(symbol, symbol_info, symbol_config[symbol]['leverage']))
+
+                if update_price_flag:
+
+                    # 获取当前限价
+                    # {
+                    #     "code": "0",
+                    #     "msg": "",
+                    #     "data": [
+                    #         {
+                    #             "instType": "SWAP",
+                    #             "instId": "BTC-USDT-SWAP",
+                    #             "buyLmt": "200",
+                    #             "sellLmt": "300",
+                    #             "ts": "1597026383085"
+                    #         }
+                    #     ]
+                    # }
+                    limitPriceUrl = baseUrl+'api/v5/public/price-limit?instId='+symbol_config[symbol]['instrument_id']
+                    response = session.get(limitPriceUrl,headers=headers,timeout=1).json()['data'][0]
+                    # 依据下单类型来判定，所用的价格
+                    order_type_tmp = int(order_type)
+                    # 开多和平空，对应买入合约取最高
+                    if order_type_tmp in [1, 4]:
+                        params['price'] = response['sellLmt']
+                    elif order_type_tmp in [2, 3]:
+                        params['price'] = response['buyLmt']
+                    update_price_flag = False
+
+                print('开始下单：', datetime.datetime.now())
+                order_info = tradeAPI.place_order(instId=params['instId'], tdMode=params['tdMode'], side=params['side'], posSide=params['posSide'],
+                                              ordType=params['ordType'], sz=params['sz'],px=params['px'])['data'][0]
+                # order_info = session.post(baseUrl+'api/v5/trade/order',headers=getPrivateHeaders('/api/v5/trade/order'+str(json.dumps(params)),'POST'),data=json.dumps(params),timeout=1)
+                order_id_list.append(order_info['ordId'])
+                print(order_info, '下单完成：', datetime.datetime.now())
+
+                break
+
+            except Exception as e:
+                print(e)
+                print(symbol, '下单失败，稍等后继续尝试')
+                time.sleep(short_sleep_time)
+                """
+                okex {"error_message":"Order price cannot be more than 103% or less than 97% of the previous minute price","code":32019,"error_code":"32019",
+                "message":"Order price cannot be more than 103% or less than 97% of the previous minute price"}
+                """
+                # error code 与错误是一一对应的关系，51006代表相关错误
+                if "51006" in str(e):
+                    update_price_flag = True
+
+                if i == (max_try_amount - 1):
+                    print('下单失败次数超过max_try_amount，终止下单')
+                    send_dingding_msg('下单失败次数超过max_try_amount，终止下单，程序不退出')
+                    # exit() 若在子进程中（Pool）调用okex_future_place_order，触发exit会产生孤儿进程
+
+    return symbol, order_id_list
+
+
+
+# 获取成交数据
+def update_order_info(symbol_config, symbol_order, max_try_amount=5):
+    """
+    根据订单号，检查订单信息，获得相关数据
+    :param exchange:
+    :param symbol_config:
+    :param symbol_order:
+    :param max_try_amount:
+    :return:
+
+    函数返回值案例：
+                             symbol      信号价格                       信号时间  订单状态 开仓方向 委托数量 成交数量    委托价格    成交均价                      委托时间
+    4476028903965698  eth-usdt  227.1300 2020-03-01 11:53:00.580063  完全成交   开多  100  100  231.67  227.29  2020-03-01T03:53:00.896Z
+    4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558  完全成交   开空  100  100  0.2317  0.2363  2020-03-01T03:53:00.906Z
+    """
+
+    # 下单数据不为空
+    if symbol_order.empty is False:
+        # 这个遍历下单id
+        for order_id in symbol_order.index:
+            time.sleep(medium_sleep_time)  # 每次获取下单数据时sleep一段时间
+            order_info = None
+            # 根据下单id获取数据
+            for i in range(max_try_amount):
+                try:
+                    # para = {
+                    #     'instrument_id': symbol_config[symbol_order.at[order_id, 'symbol']]["instrument_id"],
+                    #     'order_id': order_id
+                    # }
+                    rightPart ='/api/v5/trade/order?ordId={ordId}&instId={instId}'.format(ordId=order_id, instId=symbol_config[symbol_order.at[order_id, 'symbol']]["instrument_id"])
+                    getOrderDetailUrl=baseUrl[:-1]+rightPart
+                    order_info = session.get(getOrderDetailUrl, headers=getPrivateHeaders(rightPart, 'GET'), timeout=5).json()['data'][0]
+                    break
+                except Exception as e:
+                    print(e)
+                    print('根据订单号获取订单信息失败，稍后重试')
+                    time.sleep(medium_sleep_time)
+                    if i == max_try_amount - 1:
+                        send_dingding_msg("重试次数过多，获取订单信息失败，程序退出")
+                        raise ValueError('重试次数过多，获取订单信息失败，程序退出')
+
+            if order_info:
+                symbol_order.at[order_id, "订单状态"] = order_info["state"]
+                # if okex_order_state[order_info["state"]] == '失败':
+                #     print('下单失败')
+                # symbol_order.at[order_id, "开仓方向"] = okex_order_type[order_info["type"]]
+                if order_info['side'] == 'buy' and order_info['posSide'] == 'long': # 开多
+                    symbol_order.at[order_id, "开仓方向"] = okex_order_type['1']
+                if order_info['side'] == 'sell' and order_info['posSide'] == 'short': # 开空
+                    symbol_order.at[order_id, "开仓方向"] = okex_order_type['2']
+                if order_info['side'] == 'sell' and order_info['posSide'] == 'long': # 平多
+                    symbol_order.at[order_id, "开仓方向"] = okex_order_type['3']
+                if order_info['side'] == 'buy' and order_info['posSide'] == 'short': # 平空
