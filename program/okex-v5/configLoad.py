@@ -14,4 +14,12 @@ class Config(object):
         self._configRaw.read(self._path, encoding='utf-8-sig')
 
     def get(self, section, name):
-        return self._co
+        return self._config.get(section, name)
+
+    def getRaw(self, section, name):
+        return self._configRaw.get(section, name)
+
+
+global_config = Config()
+apiKey = global_config.getRaw('config', 'apiKey')
+secret = global_
