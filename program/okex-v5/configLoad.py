@@ -25,4 +25,8 @@ apiKey = global_config.getRaw('config', 'apiKey')
 secret = global_config.getRaw('config', 'secret')
 password = global_config.getRaw('config', 'password')
 short_sleep_time = int(global_config.getRaw('config', 'short_sleep_time'))  # 用于和交易所交互时比较紧急的时间sleep，例如获取数据、下单
-medium_sleep_time = i
+medium_sleep_time = int(global_config.getRaw('config', 'medium_sleep_time'))  # 用于和交易所交互时不是很紧急的时间sleep，例如获取持仓
+long_sleep_time = int(global_config.getRaw('config', 'long_sleep_time'))  # 用于较长的时间sleep
+
+coin_value_table = {
+    "btc-usdt": 0.01,  # 比特币合约最小单位
