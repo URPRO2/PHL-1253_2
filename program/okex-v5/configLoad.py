@@ -29,4 +29,17 @@ medium_sleep_time = int(global_config.getRaw('config', 'medium_sleep_time'))  # 
 long_sleep_time = int(global_config.getRaw('config', 'long_sleep_time'))  # 用于较长的时间sleep
 
 coin_value_table = {
-    "btc-usdt": 0.01,  # 比特币合约最小单位
+    "btc-usdt": 0.01,  # 比特币合约最小单位为0.01
+    "eos-usdt": 10,
+    "eth-usdt": 0.1,  # 以太坊合约最小单位为0.1
+    "ltc-usdt": 1,
+    "bch-usdt": 0.1,
+    "xrp-usdt": 100,
+    "etc-usdt": 10,
+    "bsv-usdt": 1,
+    "trx-usdt": 1000
+}
+
+# 订单对照表
+okex_order_type = {
+    '1': '开多
