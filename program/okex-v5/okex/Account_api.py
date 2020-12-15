@@ -12,4 +12,9 @@ class AccountAPI(Client):
         params = {}
         if ccy:
             params['ccy'] = ccy
-        return self._request
+        return self._request_with_params(GET, ACCOUNT_INFO, params)
+
+    # Get Positions
+    def get_positions(self, instType='', instId=''):
+        params = {'instType': instType, 'instId': instId}
+        return self._request_with_params(GET
