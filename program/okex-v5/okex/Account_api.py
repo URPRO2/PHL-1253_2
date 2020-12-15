@@ -17,4 +17,8 @@ class AccountAPI(Client):
     # Get Positions
     def get_positions(self, instType='', instId=''):
         params = {'instType': instType, 'instId': instId}
-        return self._request_with_params(GET
+        return self._request_with_params(GET, POSITION_INFO, params)
+
+    # Get Bills Details (recent 7 days)
+    def get_bills_detail(self, instType='', ccy='', mgnMode='', ctType='', type='', subType='', after='', before='',
+                         limi
