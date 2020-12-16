@@ -27,4 +27,7 @@ class AccountAPI(Client):
         return self._request_with_params(GET, BILLS_DETAIL, params)
 
     # Get Bills Details (recent 3 months)
-    def get_bills_details(self, instType='', ccy='', mgnMode='', ctType='', type='', subType='', after='',
+    def get_bills_details(self, instType='', ccy='', mgnMode='', ctType='', type='', subType='', after='', before='',
+                          limit=''):
+        params = {'instType': instType, 'ccy': ccy, 'mgnMode': mgnMode, 'ctType': ctType, 'type': type,
+                  'subType': subType, 'after': after, 'be
