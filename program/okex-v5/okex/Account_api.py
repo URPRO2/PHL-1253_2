@@ -35,4 +35,9 @@ class AccountAPI(Client):
 
     # Get Account Configuration
     def get_account_config(self):
-        return self._request_without_par
+        return self._request_without_params(GET, ACCOUNT_CONFIG)
+
+    # Get Account Configuration
+    def get_position_mode(self, posMode):
+        params = {'posMode': posMode}
+        return self._request_with_params(POST, 
