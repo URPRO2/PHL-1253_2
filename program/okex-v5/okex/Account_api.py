@@ -40,4 +40,8 @@ class AccountAPI(Client):
     # Get Account Configuration
     def get_position_mode(self, posMode):
         params = {'posMode': posMode}
-        return self._request_with_params(POST, 
+        return self._request_with_params(POST, POSITION_MODE, params)
+
+    # Get Account Configuration
+    def set_leverage(self, lever, mgnMode, instId='', ccy='', posSide=''):
+        params = {'lever': lever, 'mgnMode': mgnMode, 'instId': instId, 'ccy': ccy,
