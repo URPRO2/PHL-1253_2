@@ -30,4 +30,9 @@ class AccountAPI(Client):
     def get_bills_details(self, instType='', ccy='', mgnMode='', ctType='', type='', subType='', after='', before='',
                           limit=''):
         params = {'instType': instType, 'ccy': ccy, 'mgnMode': mgnMode, 'ctType': ctType, 'type': type,
-                  'subType': subType, 'after': after, 'be
+                  'subType': subType, 'after': after, 'before': before, 'limit': limit}
+        return self._request_with_params(GET, BILLS_ARCHIVE, params)
+
+    # Get Account Configuration
+    def get_account_config(self):
+        return self._request_without_par
