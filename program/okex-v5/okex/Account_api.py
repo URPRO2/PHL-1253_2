@@ -44,4 +44,8 @@ class AccountAPI(Client):
 
     # Get Account Configuration
     def set_leverage(self, lever, mgnMode, instId='', ccy='', posSide=''):
-        params = {'lever': lever, 'mgnMode': mgnMode, 'instId': instId, 'ccy': ccy,
+        params = {'lever': lever, 'mgnMode': mgnMode, 'instId': instId, 'ccy': ccy, 'posSide': posSide}
+        return self._request_with_params(POST, SET_LEVERAGE, params)
+
+    # Get Maximum Tradable Size For Instrument
+    def get_maximum_trade_size(self, instId,
