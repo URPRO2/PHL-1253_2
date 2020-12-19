@@ -53,3 +53,6 @@ class AccountAPI(Client):
         return self._request_with_params(GET, MAX_TRADE_SIZE, params)
 
     # Get Maximum Available Tradable Amount
+    def get_max_avail_size(self, instId, tdMode, ccy='', reduceOnly=''):
+        params = {'instId': instId, 'tdMode': tdMode, 'ccy': ccy, 'reduceOnly': reduceOnly}
+        return self._request_with_p
