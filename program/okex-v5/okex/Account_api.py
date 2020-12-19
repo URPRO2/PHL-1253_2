@@ -48,4 +48,8 @@ class AccountAPI(Client):
         return self._request_with_params(POST, SET_LEVERAGE, params)
 
     # Get Maximum Tradable Size For Instrument
-    def get_maximum_trade_size(self, instId,
+    def get_maximum_trade_size(self, instId, tdMode, ccy='', px=''):
+        params = {'instId': instId, 'tdMode': tdMode, 'ccy': ccy, 'px': px}
+        return self._request_with_params(GET, MAX_TRADE_SIZE, params)
+
+    # Get Maximum Available Tradable Amount
