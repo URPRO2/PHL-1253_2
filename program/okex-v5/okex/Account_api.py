@@ -60,4 +60,9 @@ class AccountAPI(Client):
     # Increase / Decrease margin
     def Adjustment_margin(self, instId, posSide, type, amt):
         params = {'instId': instId, 'posSide': posSide, 'type': type, 'amt': amt}
-        return self._request_with_params(
+        return self._request_with_params(POST, ADJUSTMENT_MARGIN, params)
+
+    # Get Leverage
+    def get_leverage(self, instId, mgnMode):
+        params = {'instId': instId, 'mgnMode': mgnMode}
+        return self._request_with_para
