@@ -78,4 +78,8 @@ class AccountAPI(Client):
         return self._request_with_params(GET, FEE_RATES, params)
 
     # Get interest-accrued
-    def get_interest_accrued(self, instId='', ccy='', mgnMode='', after='', before=
+    def get_interest_accrued(self, instId='', ccy='', mgnMode='', after='', before='', limit=''):
+        params = {'instId': instId, 'ccy': ccy, 'mgnMode': mgnMode, 'after': after, 'before': before, 'limit': limit}
+        return self._request_with_params(GET, INTEREST_ACCRUED, params)
+
+    # Set Gre
