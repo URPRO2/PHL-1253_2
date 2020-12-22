@@ -65,4 +65,9 @@ class AccountAPI(Client):
     # Get Leverage
     def get_leverage(self, instId, mgnMode):
         params = {'instId': instId, 'mgnMode': mgnMode}
-        return self._request_with_para
+        return self._request_with_params(GET, GET_LEVERAGE, params)
+
+    # Get the maximum loan of isolated MARGIN
+    def get_max_load(self, instId, mgnMode, mgnCcy):
+        params = {'instId': instId, 'mgnMode': mgnMode, 'mgnCcy': mgnCcy}
+    
