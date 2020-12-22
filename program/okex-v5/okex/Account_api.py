@@ -70,4 +70,8 @@ class AccountAPI(Client):
     # Get the maximum loan of isolated MARGIN
     def get_max_load(self, instId, mgnMode, mgnCcy):
         params = {'instId': instId, 'mgnMode': mgnMode, 'mgnCcy': mgnCcy}
-    
+        return self._request_with_params(GET, MAX_LOAN, params)
+
+    # Get Fee Rates
+    def get_fee_rates(self, instType, instId='', uly='', category=''):
+        params = {'instType': instType, 'instId': i
