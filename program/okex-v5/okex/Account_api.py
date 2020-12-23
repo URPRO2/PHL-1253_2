@@ -82,4 +82,10 @@ class AccountAPI(Client):
         params = {'instId': instId, 'ccy': ccy, 'mgnMode': mgnMode, 'after': after, 'before': before, 'limit': limit}
         return self._request_with_params(GET, INTEREST_ACCRUED, params)
 
-    # Set Gre
+    # Set Greeks (PA/BS)
+    def set_greeks(self, greeksType):
+        params = {'greeksType': greeksType}
+        return self._request_with_params(POST, SET_GREEKS, params)
+
+    # Get Maximum Withdrawals
+    def 
