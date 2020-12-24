@@ -88,4 +88,6 @@ class AccountAPI(Client):
         return self._request_with_params(POST, SET_GREEKS, params)
 
     # Get Maximum Withdrawals
-    def 
+    def get_max_withdrawal(self, ccy=''):
+        params = {'ccy': ccy}
+        return self._request_with_params(GET, MAX_WITHDRAWAL, params)
