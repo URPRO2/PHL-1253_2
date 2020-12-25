@@ -17,4 +17,7 @@ class FundingAPI(Client):
         return self._request_without_params(GET, GET_BALANCES)
 
     # Get Account Configuration
-    def funds_transfer(self, ccy, amt, froms, to, type='0', subAcct='', instId='', toInstId
+    def funds_transfer(self, ccy, amt, froms, to, type='0', subAcct='', instId='', toInstId=''):
+        params = {'ccy': ccy, 'amt': amt, 'from': froms, 'to': to, 'type': type, 'subAcct': subAcct, 'instId': instId,
+                  'toInstId': toInstId}
+        return self._request_with_params(POST, 
