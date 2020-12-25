@@ -13,4 +13,8 @@ class FundingAPI(Client):
         return self._request_with_params(GET, DEPOSIT_ADDRESS, params)
 
     # Get Balance
-    def get_bal
+    def get_balances(self):
+        return self._request_without_params(GET, GET_BALANCES)
+
+    # Get Account Configuration
+    def funds_transfer(self, ccy, amt, froms, to, type='0', subAcct='', instId='', toInstId
