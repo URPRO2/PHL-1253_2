@@ -35,4 +35,11 @@ class FundingAPI(Client):
     # Get Withdrawal History
     def get_withdrawal_history(self, ccy='', state='', after='', before='', limit=''):
         params = {'ccy': ccy, 'state': state, 'after': after, 'before': before, 'limit': limit}
-        return self._request_with_params(GET, W
+        return self._request_with_params(GET, WITHDRAWAL_HISTORIY, params)
+
+    # Get Currencies
+    def get_currency(self):
+        return self._request_without_params(GET, CURRENCY_INFO)
+
+    # PiggyBank Purchase/Redemption
+    def purchase_r
