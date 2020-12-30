@@ -23,4 +23,9 @@ class MarketAPI(Client):
         return self._request_with_params(GET, INDEX_TICKERS, params)
 
     # Get Order Book
-    def get_or
+    def get_orderbook(self, instId, sz=''):
+        params = {'instId': instId, 'sz': sz}
+        return self._request_with_params(GET, ORDER_BOOKS, params)
+
+    # Get Candlesticks
+    def get_candlesticks(self, instId, after
