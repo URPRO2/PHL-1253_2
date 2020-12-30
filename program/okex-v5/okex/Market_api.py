@@ -28,4 +28,8 @@ class MarketAPI(Client):
         return self._request_with_params(GET, ORDER_BOOKS, params)
 
     # Get Candlesticks
-    def get_candlesticks(self, instId, after
+    def get_candlesticks(self, instId, after='', before='', bar='', limit=''):
+        params = {'instId': instId, 'after': after, 'before': before, 'bar': bar, 'limit': limit}
+        return self._request_with_params(GET, MARKET_CANDLES, params)
+
+    # GGet Candlestic
