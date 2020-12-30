@@ -18,4 +18,9 @@ class MarketAPI(Client):
         return self._request_with_params(GET, TICKER_INFO, params)
 
     # Get Index Tickers
-    de
+    def get_index_ticker(self, quoteCcy='', instId=''):
+        params = {'quoteCcy': quoteCcy, 'instId': instId}
+        return self._request_with_params(GET, INDEX_TICKERS, params)
+
+    # Get Order Book
+    def get_or
