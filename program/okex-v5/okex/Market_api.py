@@ -32,4 +32,6 @@ class MarketAPI(Client):
         params = {'instId': instId, 'after': after, 'before': before, 'bar': bar, 'limit': limit}
         return self._request_with_params(GET, MARKET_CANDLES, params)
 
-    # GGet Candlestic
+    # GGet Candlesticks History（top currencies only）
+    def get_history_candlesticks(self, instId, after='', before='', bar='', limit=''):
+        params = {'instId': instId, 'after': after, 'before': before, 'bar': bar, 'lim
