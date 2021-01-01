@@ -47,4 +47,7 @@ class MarketAPI(Client):
         params = {'instId': instId, 'after': after, 'before': before, 'bar': bar, 'limit': limit}
         return self._request_with_params(GET, MARKPRICE_CANDLES, params)
 
-    # G
+    # Get Index Candlesticks
+    def get_trades(self, instId, limit=''):
+        params = {'instId': instId, 'limit': limit}
+        return self._request_with_params(GET, MARKET_TRADES, params)
