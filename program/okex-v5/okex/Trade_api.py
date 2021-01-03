@@ -20,4 +20,8 @@ class TradeAPI(Client):
 
     # Cancel Order
     def cancel_order(self, instId, ordId='', clOrdId=''):
-       
+        params = {'instId': instId, 'ordId': ordId, 'clOrdId': clOrdId}
+        return self._request_with_params(POST, CANAEL_ORDER, params)
+
+    # Cancel Multiple Orders
+    def cancel_multiple_orders(self, orders_data):
