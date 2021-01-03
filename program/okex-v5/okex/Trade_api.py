@@ -15,4 +15,9 @@ class TradeAPI(Client):
         return self._request_with_params(POST, PLACR_ORDER, params)
 
     # Place Multiple Orders
-    de
+    def place_multiple_orders(self, orders_data):
+        return self._request_with_params(POST, BATCH_ORDERS, orders_data)
+
+    # Cancel Order
+    def cancel_order(self, instId, ordId='', clOrdId=''):
+       
