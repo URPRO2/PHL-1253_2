@@ -36,4 +36,9 @@ class TradeAPI(Client):
 
     # Amend Multiple Orders
     def amend_multiple_orders(self, orders_data):
-        return self._request_with_params(POST, AMEND_BATCH_ORDER, o
+        return self._request_with_params(POST, AMEND_BATCH_ORDER, orders_data)
+
+    # Close Positions
+    def close_postions(self, instId, mgnMode, posSide='', ccy=''):
+        params = {'instId': instId, 'mgnMode': mgnMode, 'posSide': posSide, 'ccy': ccy}
+        return 
