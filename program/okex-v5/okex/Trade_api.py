@@ -29,4 +29,7 @@ class TradeAPI(Client):
 
     # Amend Order
     def amend_order(self, instId, cxlOnFail='', ordId='', clOrdId='', reqId='', newSz='', newPx=''):
- 
+        params = {'instId': instId, 'cxlOnFailc': cxlOnFail, 'ordId': ordId, 'clOrdId': clOrdId, 'reqId': reqId,
+                  'newSz': newSz,
+                  'newPx': newPx}
+        return s
