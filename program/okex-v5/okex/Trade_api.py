@@ -32,4 +32,8 @@ class TradeAPI(Client):
         params = {'instId': instId, 'cxlOnFailc': cxlOnFail, 'ordId': ordId, 'clOrdId': clOrdId, 'reqId': reqId,
                   'newSz': newSz,
                   'newPx': newPx}
-        return s
+        return self._request_with_params(POST, CANAEL_ORDER, params)
+
+    # Amend Multiple Orders
+    def amend_multiple_orders(self, orders_data):
+        return self._request_with_params(POST, AMEND_BATCH_ORDER, o
