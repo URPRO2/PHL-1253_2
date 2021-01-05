@@ -46,4 +46,7 @@ class TradeAPI(Client):
     # Get Order Details
     def get_orders(self, instId, ordId='', clOrdId=''):
         params = {'instId': instId, 'ordId': ordId, 'clOrdId': clOrdId}
-      
+        return self._request_with_params(GET, ORDER_INFO, params)
+
+    # Get Order List
+    def get_order_list(self, instType='', uly='', instId='', ordType='', state='', after='', 
