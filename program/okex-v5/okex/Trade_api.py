@@ -55,4 +55,7 @@ class TradeAPI(Client):
         return self._request_with_params(GET, ORDERS_PENDING, params)
 
     # Get Order History (last 7 days）
-    def get_orders_history(self, instType, uly='', instId='', ordType='', state='', after='', b
+    def get_orders_history(self, instType, uly='', instId='', ordType='', state='', after='', before='', limit=''):
+        params = {'instType': instType, 'uly': uly, 'instId': instId, 'ordType': ordType, 'state': state,
+                  'after': after, 'before': before, 'limit': limit}
+        r
