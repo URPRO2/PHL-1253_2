@@ -61,4 +61,7 @@ class TradeAPI(Client):
         return self._request_with_params(GET, ORDERS_HISTORY, params)
 
     # Get Order History (last 3 months)
-    def orders_history_archive(self, instType, uly='', instId='', ordType='', state='', after='', 
+    def orders_history_archive(self, instType, uly='', instId='', ordType='', state='', after='', before='', limit=''):
+        params = {'instType': instType, 'uly': uly, 'instId': instId, 'ordType': ordType, 'state': state,
+                  'after': after, 'before': before, 'limit': limit}
+        return self._request_with_params
