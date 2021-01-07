@@ -64,4 +64,8 @@ class TradeAPI(Client):
     def orders_history_archive(self, instType, uly='', instId='', ordType='', state='', after='', before='', limit=''):
         params = {'instType': instType, 'uly': uly, 'instId': instId, 'ordType': ordType, 'state': state,
                   'after': after, 'before': before, 'limit': limit}
-        return self._request_with_params
+        return self._request_with_params(GET, ORDERS_HISTORY_ARCHIVE, params)
+
+    # Get Transaction Details
+    def get_fills(self, instType='', uly='', instId='', ordId='', after='', before='', limit=''):
+        params
