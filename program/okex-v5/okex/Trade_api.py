@@ -70,4 +70,8 @@ class TradeAPI(Client):
     def get_fills(self, instType='', uly='', instId='', ordId='', after='', before='', limit=''):
         params = {'instType': instType, 'uly': uly, 'instId': instId, 'ordId': ordId, 'after': after, 'before': before,
                   'limit': limit}
-        return self._request_with_params(GET, ORDER_FILL
+        return self._request_with_params(GET, ORDER_FILLS, params)
+
+    # Place Algo Order
+    def place_algo_order(self, instId, tdMode, side, ordType, sz, ccy='', posSide='', reduceOnly='', tpTriggerPx='',
+                         tpOrdPx='', s
