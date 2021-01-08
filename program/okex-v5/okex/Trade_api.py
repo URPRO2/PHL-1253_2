@@ -68,4 +68,6 @@ class TradeAPI(Client):
 
     # Get Transaction Details
     def get_fills(self, instType='', uly='', instId='', ordId='', after='', before='', limit=''):
-        params
+        params = {'instType': instType, 'uly': uly, 'instId': instId, 'ordId': ordId, 'after': after, 'before': before,
+                  'limit': limit}
+        return self._request_with_params(GET, ORDER_FILL
