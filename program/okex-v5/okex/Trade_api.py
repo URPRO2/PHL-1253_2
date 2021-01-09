@@ -78,4 +78,11 @@ class TradeAPI(Client):
         params = {'instId': instId, 'tdMode': tdMode, 'side': side, 'ordType': ordType, 'sz': sz, 'ccy': ccy,
                   'posSide': posSide, 'reduceOnly': reduceOnly, 'tpTriggerPx': tpTriggerPx, 'tpOrdPx': tpOrdPx,
                   'slTriggerPx': slTriggerPx, 'slOrdPx': slOrdPx, 'triggerPx': triggerPx, 'orderPx': orderPx}
-        return self._requ
+        return self._request_with_params(POST, PLACE_ALGO_ORDER, params)
+
+    # Cancel Algo Order
+    def cancel_algo_order(self, params):
+        return self._request_with_params(POST, CANCEL_ALGOS, params)
+
+    # Get Algo Order List
+    def
