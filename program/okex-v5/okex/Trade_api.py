@@ -85,4 +85,5 @@ class TradeAPI(Client):
         return self._request_with_params(POST, CANCEL_ALGOS, params)
 
     # Get Algo Order List
-    def
+    def order_algos_list(self, ordType, algoId='', instType='', instId='', after='', before='', limit=''):
+        params = {'ordType': ordType, 'algoId': algoId, 'instType': instType, 'instId': instId, 'aft
