@@ -93,4 +93,5 @@ class TradeAPI(Client):
     # Get Algo Order History
     def order_algos_history(self, ordType, state='', algoId='', instType='', instId='', after='', before='', limit=''):
         params = {'ordType': ordType, 'state': state, 'algoId': algoId, 'instType': instType, 'instId': instId,
-   
+                  'after': after, 'before': before, 'limit': limit}
+        return self._request_with_params(GET, ORDERS_ALGO_HISTORY, params)
