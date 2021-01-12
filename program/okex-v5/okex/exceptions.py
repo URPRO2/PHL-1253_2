@@ -12,4 +12,11 @@ class OkexAPIException(Exception):
             self.message = 'Invalid JSON error message from Okex: {}'.format(response.text)
         else:
             if "code" in json_res.keys() and "msg" in json_res.keys():
-                self
+                self.code = json_res['code']
+                self.message = json_res['msg']
+            else:
+                self.code = 'None'
+                self.message = 'System error'
+
+        self.status_code = response.status_code
+        self.respo
