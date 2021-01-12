@@ -8,4 +8,8 @@ class OkexAPIException(Exception):
         self.code = 0
         try:
             json_res = response.json()
-        except Value
+        except ValueError:
+            self.message = 'Invalid JSON error message from Okex: {}'.format(response.text)
+        else:
+            if "code" in json_res.keys() and "msg" in json_res.keys():
+                self
