@@ -35,4 +35,10 @@ class OkexRequestException(Exception):
         return 'OkexRequestException: %s' % self.message
 
 
-class OkexParamsException(Exce
+class OkexParamsException(Exception):
+
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return 'OkexParamsException: %s' % self.message
