@@ -26,4 +26,13 @@ class OkexAPIException(Exception):
         return 'API Request Error(code=%s): %s' % (self.code, self.message)
 
 
-class 
+class OkexRequestException(Exception):
+
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return 'OkexRequestException: %s' % self.message
+
+
+class OkexParamsException(Exce
