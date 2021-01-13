@@ -19,4 +19,11 @@ class OkexAPIException(Exception):
                 self.message = 'System error'
 
         self.status_code = response.status_code
-        self.respo
+        self.response = response
+        self.request = getattr(response, 'request', None)
+
+    def __str__(self):  # pragma: no cover
+        return 'API Request Error(code=%s): %s' % (self.code, self.message)
+
+
+class 
