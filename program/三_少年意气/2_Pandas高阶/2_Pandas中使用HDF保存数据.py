@@ -11,4 +11,15 @@
 """
 
 import pandas as pd
-import 
+import os
+
+pd.set_option('expand_frame_repr', False)  # 当列太多时显示完整
+
+
+# =====将数据存入hdf文件
+# 批量读取文件名称
+file_list = []
+# 存储csv文件的文件夹路径
+file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
+
+# for root, dirs, files in o
