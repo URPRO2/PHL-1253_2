@@ -27,4 +27,11 @@ file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
 #         if filename.endswith('.csv'):
 #             file_path = os.path.join(root, filename)
 #             file_path = os.path.abspath(file_path)
-#      
+#             file_list.append([filename, file_path])
+
+# 创建hdf文件
+# h5_store = pd.HDFStore('eos_1min_data.h5', mode='w')
+
+# 批量导入并且存储数据
+# for filename, file_path in sorted(file_list):
+#     # BITFINEX_EOSUSD_2017
