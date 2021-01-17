@@ -34,4 +34,7 @@ file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
 
 # 批量导入并且存储数据
 # for filename, file_path in sorted(file_list):
-#     # BITFINEX_EOSUSD_2017
+#     # BITFINEX_EOSUSD_20170701_1T.csv
+#     date = filename.split('_')[2]
+#     print(date, filename, file_path)
+#     df = pd.read_csv(file_path, encoding='gbk', skiprows=1, parse_dates=['candle_begin_time']
