@@ -22,4 +22,9 @@ file_list = []
 # 存储csv文件的文件夹路径
 file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
 
-# for root, dirs, files in o
+# for root, dirs, files in os.walk(file_location):
+#     for filename in files:
+#         if filename.endswith('.csv'):
+#             file_path = os.path.join(root, filename)
+#             file_path = os.path.abspath(file_path)
+#      
