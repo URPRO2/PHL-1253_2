@@ -37,4 +37,17 @@ file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
 #     # BITFINEX_EOSUSD_20170701_1T.csv
 #     date = filename.split('_')[2]
 #     print(date, filename, file_path)
-#     df = pd.read_csv(file_path, encoding='gbk', skiprows=1, parse_dates=['candle_begin_time']
+#     df = pd.read_csv(file_path, encoding='gbk', skiprows=1, parse_dates=['candle_begin_time'])
+#
+#     # 存储数据到hdf
+#     h5_store['eos_' + date] = df.iloc[:100]
+
+# 关闭hdf文件
+# h5_store.close()
+
+# =====读取hdf数据
+# 创建hdf文件
+# h5_store = pd.HDFStore('eos_1min_data.h5', mode='r')
+
+# h5_store中的key
+# print(h5_s
