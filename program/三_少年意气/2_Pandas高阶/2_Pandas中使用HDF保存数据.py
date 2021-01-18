@@ -50,4 +50,11 @@ file_location = r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2'
 # h5_store = pd.HDFStore('eos_1min_data.h5', mode='r')
 
 # h5_store中的key
-# print(h5_s
+# print(h5_store.keys())
+
+# 读取某个key指向的数据
+# print(h5_store.get('eos_20170702'))
+# print(h5_store['eos_20170702'])
+
+# 关闭hdf文件
+# h5_store.close()
