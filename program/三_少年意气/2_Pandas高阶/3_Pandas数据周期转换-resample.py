@@ -65,3 +65,41 @@ print(df.head(20))
 # === 去除不必要的数据
 # 去除一次都没有交易的周期
 # print(period_df)
+# print(df[df['candle_begin_time'] > pd.to_datetime('2017-12-31')])
+# exit()
+# period_df.dropna(subset=['open'], inplace=True)
+# 去除volume为0的交易周期
+# period_df = period_df[period_df['volume'] > 0]
+# print(period_df)
+
+
+# ===rule的取值
+"""
+    B       business day frequency
+    C       custom business day frequency (experimental)
+    D       calendar day frequency
+    W       weekly frequency
+    M       month end frequency
+    SM      semi-month end frequency (15th and end of month)
+    BM      business month end frequency
+    CBM     custom business month end frequency
+    MS      month start frequency
+    SMS     semi-month start frequency (1st and 15th)
+    BMS     business month start frequency
+    CBMS    custom business month start frequency
+    Q       quarter end frequency
+    BQ      business quarter endfrequency
+    QS      quarter start frequency
+    BQS     business quarter start frequency
+    A       year end frequency
+    BA      business year end frequency
+    AS      year start frequency
+    BAS     business year start frequency
+    BH      business hour frequency
+    H       hourly frequency
+    T       minutely frequency
+    S       secondly frequency
+    L       milliseonds
+    U       microseconds
+    N       nanoseconds
+"""
