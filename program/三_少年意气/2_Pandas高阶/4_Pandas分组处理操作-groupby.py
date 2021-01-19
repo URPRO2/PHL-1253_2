@@ -33,4 +33,10 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 
 
 # 获取其中某一个group
-# print(df.
+# print(df.groupby('candle_begin_time').get_group('2018-01-24 00:00:00'))
+# print(df.groupby('symbol').get_group('BTCUSD'))
+
+
+# 其他常见函数
+# print(df.groupby('symbol').describe())  # 只会对数值变量进行describe
+# print(df.groupby('symbol').head(3
