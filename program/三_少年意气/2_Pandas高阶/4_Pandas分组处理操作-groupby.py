@@ -19,4 +19,11 @@ import pandas as pd
 pd.set_option('expand_frame_repr', False)  # 当列太多时显示完整
 
 # =====导入数据
-df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H-data-
+df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H-data-20180124.csv', skiprows=1)
+
+
+# =====groupby常用操作汇总
+# 根据'candle_begin_time'进行group，将相同'交易日期'的行放入一个group，
+# print(df.groupby('candle_begin_time'))  # 生成一个group对象。不会做实质性操作，只是会判断是否可以根据该变量进行groupby
+
+# gr
