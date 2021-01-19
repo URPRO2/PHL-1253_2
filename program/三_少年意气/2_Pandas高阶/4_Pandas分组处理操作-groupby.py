@@ -8,3 +8,15 @@
 # 本节课程内容
 - groupby操作
 - 计算大小
+- 获取指定group
+- 常见函数
+- group内部计算
+- 遍历group
+"""
+
+import pandas as pd
+
+pd.set_option('expand_frame_repr', False)  # 当列太多时显示完整
+
+# =====导入数据
+df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H-data-
