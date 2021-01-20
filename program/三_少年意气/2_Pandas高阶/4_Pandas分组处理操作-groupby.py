@@ -45,4 +45,13 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 # print(df.groupby('symbol').last())
 # print(df.groupby('symbol').nth(2))
 # 将group变量不设置为index
-# print(df.groupb
+# print(df.groupby('symbol', as_index=False).nth(2))
+
+
+# 在group之后，取一部分变量进行计算
+# 计算每个group的均值
+# print(df.groupby('symbol')['close', 'volume'].mean())
+# 计算每个group的最大值
+# print(df.groupby('symbol')['close', 'volume'].max())
+
+# 计算每个group的加总
