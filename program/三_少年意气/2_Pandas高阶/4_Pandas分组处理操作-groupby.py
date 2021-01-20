@@ -39,4 +39,10 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 
 # 其他常见函数
 # print(df.groupby('symbol').describe())  # 只会对数值变量进行describe
-# print(df.groupby('symbol').head(3
+# print(df.groupby('symbol').head(3))
+# print(df.groupby('symbol').tail(3))  # 每个group里面的行顺序，会保留。
+# print(df.groupby('symbol').first())
+# print(df.groupby('symbol').last())
+# print(df.groupby('symbol').nth(2))
+# 将group变量不设置为index
+# print(df.groupb
