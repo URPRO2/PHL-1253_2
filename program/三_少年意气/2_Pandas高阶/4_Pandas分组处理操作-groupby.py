@@ -63,4 +63,7 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 
 
 # 也可以同时用多个变量来进行group，将这些变量的值都相同的行
-# d
+# df['candle_begin_time'] = pd.to_datetime(df['candle_begin_time'])
+# df.loc[df['candle_begin_time'].dt.hour < 12, '时间'] = '上午'
+# df['时间'].fillna(value='下午', inplace=True)
+# print(df.groupby(['symb
