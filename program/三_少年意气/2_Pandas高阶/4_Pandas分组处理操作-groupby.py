@@ -55,3 +55,12 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 # print(df.groupby('symbol')['close', 'volume'].max())
 
 # 计算每个group的加总
+# print(df.groupby('symbol')['volume'].sum())
+
+# 计算该数据在每个group中的排名
+# print(df.groupby('candle_begin_time')['volume'].rank())
+# print(df.groupby('candle_begin_time')['volume'].rank(pct=True))
+
+
+# 也可以同时用多个变量来进行group，将这些变量的值都相同的行
+# d
