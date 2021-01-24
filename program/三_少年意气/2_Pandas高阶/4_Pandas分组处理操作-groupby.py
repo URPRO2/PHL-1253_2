@@ -66,4 +66,12 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 # df['candle_begin_time'] = pd.to_datetime(df['candle_begin_time'])
 # df.loc[df['candle_begin_time'].dt.hour < 12, '时间'] = '上午'
 # df['时间'].fillna(value='下午', inplace=True)
-# print(df.groupby(['symb
+# print(df.groupby(['symbol', '时间']).size())
+
+
+# 我们之前讲过的resample、fillna、apply等常见操作，在group里面都可以进行。
+# 这些操作需要大家有一定的积累，若直接在group上进行这些操作不熟练，可以使用已下的方式。
+
+
+# 遍历group，对每个group进行单独操作，然后将这些group合并起来。
+# 语法：for key, group in df.groupby
