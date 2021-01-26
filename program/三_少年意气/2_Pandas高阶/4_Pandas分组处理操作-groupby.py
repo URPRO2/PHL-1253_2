@@ -74,4 +74,14 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 
 
 # 遍历group，对每个group进行单独操作，然后将这些group合并起来。
-# 语法：for key, group in df.groupby
+# 语法：for key, group in df.groupby('列名'):
+
+# for symbol, group in df.groupby('symbol'):
+#     print(symbol)
+#     print(group)
+#
+#     # 以下可以对各个group进行任意操作。
+#     # group.fillna()
+#     # group.apply()
+#
+#     # 操作完之后，将这
