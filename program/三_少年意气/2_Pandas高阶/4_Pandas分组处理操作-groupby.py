@@ -84,4 +84,6 @@ df = pd.read_csv(r'C:\Users\Simons\Desktop\xbx_coin_2020\data\cls-3.2BITFINEX-1H
 #     # group.fillna()
 #     # group.apply()
 #
-#     # 操作完之后，将这
+#     # 操作完之后，将这些group再append起来
+
+# 在一开始不熟练的时候，可以多用遍历每个group的方式
