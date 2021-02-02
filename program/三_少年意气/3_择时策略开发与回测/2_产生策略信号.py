@@ -14,4 +14,9 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
 # =====读入数据
 symbol = 'BTC-USDT_5m'
-df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币
+df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/%s.h5' % symbol, key='df')
+
+# 任何原始数据读入都进行一下排序、去重，以防万一
+df.sort_values(by=['candle_begin_time'], inplace=True)
+df.drop_duplicates(subset=['candle_begin_time'], inplace=True)
+df.
