@@ -19,4 +19,12 @@ df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数
 # 任何原始数据读入都进行一下排序、去重，以防万一
 df.sort_values(by=['candle_begin_time'], inplace=True)
 df.drop_duplicates(subset=['candle_begin_time'], inplace=True)
-df.
+df.reset_index(inplace=True, drop=True)
+
+
+# =====转换为其他分钟数据
+rule_type = '15T'
+period_df = df.resample(rule=rule_type, on='candle_begin_time', label='left', closed='left').agg(
+    {'open': 'first',
+     'high': 'max',
+     'low
