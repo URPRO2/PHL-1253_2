@@ -37,4 +37,13 @@ period_df = period_df[period_df['volume'] > 0]  # 去除成交量为0的交易�
 period_df.reset_index(inplace=True)
 df = period_df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume']]
 df = df[df['candle_begin_time'] >= pd.to_datetime('2017-01-01')]
-df.reset_index(inplace=T
+df.reset_index(inplace=True, drop=True)
+
+
+# =====产生交易信号：布林线策略
+# 布林线策略
+# 布林线中轨：n天收盘价的移动平均线
+# 布林线上轨：n天收盘价的移动平均线 + m * n天收盘价的标准差
+# 布林线上轨：n天收盘价的移动平均线 - m * n天收盘价的标准差
+# 当收盘价由下向上穿过上轨的时候，做多；然后由上向下穿过中轨的时候，平仓。
+# 当收盘价由上向下穿过下轨的时候，
