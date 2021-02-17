@@ -46,4 +46,14 @@ df.reset_index(inplace=True, drop=True)
 # 布林线上轨：n天收盘价的移动平均线 + m * n天收盘价的标准差
 # 布林线上轨：n天收盘价的移动平均线 - m * n天收盘价的标准差
 # 当收盘价由下向上穿过上轨的时候，做多；然后由上向下穿过中轨的时候，平仓。
-# 当收盘价由上向下穿过下轨的时候，
+# 当收盘价由上向下穿过下轨的时候，做空；然后由下向上穿过中轨的时候，平仓。
+
+# ==计算指标
+n = 400
+m = 2
+# 计算均线
+df['median'] = df['close'].rolling(n, min_periods=1).mean()
+
+# 计算上轨、下轨道
+df['std'] = df['close'].rolling(n, min_periods=1).std(ddof=0)  # ddof代表标准差自由度
+d
