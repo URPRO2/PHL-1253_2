@@ -82,4 +82,10 @@ condition2 = df['close'].shift(1) <= df['median'].shift(1)  # 之前K线的收�
 df.loc[condition1 & condition2, 'signal_short'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
 
 # 合并做多做空信号，去除重复信号
-df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1, min_count=
+df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1, min_count=1, skipna=True)
+temp = df[df['signal'].notnull()][['signal']]
+temp = temp[temp['signal'] != temp['signal'].shift(1)]
+df['signal'] = temp['signal']
+
+# ==删除无关变量
+df.drop(['median', 'std', 'upper', 'lower', 'signal_long', 'signal_short'], 
