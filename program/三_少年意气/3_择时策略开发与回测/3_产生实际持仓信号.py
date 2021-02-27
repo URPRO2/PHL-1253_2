@@ -10,4 +10,13 @@
 """
 import pandas as pd
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
-pd.set
+pd.set_option('display.max_rows', 5000)  # 最多显示数据的行数
+
+
+# ===导入数据
+df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/signals.h5', key='df')
+
+
+# ===由signal计算出实际的每天持有仓位
+# 在产生signal的k线结束的时候，进行买入
+df['
