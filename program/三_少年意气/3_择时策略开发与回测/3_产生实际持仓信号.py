@@ -22,4 +22,11 @@ df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数
 df['signal'].fillna(method='ffill', inplace=True)
 df['signal'].fillna(value=0, inplace=True)  # 将初始行数的signal补全为0
 df['pos'] = df['signal'].shift()
-df['pos'].fillna(value=0, inplace=True)  # 将初始行数
+df['pos'].fillna(value=0, inplace=True)  # 将初始行数的pos补全为0
+
+
+# ===对无法买卖的时候做出相关处理
+# 例如：下午4点清算，无法交易；股票、期货当天涨跌停的时候无法买入；股票的t+1交易制度等等。
+# 当前周期持仓无法变动的K线
+condition = (df['candle_begin_time'].dt.hour == 16) & (df['candle_begin_time'].dt.minute == 0)
+df.loc[condition, 'pos'] = Non
