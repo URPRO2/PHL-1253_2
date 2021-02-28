@@ -19,4 +19,7 @@ df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数
 
 # ===由signal计算出实际的每天持有仓位
 # 在产生signal的k线结束的时候，进行买入
-df['
+df['signal'].fillna(method='ffill', inplace=True)
+df['signal'].fillna(value=0, inplace=True)  # 将初始行数的signal补全为0
+df['pos'] = df['signal'].shift()
+df['pos'].fillna(value=0, inplace=True)  # 将初始行数
