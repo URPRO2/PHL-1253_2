@@ -29,4 +29,13 @@ df['pos'].fillna(value=0, inplace=True)  # 将初始行数的pos补全为0
 # 例如：下午4点清算，无法交易；股票、期货当天涨跌停的时候无法买入；股票的t+1交易制度等等。
 # 当前周期持仓无法变动的K线
 condition = (df['candle_begin_time'].dt.hour == 16) & (df['candle_begin_time'].dt.minute == 0)
-df.loc[condition, 'pos'] = Non
+df.loc[condition, 'pos'] = None
+
+# pos为空的时，不能买卖，只能和前一周期保持一致。
+df['pos'].fillna(method='ffill', inplace=True)
+
+
+# ===将数据存入hdf文件中
+# 删除无关中间变量
+df.drop(['signal'], axis=1, inplace=True)
+df.to_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/pos.h5', key='df',
