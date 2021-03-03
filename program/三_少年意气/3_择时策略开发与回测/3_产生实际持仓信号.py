@@ -38,4 +38,5 @@ df['pos'].fillna(method='ffill', inplace=True)
 # ===将数据存入hdf文件中
 # 删除无关中间变量
 df.drop(['signal'], axis=1, inplace=True)
-df.to_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/pos.h5', key='df',
+df.to_hdf('/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/pos.h5', key='df', mode='w')
+
