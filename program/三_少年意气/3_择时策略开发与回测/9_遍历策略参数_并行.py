@@ -6,4 +6,13 @@
 本程序作者: 邢不行
 
 # 课程内容
-并行遍历参数，查看每个
+并行遍历参数，查看每个参数的结果
+"""
+import pandas as pd
+from datetime import timedelta
+from multiprocessing.pool import Pool
+from datetime import datetime
+from Signals import *
+from Position import *
+from Evaluate import *
+pd.set_option('expand_frame_re
