@@ -15,4 +15,13 @@ from datetime import datetime
 from Signals import *
 from Position import *
 from Evaluate import *
-pd.set_option('expand_frame_re
+pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+
+
+# =====参数设定
+# 手工设定策略参数
+symbol = 'BTC-USDT_5m'
+
+face_value = 0.01  # btc是0.01，不同的币种要进行不同的替换
+c_rate = 5 / 10000  # 手续费，commission fees，默认为万分之5。不同市场手续费的收取方法不同，对结果有影响。比如和股票就不一样。
+slippage = 1 / 
