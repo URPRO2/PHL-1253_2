@@ -24,4 +24,12 @@ symbol = 'BTC-USDT_5m'
 
 face_value = 0.01  # btc是0.01，不同的币种要进行不同的替换
 c_rate = 5 / 10000  # 手续费，commission fees，默认为万分之5。不同市场手续费的收取方法不同，对结果有影响。比如和股票就不一样。
-slippage = 1 / 
+slippage = 1 / 1000  # 滑点 ，可以用百分比，也可以用固定值。建议币圈用百分比，股票用固定值
+leverage_rate = 3
+min_margin_ratio = 1 / 100  # 最低保证金率，低于就会爆仓
+rule_type = '15T'
+drop_days = 10  # 币种刚刚上线10天内不交易
+
+
+# =====读入数据
+df = pd.read_hdf('/Users/xingbuxingx/Desktop/数字
