@@ -43,4 +43,11 @@ df.reset_index(inplace=True, drop=True)
 rule_type = '15T'
 period_df = df.resample(rule=rule_type, on='candle_begin_time', label='left', closed='left').agg(
     {'open': 'first',
-     'hig
+     'high': 'max',
+     'low': 'min',
+     'close': 'last',
+     'volume': 'sum',
+     'quote_volume': 'sum',
+     })
+period_df.dropna(subset=['open'], inplace=True)  # 去除一天都没有交易的周期
+period_df = period_df[period_d
