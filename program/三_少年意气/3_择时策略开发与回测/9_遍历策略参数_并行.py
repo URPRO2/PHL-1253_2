@@ -65,4 +65,10 @@ para_list = signal_simple_bolling_para_list()
 def calculate_by_one_loop(para):
     _df = df.copy()
     # 计算交易信号
-    _df = si
+    _df = signal_simple_bolling(_df, para=para)
+    # 计算实际持仓
+    _df = position_for_OKEx_future(_df)
+    # 计算资金曲线
+    # 选取相关时间。币种上线10天之后的日期
+    t = _df.iloc[0]['candle_begin_time'] + timedelta(days=drop_days)
+    _df = _df[_df['candle_begin_time'] > 
