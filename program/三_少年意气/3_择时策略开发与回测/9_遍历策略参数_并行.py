@@ -71,4 +71,7 @@ def calculate_by_one_loop(para):
     # 计算资金曲线
     # 选取相关时间。币种上线10天之后的日期
     t = _df.iloc[0]['candle_begin_time'] + timedelta(days=drop_days)
-    _df = _df[_df['candle_begin_time'] > 
+    _df = _df[_df['candle_begin_time'] > t]
+    # 计算资金曲线
+    _df = equity_curve_for_OKEx_USDT_future_next_open(_df, slippage=slippage, c_rate=c_rate, leverage_rate=leverage_rate,
+                                                      face_value=face_value, mi
