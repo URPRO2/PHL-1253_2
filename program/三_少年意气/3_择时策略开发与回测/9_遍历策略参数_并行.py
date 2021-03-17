@@ -74,4 +74,10 @@ def calculate_by_one_loop(para):
     _df = _df[_df['candle_begin_time'] > t]
     # 计算资金曲线
     _df = equity_curve_for_OKEx_USDT_future_next_open(_df, slippage=slippage, c_rate=c_rate, leverage_rate=leverage_rate,
-                                                      face_value=face_value, mi
+                                                      face_value=face_value, min_margin_ratio=min_margin_ratio)
+    # 计算收益
+    rtn = pd.DataFrame()
+    rtn.loc[0, 'para'] = str(para)
+    r = _df.iloc[-1]['equity_curve']
+    rtn.loc[0, 'equity_curve'] = r
+    print(para, '策略最终收益：', r)
