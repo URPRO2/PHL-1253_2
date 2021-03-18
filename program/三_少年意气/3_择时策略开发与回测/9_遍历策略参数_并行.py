@@ -88,4 +88,11 @@ def calculate_by_one_loop(para):
 start_time = datetime.now()  # 标记开始时间
 with Pool(processes=2) as pool:  # or whatever your hardware can support
     # 使用并行批量获得data frame的一个列表
-    df_list = pool.map(calculate_b
+    df_list = pool.map(calculate_by_one_loop, para_list)
+    print('读入完成, 开始合并', datetime.now() - start_time)
+    # 合并为一个大的DataFrame
+    para_curve_df = pd.concat(df_list, ignore_index=True)
+
+
+# =====输出
+para_curve_df.sort_values(by='equity_curve', ascend
