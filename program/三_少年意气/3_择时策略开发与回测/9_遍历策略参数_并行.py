@@ -81,3 +81,11 @@ def calculate_by_one_loop(para):
     r = _df.iloc[-1]['equity_curve']
     rtn.loc[0, 'equity_curve'] = r
     print(para, '策略最终收益：', r)
+    return rtn
+
+
+# =====并行提速
+start_time = datetime.now()  # 标记开始时间
+with Pool(processes=2) as pool:  # or whatever your hardware can support
+    # 使用并行批量获得data frame的一个列表
+    df_list = pool.map(calculate_b
