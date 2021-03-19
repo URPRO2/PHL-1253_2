@@ -95,4 +95,5 @@ with Pool(processes=2) as pool:  # or whatever your hardware can support
 
 
 # =====输出
-para_curve_df.sort_values(by='equity_curve', ascend
+para_curve_df.sort_values(by='equity_curve', ascending=False, inplace=True)
+print(para_curve_df)
