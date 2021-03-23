@@ -23,4 +23,9 @@ def position_for_OKEx_future(df):
     # ===由signal计算出实际的每天持有仓位
     # 在产生signal的k线结束的时候，进行买入
     df['signal'].fillna(method='ffill', inplace=True)
-    df['signal'].fillna(value=0, in
+    df['signal'].fillna(value=0, inplace=True)  # 将初始行数的signal补全为0
+    df['pos'] = df['signal'].shift()
+    df['pos'].fillna(value=0, inplace=True)  # 将初始行数的pos补全为0
+
+    # ===对无法买卖的时候做出相关处理
+    # 例如：下午4点清算，无法交易；股票、期货当天涨跌停的时候无法买入；股票的t+1交易制度
