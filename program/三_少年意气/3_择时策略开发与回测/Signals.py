@@ -206,3 +206,41 @@ def signal_adp2boll_v2(df, para=[200]):
     condition1 = df['close'] < df['up']  # 当前K线的收盘价 < 子布林带上轨
     condition2 = df['close'].shift(1) >= df['up'].shift(1)  # 之前K线的收盘价 >= 子布林带上轨
     df.loc[condition1 & condition2, 'signal_long'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
+
+    # 找出做空信号
+    condition1 = df['close'] < df['lower']  # 当前K线的收盘价 < 母布林带下轨
+    condition2 = df['close'].shift(1) >= df['lower'].shift(1)  # 之前K线的收盘价 >= 母布林带下轨
+    df.loc[condition1 & condition2, 'signal_short'] = -1  # 将产生做空信号的那根K线的signal设置为-1，-1代表做空
+
+    # 找出做空平仓信号
+    condition1 = df['close'] > df['dn']  # 当前K线的收盘价 > 子布林带下轨
+    condition2 = df['close'].shift(1) <= df['dn'].shift(1)  # 之前K线的收盘价 <= 子布林带下轨
+    df.loc[condition1 & condition2, 'signal_short'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
+
+    # 合并做多做空信号，去除重复信号
+    df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1, min_count=1,
+                                                           skipna=True)  # 若你的pandas版本是最新的，请使用本行代码代替上面一行
+    temp = df[df['signal'].notnull()][['signal']]
+    temp = temp[temp['signal'] != temp['signal'].shift(1)]
+    df['signal'] = temp['signal']
+
+    # ===删除无关变量
+    # df.drop(['median', 'std', 'upper', 'lower', 'signal_long', 'signal_short'], axis=1, inplace=True)
+    df.drop(['std', 'signal_long', 'signal_short', 'z_score', 'm1', 'm1'], axis=1, inplace=True)
+
+    return df
+
+def signal_adp2boll_v2_para_list(n_list=range(20, 1500+20, 5)):
+    """
+    :param n_list:
+    :return:
+    """
+    print('参数遍历范围：')
+    print('n_list', list(n_list))
+
+    para_list = []
+    for n in n_list:
+        para = [n]
+        para_list.append(para)
+
+    return para_list
