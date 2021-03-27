@@ -8,4 +8,11 @@
 # 课程内容
 介绍如何批量导入一个文件夹中的所有数据
 """
-import pand
+import pandas as pd
+import glob
+pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+
+
+# 获取数据的路径
+path = r'C:\Users\jan\Documents\GitHub\coin2021\data\spot'  # 改成电脑本地的地址
+path_list = glob.glob(path + "/*/*.csv")  # python自带的库，获得某
