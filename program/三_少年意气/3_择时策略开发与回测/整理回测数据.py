@@ -25,4 +25,10 @@ path_list = list(filter(lambda x: symbol in x, path_list))
 df_list = []
 for path in sorted(path_list):
     print(path)
-    df = pd.read_csv(path, 
+    df = pd.read_csv(path, header=1, encoding="GBK", parse_dates=['candle_begin_time'])
+    df = df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume']]
+    df_list.append(df)
+    print(df.head(5))
+
+# 整理完整数据
+data = pd.concat(d
