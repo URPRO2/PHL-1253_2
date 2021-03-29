@@ -31,4 +31,9 @@ for path in sorted(path_list):
     print(df.head(5))
 
 # 整理完整数据
-data = pd.concat(d
+data = pd.concat(df_list, ignore_index=True)
+data.sort_values(by='candle_begin_time', inplace=False)
+data.reset_index(drop=False, inplace=False)
+
+# 导出完整数据
+data.to_hdf(r'C:\Users\jan\Documents\GitHub\coin2021\data\%s.h5' % symb
