@@ -36,4 +36,6 @@ data.sort_values(by='candle_begin_time', inplace=False)
 data.reset_index(drop=False, inplace=False)
 
 # 导出完整数据
-data.to_hdf(r'C:\Users\jan\Documents\GitHub\coin2021\data\%s.h5' % symb
+data.to_hdf(r'C:\Users\jan\Documents\GitHub\coin2021\data\%s.h5' % symbol, key='df', mode='w')
+print(data)
+
