@@ -32,4 +32,15 @@ okex_order_state = {
 coin_value_table = {
     "btc-usdt": 0.01,
     "eos-usdt": 10,
- 
+    "eth-usdt": 0.1,
+    "ltc-usdt": 1,
+    "bch-usdt": 0.1,
+    "xrp-usdt": 100,
+    "etc-usdt": 10,
+    "bsv-usdt": 1,
+    "trx-usdt": 1000}
+
+
+# sleep时间配置
+short_sleep_time = 1  # 用于和交易所交互时比较紧急的时间sleep，例如获取数据、下单
+medi
