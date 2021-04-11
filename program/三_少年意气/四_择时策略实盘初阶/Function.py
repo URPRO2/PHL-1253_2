@@ -23,3 +23,15 @@ from urllib import parse
 from multiprocessing import Pool
 from functools import partial
 from program.三_少年意气.四_择时策略实盘初阶.Config import *
+from program.三_少年意气.四_择时策略实盘初阶.Signals import *
+
+
+# =====okex交互函数
+# ===通过ccxt、交易所接口获取合约账户信息
+def ccxt_fetch_future_account(exchange, max_try_amount=5):
+    """
+    :param exchange:
+    :param max_try_amount:
+    :return:
+
+ 
