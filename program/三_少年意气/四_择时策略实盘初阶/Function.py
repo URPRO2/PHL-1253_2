@@ -34,4 +34,11 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
     :param max_try_amount:
     :return:
 
- 
+    本程序使用okex3中“交割合约API”、“所有币种合约账户信息”接口，获取合约账户所有币种的账户信息。
+    使用ccxt函数：exchange.futures_get_accounts()
+    请求此接口，okex服务器会在其数据库中遍历所有币对下的账户数据，有大量的性能消耗，请求频率较低，时间较长。
+
+    接口返回数据格式样例：
+    {'info':
+    {
+    'eth-usdt': {
