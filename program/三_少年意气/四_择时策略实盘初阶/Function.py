@@ -46,4 +46,11 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
     'eos': {'can_withdraw': '6.49953151', 'currency': 'EOS', 'equity': '7.22172698', 'liqui_fee_rate': '0.0005', 'liqui_mode': 'tier', 'maint_margin_ratio': '0.01', 'margin': '0.72219547', 'margin_for_unfilled': '0', 'margin_frozen': '0.72219547', 'margin_mode': 'crossed', 'margin_ratio': '0.99996847', 'realized_pnl': '0', 'total_avail_balance': '7.29194531', 'underlying': 'EOS-USD', 'unrealized_pnl': '-0.07021833'},
     'eos-usdt': {'auto_margin': '0', 'can_withdraw': '9.91366074', 'contracts': [{'available_qty': '9.91366074', 'fixed_balance': '0.0827228', 'instrument_id': 'EOS-USDT-200327', 'margin_for_unfilled': '0', 'margin_frozen': '0.08167', 'realized_pnl': '-0.0010528', 'unrealized_pnl': '-0.0006'}], 'currency': 'USDT', 'equity': '9.99473074', 'liqui_mode': 'tier', 'margin_mode': 'fixed', 'total_avail_balance': '9.91366074'},
     返回结果说明：
-    eth-usdt为usdt本位合
+    eth-usdt为usdt本位合约有持仓时返回的结果
+    ltc-usdt为usdt本位合约没有持仓，但是账户有usdt时返回的结果
+    eos-usdt为usdt本位合约同时有多、空持仓时返回的结果
+    eos为币本位合约有持仓时返回的结果
+
+    本函数输出示例：
+
+         auto_margin can_withdraw                                          contracts currency 
