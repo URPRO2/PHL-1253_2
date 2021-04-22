@@ -53,4 +53,5 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
 
     本函数输出示例：
 
-         auto_margin can_withdraw                                          contracts currency 
+         auto_margin can_withdraw                                          contracts currency       equity liqui_fee_rate liqui_mode maint_margin_ratio      margin margin_for_unfilled margin_frozen margin_mode margin_ratio realized_pnl total_avail_balance underlying unrealized_pnl
+    eth
