@@ -60,4 +60,9 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
     eos-usdt           0   9.91366074  [{'available_qty': '9.91366074', 'fixed_balanc...     USDT   9.99473074            NaN       tier                NaN         NaN                 NaN           NaN       fixed          NaN          NaN          9.91366074        NaN            NaN
     btc-usdt         NaN  57.07262111                                                NaN     USDT  57.07262111         0.0005       tier              0.005           0                   0             0     crossed        10000            0         57.07262111   BTC-USDT              0
     """
-    for 
+    for _ in range(max_try_amount):
+        try:
+            future_info = exchange.futures_get_accounts()['info']
+            df = pd.DataFrame(future_info, dtype=float).T  # 将数据转化为df格式
+            return df
+        e
