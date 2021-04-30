@@ -69,4 +69,14 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
             print('通过ccxt的通过futures_get_accounts获取所有合约账户信息，失败，稍后重试：\n', e)
             time.sleep(medium_sleep_time)
 
-    _ = '通过ccxt的通过futures_get_accounts获
+    _ = '通过ccxt的通过futures_get_accounts获取所有合约账户信息，失败次数过多，程序Raise Error'
+    send_dingding_and_raise_error(_)
+
+
+# ===通过ccxt、交易所接口获取合约账户持仓信息
+def ccxt_fetch_future_position(exchange, max_try_amount=5):
+    """
+    :param exchange:
+    :param max_try_amount:
+    :return:
+    本
