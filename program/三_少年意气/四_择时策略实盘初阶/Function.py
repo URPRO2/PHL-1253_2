@@ -65,4 +65,8 @@ def ccxt_fetch_future_account(exchange, max_try_amount=5):
             future_info = exchange.futures_get_accounts()['info']
             df = pd.DataFrame(future_info, dtype=float).T  # 将数据转化为df格式
             return df
-        e
+        except Exception as e:
+            print('通过ccxt的通过futures_get_accounts获取所有合约账户信息，失败，稍后重试：\n', e)
+            time.sleep(medium_sleep_time)
+
+    _ = '通过ccxt的通过futures_get_accounts获
