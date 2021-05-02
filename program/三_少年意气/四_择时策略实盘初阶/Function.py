@@ -84,4 +84,5 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
     请求此接口，okex服务器会在其数据库中遍历所有币对下的持仓数据，有大量的性能消耗，请求频率较低，时间较长。
 
     接口返回数据格式样例：
-    {'result': True, 'holdi
+    {'result': True, 'holding':
+    [[{'long_qty': '1', 'long_avail_qty': '1', 'long_margin': '0.027094', 'long_liqui_price': '241.07', 'long_pnl_ratio': '-0.0636223', 'long_avg_cost': '265.63', 'long_settlement_price': '265.63', 'realised
