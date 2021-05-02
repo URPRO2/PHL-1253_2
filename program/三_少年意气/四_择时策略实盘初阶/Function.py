@@ -79,4 +79,9 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
     :param exchange:
     :param max_try_amount:
     :return:
-    本
+    本程序使用okex3中“交割合约API”、“所有合约持仓信息”接口，获取合约账户所有合约的持仓信息。
+    使用ccxt函数：exchange.futures_get_position()
+    请求此接口，okex服务器会在其数据库中遍历所有币对下的持仓数据，有大量的性能消耗，请求频率较低，时间较长。
+
+    接口返回数据格式样例：
+    {'result': True, 'holdi
