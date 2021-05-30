@@ -103,4 +103,8 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
     for _ in range(max_try_amount):
         try:
             # 获取数据
+            position_info = exchange.futures_get_position()['holding']
+            # 整理数据
+            df = pd.DataFrame(sum(position_info, []), dtype=float)
+            # 防止账户初始化时出错
     
