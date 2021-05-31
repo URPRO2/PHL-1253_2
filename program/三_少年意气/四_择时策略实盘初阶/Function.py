@@ -107,4 +107,7 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
             # 整理数据
             df = pd.DataFrame(sum(position_info, []), dtype=float)
             # 防止账户初始化时出错
-    
+            if "instrument_id" in df.columns:
+                df['index'] = df['instrument_id'].str[:-7].str.lower()
+                df.set_index(keys='index', inplace=True)
+                df.index.name 
