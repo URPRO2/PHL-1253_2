@@ -110,4 +110,10 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
             if "instrument_id" in df.columns:
                 df['index'] = df['instrument_id'].str[:-7].str.lower()
                 df.set_index(keys='index', inplace=True)
-                df.index.name 
+                df.index.name = None
+            return df
+        except Exception as e:
+            print('通过ccxt的通过futures_get_position获取所有合约的持仓信息，失败，稍后重试。失败原因：\n', e)
+            time.sleep(medium_sleep_time)
+
+    _ = '通过ccxt的通过future
