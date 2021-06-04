@@ -116,4 +116,11 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
             print('通过ccxt的通过futures_get_position获取所有合约的持仓信息，失败，稍后重试。失败原因：\n', e)
             time.sleep(medium_sleep_time)
 
-    _ = '通过ccxt的通过future
+    _ = '通过ccxt的通过futures_get_position获取所有合约的持仓信息，失败次数过多，程序Raise Error'
+    send_dingding_and_raise_error(_)
+
+
+# ===通过ccxt获取K线数据
+def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amount=5):
+    """
+    本程序使用ccxt的fetch_ohlcv()函数，获取
