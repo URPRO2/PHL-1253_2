@@ -123,4 +123,14 @@ def ccxt_fetch_future_position(exchange, max_try_amount=5):
 # ===通过ccxt获取K线数据
 def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amount=5):
     """
-    本程序使用ccxt的fetch_ohlcv()函数，获取
+    本程序使用ccxt的fetch_ohlcv()函数，获取最新的K线数据，用于实盘
+    :param exchange:
+    :param symbol:
+    :param time_interval:
+    :param limit:
+    :param max_try_amount:
+    :return:
+    """
+    for _ in range(max_try_amount):
+        try:
+      
