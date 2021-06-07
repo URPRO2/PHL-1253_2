@@ -137,4 +137,7 @@ def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amoun
             data = exchange.fetch_ohlcv(symbol=symbol, timeframe=time_interval, limit=limit)
             # 整理数据
             df = pd.DataFrame(data, dtype=float)
-            df.rename(c
+            df.rename(columns={0: 'MTS', 1: 'open', 2: 'high',
+                               3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
+            df['candle_begin_time'] = pd.to_datetime(df['MTS'], unit='ms')
+         
