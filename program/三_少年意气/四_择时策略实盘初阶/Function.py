@@ -133,4 +133,8 @@ def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amoun
     """
     for _ in range(max_try_amount):
         try:
-      
+            # 获取数据
+            data = exchange.fetch_ohlcv(symbol=symbol, timeframe=time_interval, limit=limit)
+            # 整理数据
+            df = pd.DataFrame(data, dtype=float)
+            df.rename(c
