@@ -143,3 +143,9 @@ def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amoun
             df['candle_begin_time_GMT8'] = df['candle_begin_time'] + timedelta(hours=8)
             df = df[['candle_begin_time_GMT8', 'open', 'high', 'low', 'close', 'volume']]
             return df
+        except Exception as e:
+            print('获取fetch_ohlcv获取合约K线数据，失败，稍后重试。失败原因：\n', e)
+            time.sleep(short_sleep_time)
+
+    _ = '获取fetch_ohlcv合约K线数据，失败次数过多，程序Raise Error'
+    send_dingd
