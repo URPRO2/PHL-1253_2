@@ -148,4 +148,10 @@ def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amoun
             time.sleep(short_sleep_time)
 
     _ = '获取fetch_ohlcv合约K线数据，失败次数过多，程序Raise Error'
-    send_dingd
+    send_dingding_and_raise_error(_)
+
+
+# ===获取指定账户，例如btcusdt合约，目前的现金余额。
+def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
+    """
+    使用okex私有函数，GET/api/futures/v3/accou
