@@ -154,4 +154,10 @@ def ccxt_fetch_candle_data(exchange, symbol, time_interval, limit, max_try_amoun
 # ===获取指定账户，例如btcusdt合约，目前的现金余额。
 def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
     """
-    使用okex私有函数，GET/api/futures/v3/accou
+    使用okex私有函数，GET/api/futures/v3/accounts/<underlying>，获取指定币种的账户现金余额。
+    :param exchange:
+    :param underlying:  例如btc-usd，btc-usdt
+    :param max_try_amount:
+    :return:
+    """
+    for _ in range(m
