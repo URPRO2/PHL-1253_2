@@ -160,4 +160,9 @@ def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
     :param max_try_amount:
     :return:
     """
-    for _ in range(m
+    for _ in range(max_try_amount):
+        try:
+            result = exchange.futures_get_accounts_underlying(params={"underlying": symbol.lower()})
+            return float(result['equity'])
+        except Exception as e:
+          
