@@ -165,4 +165,12 @@ def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
             result = exchange.futures_get_accounts_underlying(params={"underlying": symbol.lower()})
             return float(result['equity'])
         except Exception as e:
-          
+            print(e)
+            print('ccxt_update_account_equity函数获取账户可用余额失败，稍后重试')
+            time.sleep(short_sleep_time)
+            pass
+
+
+# =====趋势策略相关函数
+# 根据账户信息、持仓信息，更新symbol_info
+def update_symbo
