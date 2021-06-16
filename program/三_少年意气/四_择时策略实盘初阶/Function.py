@@ -173,4 +173,10 @@ def ccxt_update_account_equity(exchange, symbol, max_try_amount=5):
 
 # =====趋势策略相关函数
 # 根据账户信息、持仓信息，更新symbol_info
-def update_symbo
+def update_symbol_info(exchange, symbol_info, symbol_config):
+    """
+    本函数通过ccxt_fetch_future_account()获取合约账户信息，ccxt_fetch_future_position()获取合约账户持仓信息，并用这些信息更新symbol_config
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :re
