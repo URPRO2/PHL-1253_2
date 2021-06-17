@@ -179,4 +179,11 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
     :param exchange:
     :param symbol_info:
     :param symbol_config:
-    :re
+    :return:
+    """
+
+    # 通过交易所接口获取合约账户信息
+    future_account = ccxt_fetch_future_account(exchange)
+    # 将账户信息和symbol_info合并
+    if future_account.empty is False:
+        symbol_info['账户权益'] = future_account['eq
