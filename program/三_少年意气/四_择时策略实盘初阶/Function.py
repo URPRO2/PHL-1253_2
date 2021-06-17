@@ -186,4 +186,10 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
     future_account = ccxt_fetch_future_account(exchange)
     # 将账户信息和symbol_info合并
     if future_account.empty is False:
-        symbol_info['账户权益'] = future_account['eq
+        symbol_info['账户权益'] = future_account['equity']
+
+    # 通过交易所接口获取合约账户持仓信息
+    future_position = ccxt_fetch_future_position(exchange)
+    # 将持仓信息和symbol_info合并
+    if future_position.empty is False:
+        # 去除无关持仓：账户中可能存在其他合约的持仓信息，这些合约不在symbo
