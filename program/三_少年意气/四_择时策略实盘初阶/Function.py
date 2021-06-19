@@ -192,4 +192,8 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
     future_position = ccxt_fetch_future_position(exchange)
     # 将持仓信息和symbol_info合并
     if future_position.empty is False:
-        # 去除无关持仓：账户中可能存在其他合约的持仓信息，这些合约不在symbo
+        # 去除无关持仓：账户中可能存在其他合约的持仓信息，这些合约不在symbol_config中，将其删除。
+        instrument_id_list = [symbol_config[x]['instrument_id'] for x in symbol_config.keys()]
+        future_position = future_position[future_position.instrument_id.isin(instrument_id_list)]
+
+        # 从future_position中获
