@@ -196,4 +196,9 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         instrument_id_list = [symbol_config[x]['instrument_id'] for x in symbol_config.keys()]
         future_position = future_position[future_position.instrument_id.isin(instrument_id_list)]
 
-        # 从future_position中获
+        # 从future_position中获取原始数据
+        symbol_info['最大杠杆'] = future_position['leverage']
+        symbol_info['当前价格'] = future_position['last']
+
+        symbol_info['多头持仓量'] = future_position['long_qty']
+        symbol_info['多头
