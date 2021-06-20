@@ -201,4 +201,8 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         symbol_info['当前价格'] = future_position['last']
 
         symbol_info['多头持仓量'] = future_position['long_qty']
-        symbol_info['多头
+        symbol_info['多头均价'] = future_position['long_avg_cost']
+        symbol_info['多头收益率'] = future_position['long_pnl_ratio']
+        symbol_info['多头收益'] = future_position['long_pnl']
+
+        symbol_info['空头持仓量'] =
