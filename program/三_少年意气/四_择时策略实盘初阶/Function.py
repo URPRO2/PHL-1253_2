@@ -208,4 +208,9 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         symbol_info['空头持仓量'] = future_position['short_qty']
         symbol_info['空头均价'] = future_position['short_avg_cost']
         symbol_info['空头收益率'] = future_position['short_pnl_ratio']
-        symbol_info['空头收益'] = future_position['s
+        symbol_info['空头收益'] = future_position['short_pnl']
+
+        # 检验是否同时持有多头和空头
+        temp = symbol_info[(symbol_info['多头持仓量'] > 0) & (symbol_info['空头持仓量'] > 0)]
+        if temp.empty is False:
+            print(list(temp.index), '当前账户同时存在多
