@@ -213,4 +213,10 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         # 检验是否同时持有多头和空头
         temp = symbol_info[(symbol_info['多头持仓量'] > 0) & (symbol_info['空头持仓量'] > 0)]
         if temp.empty is False:
-            print(list(temp.index), '当前账户同时存在多
+            print(list(temp.index), '当前账户同时存在多仓和空仓，请平掉其中至少一个仓位后再运行程序，程序exit')
+            exit()
+
+        # 整理原始数据，计算需要的数据
+        # 多头、空头的index
+        long_index = symbol_info[symbol_info['多头持仓量'] > 0].index
+        short_index = symbol_info[symbol_info['空头持仓量'] > 0
