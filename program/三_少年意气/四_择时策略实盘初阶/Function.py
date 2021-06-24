@@ -219,4 +219,9 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         # 整理原始数据，计算需要的数据
         # 多头、空头的index
         long_index = symbol_info[symbol_info['多头持仓量'] > 0].index
-        short_index = symbol_info[symbol_info['空头持仓量'] > 0
+        short_index = symbol_info[symbol_info['空头持仓量'] > 0].index
+        # 账户持仓方向
+        symbol_info.loc[long_index, '持仓方向'] = 1
+        symbol_info.loc[short_index, '持仓方向'] = -1
+        symbol_info['持仓方向'].fillna(value=0, inplace=True)
+        #
