@@ -229,4 +229,7 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
         symbol_info.loc[short_index, '持仓量'] = symbol_info['空头持仓量']
         # 持仓均价
         symbol_info.loc[long_index, '持仓均价'] = symbol_info['多头均价']
-      
+        symbol_info.loc[short_index, '持仓均价'] = symbol_info['空头均价']
+        # 持仓收益率
+        symbol_info.loc[long_index, '持仓收益率'] = symbol_info['多头收益率']
+        symbol_info.loc[short_index, '
