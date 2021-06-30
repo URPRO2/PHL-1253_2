@@ -249,4 +249,10 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
 # 获取需要的K线数据，并检测质量。
 def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_amount, candle_num, symbol):
     """
-    使用ccxt_fet
+    使用ccxt_fetch_candle_data(函数)，获取指定交易对最新的K线数据，并且监测数据质量，用于实盘。
+    :param exchange:
+    :param symbol_config:
+    :param time_interval:
+    :param run_time:
+    :param max_try_amount:
+    :param symb
