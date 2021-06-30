@@ -241,4 +241,12 @@ def update_symbol_info(exchange, symbol_info, symbol_config):
                          axis=1, inplace=True)
     else:
         # 当future_position为空时，将持仓方向的控制填充为0，防止之后判定信号时出错
-        symbol_info['持仓方
+        symbol_info['持仓方向'].fillna(value=0, inplace=True)
+
+    return symbol_info
+
+
+# 获取需要的K线数据，并检测质量。
+def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_amount, candle_num, symbol):
+    """
+    使用ccxt_fet
