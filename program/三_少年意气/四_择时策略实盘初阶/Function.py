@@ -265,4 +265,10 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
     print('开始获取K线数据：', symbol, '开始时间：', start_time)
 
     # 获取数据合约的相关参数
-    instrument_id = 
+    instrument_id = symbol_config[symbol]["instrument_id"]  # 合约id
+    signal_price = None
+
+    # 尝试获取数据
+    for i in range(max_try_amount):
+        # 获取symbol该品种最新的K线数据
+        df = ccxt_fetch_candle_data(exchange, in
