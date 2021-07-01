@@ -255,4 +255,14 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
     :param time_interval:
     :param run_time:
     :param max_try_amount:
-    :param symb
+    :param symbol:
+    :param candle_num:
+    :return:
+    尝试获取K线数据，并检验质量
+    """
+    # 标记开始时间
+    start_time = datetime.now()
+    print('开始获取K线数据：', symbol, '开始时间：', start_time)
+
+    # 获取数据合约的相关参数
+    instrument_id = 
