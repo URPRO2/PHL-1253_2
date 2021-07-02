@@ -271,4 +271,10 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
     # 尝试获取数据
     for i in range(max_try_amount):
         # 获取symbol该品种最新的K线数据
-        df = ccxt_fetch_candle_data(exchange, in
+        df = ccxt_fetch_candle_data(exchange, instrument_id, time_interval, limit=candle_num)
+        if df.empty:
+            continue  # 再次获取
+
+        # 判断是否包含最新一根的K线数据。例如当time_interval为15分钟，run_time为14:15时，即判断当前获取到的数据中是否包含14:15这根K线
+        # 【其实这段代码可以省略】
+        if time_interval
