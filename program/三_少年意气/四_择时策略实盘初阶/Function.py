@@ -277,4 +277,7 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
 
         # 判断是否包含最新一根的K线数据。例如当time_interval为15分钟，run_time为14:15时，即判断当前获取到的数据中是否包含14:15这根K线
         # 【其实这段代码可以省略】
-        if time_interval
+        if time_interval.endswith('m'):
+            _ = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(minutes=int(time_interval[:-1])))]
+        elif time_interval.endswith('h'):
+            _ = df[df['candle_begin_time_GMT8'
