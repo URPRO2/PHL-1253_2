@@ -280,4 +280,10 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
         if time_interval.endswith('m'):
             _ = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(minutes=int(time_interval[:-1])))]
         elif time_interval.endswith('h'):
-            _ = df[df['candle_begin_time_GMT8'
+            _ = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(hours=int(time_interval[:-1])))]
+        else:
+            print('time_interval不以m或者h结尾，出错，程序exit')
+            exit()
+        if _.empty:
+            print('获取数据不包含最新的数据，重新获取')
+            time.sl
