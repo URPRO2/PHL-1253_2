@@ -286,4 +286,9 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
             exit()
         if _.empty:
             print('获取数据不包含最新的数据，重新获取')
-            time.sl
+            time.sleep(short_sleep_time)
+            continue  # 再次获取
+
+        else:  # 获取到了最新数据
+            signal_price = df.iloc[-1]['close']  # 该品种的最新价格
+            df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除run_time周期的数
