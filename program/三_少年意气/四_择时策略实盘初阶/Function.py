@@ -314,4 +314,10 @@ def single_threading_get_data(exchange, symbol_info, symbol_config, time_interva
     :return:
     """
     # 函数返回的变量
-    symbol_
+    symbol_candle_data = {}
+    for symbol in symbol_config.keys():
+        symbol_candle_data[symbol] = pd.DataFrame()
+
+    # 逐个获取symbol对应的K线数据
+    for symbol in symbol_config.keys():
+        _, symbol_candle_data[symbol], symbol_info.at
