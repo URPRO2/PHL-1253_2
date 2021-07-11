@@ -291,4 +291,9 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
 
         else:  # 获取到了最新数据
             signal_price = df.iloc[-1]['close']  # 该品种的最新价格
-            df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除run_time周期的数
+            df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除run_time周期的数据
+            print('结束获取K线数据', symbol, '结束时间：', datetime.now())
+            return symbol, df, signal_price
+
+    print('获取candle_data数据次数超过max_try_amount，数据返回空值')
+    return symbol, pd.DataFrame(), sign
