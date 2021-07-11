@@ -296,4 +296,11 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
             return symbol, df, signal_price
 
     print('获取candle_data数据次数超过max_try_amount，数据返回空值')
-    return symbol, pd.DataFrame(), sign
+    return symbol, pd.DataFrame(), signal_price
+
+
+# 串行获取K线数据
+def single_threading_get_data(exchange, symbol_info, symbol_config, time_interval, run_time, candle_num, max_try_amount=5):
+    """
+    串行逐个获取所有交易对的K线数据，速度较慢。和multi_threading_get_data()对应
+    若获取数据失败，返回空的dat
