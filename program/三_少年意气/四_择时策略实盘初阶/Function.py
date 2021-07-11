@@ -303,4 +303,15 @@ def get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_am
 def single_threading_get_data(exchange, symbol_info, symbol_config, time_interval, run_time, candle_num, max_try_amount=5):
     """
     串行逐个获取所有交易对的K线数据，速度较慢。和multi_threading_get_data()对应
-    若获取数据失败，返回空的dat
+    若获取数据失败，返回空的dataframe。
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param time_interval:
+    :param run_time:
+    :param candle_num:
+    :param max_try_amount:
+    :return:
+    """
+    # 函数返回的变量
+    symbol_
