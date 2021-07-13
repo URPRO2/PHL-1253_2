@@ -339,4 +339,9 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
     symbol_signal = {}
 
     # 逐个遍历交易对
-   
+    for symbol in symbol_config.keys():
+
+        # 赋值相关数据
+        df = symbol_candle_data[symbol].copy()  # 最新数据
+        now_pos = symbol_info.at[symbol, '持仓方向']  # 当前持仓方向
+        avg_price = symbol_info.at[symbol, '持仓均价']  
