@@ -326,4 +326,17 @@ def single_threading_get_data(exchange, symbol_info, symbol_config, time_interva
 
 
 # 根据最新数据，计算最新的signal
-def calculate_signal(symbol_info
+def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
+    """
+    计算交易信号
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_candle_data:
+    :return:
+    """
+
+    # 输出变量
+    symbol_signal = {}
+
+    # 逐个遍历交易对
+   
