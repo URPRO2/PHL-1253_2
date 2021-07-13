@@ -320,4 +320,10 @@ def single_threading_get_data(exchange, symbol_info, symbol_config, time_interva
 
     # 逐个获取symbol对应的K线数据
     for symbol in symbol_config.keys():
-        _, symbol_candle_data[symbol], symbol_info.at
+        _, symbol_candle_data[symbol], symbol_info.at[symbol, '信号价格'] = get_candle_data(exchange, symbol_config, time_interval, run_time, max_try_amount, candle_num, symbol)
+
+    return symbol_candle_data
+
+
+# 根据最新数据，计算最新的signal
+def calculate_signal(symbol_info
