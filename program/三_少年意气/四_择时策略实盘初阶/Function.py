@@ -344,4 +344,11 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
         # 赋值相关数据
         df = symbol_candle_data[symbol].copy()  # 最新数据
         now_pos = symbol_info.at[symbol, '持仓方向']  # 当前持仓方向
-        avg_price = symbol_info.at[symbol, '持仓均价']  
+        avg_price = symbol_info.at[symbol, '持仓均价']  # 当前持仓均价
+
+        # 需要计算的目标仓位
+        target_pos = None
+
+        # 根据策略计算出目标交易信号。
+        if not df.empty:  # 当原始数据不为空的时候
+            target_pos = getattr(Signals, symbol_config[symbol]['strategy_name'])(df, no
