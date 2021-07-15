@@ -355,4 +355,9 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
         symbol_info.at[symbol, '目标仓位'] = target_pos  # 这行代码似乎可以删除
 
         # 根据目标仓位和实际仓位，计算实际操作，"1": "开多"，"2": "开空"，"3": "平多"， "4": "平空"
-        if now_pos == 1 and target
+        if now_pos == 1 and target_pos == 0:  # 平多
+            symbol_signal[symbol] = [3]
+        elif now_pos == -1 and target_pos == 0:  # 平空
+            symbol_signal[symbol] = [4]
+        elif now_pos == 0 and target_pos == 1:  # 开多
+   
