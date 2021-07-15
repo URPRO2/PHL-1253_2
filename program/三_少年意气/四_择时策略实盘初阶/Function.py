@@ -360,4 +360,8 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
         elif now_pos == -1 and target_pos == 0:  # 平空
             symbol_signal[symbol] = [4]
         elif now_pos == 0 and target_pos == 1:  # 开多
-   
+            symbol_signal[symbol] = [1]
+        elif now_pos == 0 and target_pos == -1:  # 开空
+            symbol_signal[symbol] = [2]
+        elif now_pos == 1 and target_pos == -1:  # 平多，开空
+            s
