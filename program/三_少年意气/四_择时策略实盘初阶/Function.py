@@ -351,4 +351,8 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
 
         # 根据策略计算出目标交易信号。
         if not df.empty:  # 当原始数据不为空的时候
-            target_pos = getattr(Signals, symbol_config[symbol]['strategy_name'])(df, no
+            target_pos = getattr(Signals, symbol_config[symbol]['strategy_name'])(df, now_pos, avg_price, symbol_config[symbol]['para'])
+        symbol_info.at[symbol, '目标仓位'] = target_pos  # 这行代码似乎可以删除
+
+        # 根据目标仓位和实际仓位，计算实际操作，"1": "开多"，"2": "开空"，"3": "平多"， "4": "平空"
+        if now_pos == 1 and target
