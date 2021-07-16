@@ -374,4 +374,9 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
 
 
 # 在合约市场下单
-def
+def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal, max_try_amount, symbol):
+    """
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_signa
