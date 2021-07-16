@@ -379,4 +379,14 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
     :param exchange:
     :param symbol_info:
     :param symbol_config:
-    :param symbol_signa
+    :param symbol_signal:
+    :param max_try_amount:
+    :param symbol:
+    :return:
+    """
+    # 下单参数
+    params = {
+        'instrument_id': symbol_config[symbol]["instrument_id"],  # 合约代码
+    }
+
+    order_
