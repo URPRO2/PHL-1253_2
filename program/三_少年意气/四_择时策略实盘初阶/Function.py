@@ -364,4 +364,14 @@ def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
         elif now_pos == 0 and target_pos == -1:  # 开空
             symbol_signal[symbol] = [2]
         elif now_pos == 1 and target_pos == -1:  # 平多，开空
-            s
+            symbol_signal[symbol] = [3, 2]
+        elif now_pos == -1 and target_pos == 1:  # 平空，开多
+            symbol_signal[symbol] = [4, 1]
+
+        symbol_info.at[symbol, '信号时间'] = datetime.now()  # 计算产生信号的时间
+
+    return symbol_signal
+
+
+# 在合约市场下单
+def
