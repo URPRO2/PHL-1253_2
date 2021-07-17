@@ -400,4 +400,9 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                 # "长度为2的判定"定位【平空，开多】或【平多，开空】两种情形，"下单类型判定"定位 处于开仓的情形。
                 if len(symbol_signal[symbol]) == 2 and order_type in [1, 2]:  # 当两个条件同时满足时，说明当前处于平仓后，需要再开仓的阶段。
                     time.sleep(short_sleep_time)  # 短暂的休息1s，防止之平仓后，账户没有更新
-                    symbol_info.at[symbol, "账户权益"] = ccxt_update_account_equity(exchange, symbol.uppe
+                    symbol_info.at[symbol, "账户权益"] = ccxt_update_account_equity(exchange, symbol.upper())
+
+                # 确定下单参数
+                params['type'] = str(order_type)
+                params['price'] = float(cal_order_price(symbol_info.at[symbol, "信号价格"], order_type))
+              
