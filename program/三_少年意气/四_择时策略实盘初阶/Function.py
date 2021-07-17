@@ -389,4 +389,10 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
         'instrument_id': symbol_config[symbol]["instrument_id"],  # 合约代码
     }
 
-    order_
+    order_id_list = []
+    # 按照交易信号下单
+    for order_type in symbol_signal[symbol]:
+        update_price_flag = False  # 当触发限价条件时会设置为True、0
+        for i in range(max_try_amount):
+            try:
+                # 当只要开仓或者平仓时，
