@@ -398,4 +398,6 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                 # 当只要开仓或者平仓时，直接下单操作即可。但当本周期即需要平仓，又需要开仓时，需要在平完仓之后，
                 # 重新评估下账户资金，然后根据账户资金计算开仓账户然后开仓。下面这行代码即处理这个情形。
                 # "长度为2的判定"定位【平空，开多】或【平多，开空】两种情形，"下单类型判定"定位 处于开仓的情形。
-                if len(symbol_signal[symbol]) == 2 and or
+                if len(symbol_signal[symbol]) == 2 and order_type in [1, 2]:  # 当两个条件同时满足时，说明当前处于平仓后，需要再开仓的阶段。
+                    time.sleep(short_sleep_time)  # 短暂的休息1s，防止之平仓后，账户没有更新
+                    symbol_info.at[symbol, "账户权益"] = ccxt_update_account_equity(exchange, symbol.uppe
