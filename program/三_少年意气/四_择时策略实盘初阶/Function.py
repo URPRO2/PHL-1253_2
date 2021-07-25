@@ -409,4 +409,8 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
 
                 if update_price_flag:
                     # {'instrument_id': 'BTC-USDT-200626',
-    
+                    #  'highest': '7088.5',
+                    #  'lowest': '6674.2',
+                    #  'timestamp': '2020-04-22T06:21:12.441Z'}
+                    # 获取当前限价
+                    response = exchange.future
