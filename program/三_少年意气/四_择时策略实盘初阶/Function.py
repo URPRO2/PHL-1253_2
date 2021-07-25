@@ -405,4 +405,8 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                 # 确定下单参数
                 params['type'] = str(order_type)
                 params['price'] = float(cal_order_price(symbol_info.at[symbol, "信号价格"], order_type))
-              
+                params['size'] = int(cal_order_size(symbol, symbol_info, symbol_config[symbol]['leverage']))
+
+                if update_price_flag:
+                    # {'instrument_id': 'BTC-USDT-200626',
+    
