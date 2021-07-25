@@ -413,4 +413,6 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                     #  'lowest': '6674.2',
                     #  'timestamp': '2020-04-22T06:21:12.441Z'}
                     # 获取当前限价
-                    response = exchange.future
+                    response = exchange.futures_get_instruments_instrument_id_price_limit({"instrument_id":symbol_config[symbol]["instrument_id"]})
+                    # 依据下单类型来判定，所用的价格
+                    order_type_tmp = int(par
