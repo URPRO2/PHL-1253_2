@@ -419,4 +419,9 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                     # 开多和平空，对应买入合约取最高
                     if order_type_tmp in [1, 4]:
                         params['price'] = float(response['highest'])
-                    elif order_ty
+                    elif order_type_tmp in [2, 3]:
+                        params['price'] = float(response['lowest'])
+                    update_price_flag = False
+
+                print('开始下单：', datetime.now())
+                orde
