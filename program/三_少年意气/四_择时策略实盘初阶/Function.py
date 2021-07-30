@@ -430,4 +430,9 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
 
                 break
 
-            e
+            except Exception as e:
+                print(e)
+                print(symbol, '下单失败，稍等后继续尝试')
+                time.sleep(short_sleep_time)
+                '''
+                okex {"error_message
