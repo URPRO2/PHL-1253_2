@@ -424,4 +424,10 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                     update_price_flag = False
 
                 print('开始下单：', datetime.now())
-                orde
+                order_info = exchange.futures_post_order(params)
+                order_id_list.append(order_info['order_id'])
+                print(order_info, '下单完成：', datetime.now())
+
+                break
+
+            e
