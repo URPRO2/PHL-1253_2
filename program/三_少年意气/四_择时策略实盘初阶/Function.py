@@ -435,4 +435,5 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                 print(symbol, '下单失败，稍等后继续尝试')
                 time.sleep(short_sleep_time)
                 '''
-                okex {"error_message
+                okex {"error_message":"Order price cannot be more than 103% or less than 97% of the previous minute price","code":32019,"error_code":"32019",
+                "message":"Order price cannot be more than 103% or less than 97% of the previous minut
