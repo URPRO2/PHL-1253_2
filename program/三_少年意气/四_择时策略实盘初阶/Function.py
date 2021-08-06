@@ -443,4 +443,6 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
                     update_price_flag = True
 
                 if i == (max_try_amount - 1):
-    
+                    print('下单失败次数超过max_try_amount，终止下单')
+                    send_dingding_msg('下单失败次数超过max_try_amount，终止下单，程序不退出')
+                    # exit() 若在子进程中（Pool）调用okex_future_pl
