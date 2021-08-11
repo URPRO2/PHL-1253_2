@@ -467,4 +467,11 @@ def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_si
     4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558
     """
     # 函数输出变量
-    sym
+    symbol_order = pd.DataFrame()
+
+    # 如果有交易信号的话
+    if symbol_signal:
+        # 遍历有交易信号的交易对
+        for symbol in symbol_signal.keys():
+            # 下单
+            _, order_id_list = okex_future_place_or
