@@ -453,4 +453,13 @@ def okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal,
 # 串行下单
 def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_signal, max_try_amount=5):
     """
-    :param ex
+    :param exchange:
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_signal:
+    :param max_try_amount:
+    :return:
+    串行使用okex_future_place_order()函数，下单
+
+    函数返回值案例：
+                         symbol
