@@ -462,4 +462,9 @@ def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_si
     串行使用okex_future_place_order()函数，下单
 
     函数返回值案例：
-                         symbol
+                         symbol      信号价格                       信号时间
+    4476028903965698  eth-usdt  227.1300 2020-03-01 11:53:00.580063
+    4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558
+    """
+    # 函数输出变量
+    sym
