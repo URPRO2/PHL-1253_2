@@ -474,4 +474,9 @@ def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_si
         # 遍历有交易信号的交易对
         for symbol in symbol_signal.keys():
             # 下单
-            _, order_id_list = okex_future_place_or
+            _, order_id_list = okex_future_place_order(exchange, symbol_info, symbol_config, symbol_signal, max_try_amount, symbol)
+
+            # 记录
+            for order_id in order_id_list:
+                symbol_order.loc[order_id, 'symbol'] = symbol
+       
