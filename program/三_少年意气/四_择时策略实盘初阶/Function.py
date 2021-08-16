@@ -483,4 +483,14 @@ def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_si
                 symbol_order.loc[order_id, '信号价格'] = symbol_info.loc[symbol, '信号价格']
                 symbol_order.loc[order_id, '信号时间'] = symbol_info.loc[symbol, '信号时间']
 
-    return
+    return symbol_order
+
+
+# 获取成交数据
+def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
+    """
+    根据订单号，检查订单信息，获得相关数据
+    :param exchange:
+    :param symbol_config:
+    :param symbol_order:
+ 
