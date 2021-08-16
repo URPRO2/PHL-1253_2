@@ -493,4 +493,9 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
     :param exchange:
     :param symbol_config:
     :param symbol_order:
- 
+    :param max_try_amount:
+    :return:
+
+    函数返回值案例：
+                             symbol      信号价格                       信号时间  订单状态 开仓方向 委托数量 成交数量    委托价格    成交均价                      委托时间
+    4476028903965698
