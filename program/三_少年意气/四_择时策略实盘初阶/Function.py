@@ -479,4 +479,8 @@ def single_threading_place_order(exchange, symbol_info, symbol_config, symbol_si
             # 记录
             for order_id in order_id_list:
                 symbol_order.loc[order_id, 'symbol'] = symbol
-       
+                # 从symbol_info记录下单相关信息
+                symbol_order.loc[order_id, '信号价格'] = symbol_info.loc[symbol, '信号价格']
+                symbol_order.loc[order_id, '信号时间'] = symbol_info.loc[symbol, '信号时间']
+
+    return
