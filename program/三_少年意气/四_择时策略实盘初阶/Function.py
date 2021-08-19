@@ -499,4 +499,11 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
     函数返回值案例：
                              symbol      信号价格                       信号时间  订单状态 开仓方向 委托数量 成交数量    委托价格    成交均价                      委托时间
     4476028903965698  eth-usdt  227.1300 2020-03-01 11:53:00.580063  完全成交   开多  100  100  231.67  227.29  2020-03-01T03:53:00.896Z
-    4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558  完全成交   开空  
+    4476028904156161  xrp-usdt    0.2365 2020-03-01 11:53:00.580558  完全成交   开空  100  100  0.2317  0.2363  2020-03-01T03:53:00.906Z
+    """
+
+    # 下单数据不为空
+    if symbol_order.empty is False:
+        # 这个遍历下单id
+        for order_id in symbol_order.index:
+            time.sleep(medium_sleep_time) 
