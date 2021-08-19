@@ -506,4 +506,10 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
     if symbol_order.empty is False:
         # 这个遍历下单id
         for order_id in symbol_order.index:
-            time.sleep(medium_sleep_time) 
+            time.sleep(medium_sleep_time)  # 每次获取下单数据时sleep一段时间
+            order_info = None
+            # 根据下单id获取数据
+            for i in range(max_try_amount):
+                try:
+                    para = {
+                        'instrument_id': sym
