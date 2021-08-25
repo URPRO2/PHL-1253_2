@@ -512,4 +512,7 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
             for i in range(max_try_amount):
                 try:
                     para = {
-                        'instrument_id': sym
+                        'instrument_id': symbol_config[symbol_order.at[order_id, 'symbol']]["instrument_id"],
+                        'order_id': order_id
+                    }
+                    order_info = exchange.futures_get_orders_instrument_id_o
