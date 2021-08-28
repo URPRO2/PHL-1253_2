@@ -515,4 +515,10 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
                         'instrument_id': symbol_config[symbol_order.at[order_id, 'symbol']]["instrument_id"],
                         'order_id': order_id
                     }
-                    order_info = exchange.futures_get_orders_instrument_id_o
+                    order_info = exchange.futures_get_orders_instrument_id_order_id(para)
+                    break
+                except Exception as e:
+                    print(e)
+                    print('根据订单号获取订单信息失败，稍后重试')
+                    time.sleep(medium_sleep_time)
+     
