@@ -525,4 +525,7 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
                         send_dingding_msg("重试次数过多，获取订单信息失败，程序退出")
                         raise ValueError('重试次数过多，获取订单信息失败，程序退出')
 
-            if order_inf
+            if order_info:
+                symbol_order.at[order_id, "订单状态"] = okex_order_state[order_info["state"]]
+                if okex_order_state[order_info["state"]] == '失败':
+                    print('下单失
