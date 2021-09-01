@@ -528,4 +528,7 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
             if order_info:
                 symbol_order.at[order_id, "订单状态"] = okex_order_state[order_info["state"]]
                 if okex_order_state[order_info["state"]] == '失败':
-                    print('下单失
+                    print('下单失败')
+                symbol_order.at[order_id, "开仓方向"] = okex_order_type[order_info["type"]]
+                symbol_order.at[order_id, "委托数量"] = order_info["size"]
+                symbol_order.at[order_id, "成交数量"] 
