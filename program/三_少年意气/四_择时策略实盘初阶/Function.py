@@ -521,4 +521,8 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
                     print(e)
                     print('根据订单号获取订单信息失败，稍后重试')
                     time.sleep(medium_sleep_time)
-     
+                    if i == max_try_amount - 1:
+                        send_dingding_msg("重试次数过多，获取订单信息失败，程序退出")
+                        raise ValueError('重试次数过多，获取订单信息失败，程序退出')
+
+            if order_inf
