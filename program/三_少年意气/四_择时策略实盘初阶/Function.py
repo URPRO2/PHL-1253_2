@@ -531,4 +531,7 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
                     print('下单失败')
                 symbol_order.at[order_id, "开仓方向"] = okex_order_type[order_info["type"]]
                 symbol_order.at[order_id, "委托数量"] = order_info["size"]
-                symbol_order.at[order_id, "成交数量"] 
+                symbol_order.at[order_id, "成交数量"] = order_info["filled_qty"]
+                symbol_order.at[order_id, "委托价格"] = order_info["price"]
+                symbol_order.at[order_id, "成交均价"] = order_info["price_avg"]
+                symbol_or
