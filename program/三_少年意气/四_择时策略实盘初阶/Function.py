@@ -542,4 +542,10 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
 
 
 # =====辅助功能函数
-# ===下次
+# ===下次运行时间，和课程里面讲的函数是一样的
+def next_run_time(time_interval, ahead_seconds=5):
+    """
+    根据time_interval，计算下次运行的时间，下一个整点时刻。
+    目前只支持分钟和小时。
+    :param time_interval: 运行的周期，15m，1h
+    :param ahead_second
