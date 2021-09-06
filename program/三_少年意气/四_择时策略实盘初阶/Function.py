@@ -534,4 +534,12 @@ def update_order_info(exchange, symbol_config, symbol_order, max_try_amount=5):
                 symbol_order.at[order_id, "成交数量"] = order_info["filled_qty"]
                 symbol_order.at[order_id, "委托价格"] = order_info["price"]
                 symbol_order.at[order_id, "成交均价"] = order_info["price_avg"]
-                symbol_or
+                symbol_order.at[order_id, "委托时间"] = order_info["timestamp"]
+            else:
+                print('根据订单号获取订单信息失败次数超过max_try_amount，发送钉钉')
+
+    return symbol_order
+
+
+# =====辅助功能函数
+# ===下次
