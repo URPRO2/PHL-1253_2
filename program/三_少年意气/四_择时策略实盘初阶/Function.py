@@ -548,4 +548,10 @@ def next_run_time(time_interval, ahead_seconds=5):
     根据time_interval，计算下次运行的时间，下一个整点时刻。
     目前只支持分钟和小时。
     :param time_interval: 运行的周期，15m，1h
-    :param ahead_second
+    :param ahead_seconds: 预留的目标时间和当前时间的间隙
+    :return: 下次运行的时间
+    案例：
+    15m  当前时间为：12:50:51  返回时间为：13:00:00
+    15m  当前时间为：12:39:51  返回时间为：12:45:00
+    10m  当前时间为：12:38:51  返回时间为：12:40:00
+    5m  当前时间为：12:33:51  返回时间为：
