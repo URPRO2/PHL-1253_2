@@ -569,4 +569,12 @@ def next_run_time(time_interval, ahead_seconds=5):
         pass
     elif time_interval.endswith('T'):
         time_interval = time_interval.replace('T', 'm')
-    elif time_interval.endswit
+    elif time_interval.endswith('H'):
+        time_interval = time_interval.replace('H', 'h')
+    else:
+        print('time_interval格式不符合规范。程序exit')
+        exit()
+
+    ti = pd.to_timedelta(time_interval)
+    now_time = datetime.now()
+    # now_time = d
