@@ -565,4 +565,8 @@ def next_run_time(time_interval, ahead_seconds=5):
     1h  当前时间为：14:37:51  返回时间为：15:00:00
 
     """
-    if ti
+    if time_interval.endswith('m') or time_interval.endswith('h'):
+        pass
+    elif time_interval.endswith('T'):
+        time_interval = time_interval.replace('T', 'm')
+    elif time_interval.endswit
