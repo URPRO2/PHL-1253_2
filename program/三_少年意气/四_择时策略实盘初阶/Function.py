@@ -577,4 +577,8 @@ def next_run_time(time_interval, ahead_seconds=5):
 
     ti = pd.to_timedelta(time_interval)
     now_time = datetime.now()
-    # now_time = d
+    # now_time = datetime(2019, 5, 9, 23, 50, 30)  # 修改now_time，可用于测试
+    this_midnight = now_time.replace(hour=0, minute=0, second=0, microsecond=0)
+    min_step = timedelta(minutes=1)
+
+    target_time = now_time.re
