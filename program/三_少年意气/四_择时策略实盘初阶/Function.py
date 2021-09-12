@@ -581,4 +581,9 @@ def next_run_time(time_interval, ahead_seconds=5):
     this_midnight = now_time.replace(hour=0, minute=0, second=0, microsecond=0)
     min_step = timedelta(minutes=1)
 
-    target_time = now_time.re
+    target_time = now_time.replace(second=0, microsecond=0)
+
+    while True:
+        target_time = target_time + min_step
+        delta = target_time - this_midnight
+        if delta.seconds % ti.seconds == 0 and (target_time - now_time).
