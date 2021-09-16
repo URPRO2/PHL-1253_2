@@ -595,4 +595,12 @@ def next_run_time(time_interval, ahead_seconds=5):
 
 
 # ===获取全部历史数据
-def fetch_okex_symbol_history_candle_data(exchang
+def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_len, max_try_amount=5):
+    """
+    获取某个币种在okex交易所所有能获取的历史数据，目前v3接口最多获取1440根。
+    :param exchange:
+    :param symbol:
+    :param time_interval:
+    :param max_len:
+    :param max_try_amount:
+    :
