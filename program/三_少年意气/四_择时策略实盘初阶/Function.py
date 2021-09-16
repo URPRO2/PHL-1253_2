@@ -586,4 +586,13 @@ def next_run_time(time_interval, ahead_seconds=5):
     while True:
         target_time = target_time + min_step
         delta = target_time - this_midnight
-        if delta.seconds % ti.seconds == 0 and (target_time - now_time).
+        if delta.seconds % ti.seconds == 0 and (target_time - now_time).seconds >= ahead_seconds:
+            # 当符合运行周期，并且目标时间有足够大的余地，默认为60s
+            break
+
+    print('程序下次运行的时间：', target_time, '\n')
+    return target_time
+
+
+# ===获取全部历史数据
+def fetch_okex_symbol_history_candle_data(exchang
