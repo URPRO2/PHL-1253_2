@@ -603,4 +603,16 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
     :param time_interval:
     :param max_len:
     :param max_try_amount:
-    :
+    :return:
+
+    函数核心逻辑：
+    1.找到最早那根K线的开始时间，以此为参数获取数据
+    2.获取数据的最后一行数据，作为新的k线开始时间，继续获取数据
+    3.如此循环直到最新的数据
+    """
+
+    # 获取当前时间
+    now_milliseconds = int(time.time() * 1e3)
+
+    # 每根K线的间隔时间
+    time_interval_int = 
