@@ -632,3 +632,9 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
 
         # 获取K线使，要多次尝试
         for i in range(max_try_amount):
+            try:
+                kline_data = exchange.fetch_ohlcv(symbol=symbol, since=since, timeframe=time_interval)
+                break
+            except Exception as e:
+                print(e)
+             
