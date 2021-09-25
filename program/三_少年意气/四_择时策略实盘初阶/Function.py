@@ -615,4 +615,7 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
     now_milliseconds = int(time.time() * 1e3)
 
     # 每根K线的间隔时间
-    time_interval_int = 
+    time_interval_int = int(time_interval[:-1])  # 若15m，则time_interval_int = 15；若2h，则time_interval_int = 2
+    if time_interval.endswith('m'):
+        time_segment = time_interval_int * 60 * 1000  # 15分钟 * 每分钟60s
+    e
