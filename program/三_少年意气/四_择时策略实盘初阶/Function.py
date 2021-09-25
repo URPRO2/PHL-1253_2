@@ -623,4 +623,12 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
 
     # 计算开始和结束的时间
     end = now_milliseconds - time_segment
-    since 
+    since = end - max_len * time_segment
+
+    # 循环获取历史数据
+    all_kline_data = []
+    while end - since >= time_segment:
+        kline_data = []
+
+        # 获取K线使，要多次尝试
+        for i in range(max_try_amount):
