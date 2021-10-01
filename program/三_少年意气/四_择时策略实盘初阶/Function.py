@@ -640,4 +640,11 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
                 time.sleep(medium_sleep_time)
                 if i == (max_try_amount - 1):
                     _ = '【获取需要交易币种的历史数据】阶段，fetch_okex_symbol_history_candle_data函数中，' \
-                        '使用ccxt的fetch_ohlcv获取K线数据失败，程
+                        '使用ccxt的fetch_ohlcv获取K线数据失败，程序Raise Error'
+                    send_dingding_and_raise_error(_)
+
+        if kline_data:
+            since = kline_data[-1][0]  # 更新since，为下次循环做准备
+            all_kline_data += kline_data
+        else:
+ 
