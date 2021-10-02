@@ -647,4 +647,9 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
             since = kline_data[-1][0]  # 更新since，为下次循环做准备
             all_kline_data += kline_data
         else:
- 
+            print('【获取需要交易币种的历史数据】阶段，fetch_ohlcv失败次数过多，程序exit，请检查原因。')
+            exit()
+
+    # 对数据进行整理
+    df = pd.DataFrame(all_kline_data, dtype=float)
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'l
