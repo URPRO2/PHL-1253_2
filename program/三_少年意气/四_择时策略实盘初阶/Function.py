@@ -652,4 +652,7 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
 
     # 对数据进行整理
     df = pd.DataFrame(all_kline_data, dtype=float)
-    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'l
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
+    df['candle_begin_time'] = pd.to_datetime(df['MTS'], unit='ms')
+    df['candle_begin_time_GMT8'] = df['candle_begin_time'] + timedelta(hours=8)
+   
