@@ -672,4 +672,12 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
 # ===依据时间间隔, 自动计算并休眠到指定时间
 def sleep_until_run_time(time_interval, ahead_time=1):
     """
-    根据next_run_time()函数计算出下次程序运行的时候，然
+    根据next_run_time()函数计算出下次程序运行的时候，然后sleep至该时间
+    :param time_interval:
+    :param ahead_time:
+    :return:
+    """
+    # 计算下次运行时间
+    run_time = next_run_time(time_interval, ahead_time)
+    # sleep
+    time.sleep(max(0, (run_time - datetime.now
