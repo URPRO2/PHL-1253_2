@@ -655,4 +655,10 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
     df.rename(columns={0: 'MTS', 1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
     df['candle_begin_time'] = pd.to_datetime(df['MTS'], unit='ms')
     df['candle_begin_time_GMT8'] = df['candle_begin_time'] + timedelta(hours=8)
-   
+    df = df[['candle_begin_time_GMT8', 'open', 'high', 'low', 'close', 'volume']]
+
+    # 删除重复的数据
+    df.drop_duplicates(subset=['candle_begin_time_GMT8'], keep='last', inplace=True)
+    df.reset_index(drop=True, inplace=True)
+
+    # 
