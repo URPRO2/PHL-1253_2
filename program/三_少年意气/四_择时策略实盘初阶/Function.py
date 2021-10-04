@@ -661,4 +661,15 @@ def fetch_okex_symbol_history_candle_data(exchange, symbol, time_interval, max_l
     df.drop_duplicates(subset=['candle_begin_time_GMT8'], keep='last', inplace=True)
     df.reset_index(drop=True, inplace=True)
 
-    # 
+    # 为了保险起见，去掉最后一行最新的数据
+    df = df[:-1]
+
+    print(symbol, '获取历史数据行数：', len(df))
+
+    return df
+
+
+# ===依据时间间隔, 自动计算并休眠到指定时间
+def sleep_until_run_time(time_interval, ahead_time=1):
+    """
+    根据next_run_time()函数计算出下次程序运行的时候，然
