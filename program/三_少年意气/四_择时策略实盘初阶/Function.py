@@ -680,4 +680,13 @@ def sleep_until_run_time(time_interval, ahead_time=1):
     # 计算下次运行时间
     run_time = next_run_time(time_interval, ahead_time)
     # sleep
-    time.sleep(max(0, (run_time - datetime.now
+    time.sleep(max(0, (run_time - datetime.now()).seconds))
+    while True:  # 在靠近目标时间时
+        if datetime.now() > run_time:
+            break
+
+    return run_time
+
+
+# ===在每个循环的末尾，编写报告并且通过订订发送
+def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order,
