@@ -689,4 +689,15 @@ def sleep_until_run_time(time_interval, ahead_time=1):
 
 
 # ===在每个循环的末尾，编写报告并且通过订订发送
-def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order,
+def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_time, robot_id_secret):
+    """
+    :param symbol_info:
+    :param symbol_signal:
+    :param symbol_order:
+    :param run_time:
+    :param robot_id_secret:
+    :return:
+    """
+    content = ''
+
+    #
