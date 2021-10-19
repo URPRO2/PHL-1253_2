@@ -700,4 +700,10 @@ def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_tim
     """
     content = ''
 
-    #
+    # 订单信息
+    if symbol_signal:
+        symbol_order_str = ['\n\n' + y.to_string() for x, y in symbol_order.iterrows()]  # 持仓信息
+        content += '# =====订单信息' + ''.join(symbol_order_str) + '\n\n'
+
+    # 持仓信息
+    symbol_info_str = ['\n\
