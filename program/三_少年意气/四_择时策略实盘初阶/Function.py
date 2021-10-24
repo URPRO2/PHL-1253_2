@@ -706,4 +706,8 @@ def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_tim
         content += '# =====订单信息' + ''.join(symbol_order_str) + '\n\n'
 
     # 持仓信息
-    symbol_info_str = ['\n\
+    symbol_info_str = ['\n\n' + str(x) + '\n' + y.to_string() for x, y in symbol_info.iterrows()]
+    content += '# =====持仓信息' + ''.join(symbol_info_str) + '\n\n'
+
+    # 发送，每间隔30分钟或者有交易的时候，发送一次
+    if run_time.minute % 30 == 0
