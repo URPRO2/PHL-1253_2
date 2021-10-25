@@ -723,4 +723,14 @@ def cal_order_price(price, order_type, ratio=0.02):
 
 
 # ===计算实际开仓张数
-def cal_order_size(symbol, symbol_info, leverage, volatility_rati
+def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
+    """
+    根据实际持仓以及杠杆数，计算实际开仓张数
+    :param symbol:
+    :param symbol_info:
+    :param leverage:
+    :param volatility_ratio:
+    :return:
+    """
+    # 当账户目前有持仓的时候，必定是要平仓，所以直接返回持仓量即可
+    hold_amo
