@@ -710,4 +710,9 @@ def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_tim
     content += '# =====持仓信息' + ''.join(symbol_info_str) + '\n\n'
 
     # 发送，每间隔30分钟或者有交易的时候，发送一次
-    if run_time.minute % 30 == 0
+    if run_time.minute % 30 == 0 or symbol_signal:
+        send_dingding_msg(content, robot_id=robot_id_secret[0], secret=robot_id_secret[1])
+
+
+# ===为了达到成交的目的，计算实际委托价格会向上或者向下浮动一定比例默认为0.02
+def cal_order_price(price, order_type, ratio=
