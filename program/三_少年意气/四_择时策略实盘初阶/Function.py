@@ -715,4 +715,12 @@ def dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_tim
 
 
 # ===为了达到成交的目的，计算实际委托价格会向上或者向下浮动一定比例默认为0.02
-def cal_order_price(price, order_type, ratio=
+def cal_order_price(price, order_type, ratio=0.02):
+    if order_type in [1, 4]:
+        return price * (1 + ratio)
+    elif order_type in [2, 3]:
+        return price * (1 - ratio)
+
+
+# ===计算实际开仓张数
+def cal_order_size(symbol, symbol_info, leverage, volatility_rati
