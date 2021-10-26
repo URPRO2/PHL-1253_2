@@ -744,4 +744,11 @@ def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
     # 不超过账户最大杠杆
     l = min(float(leverage), float(symbol_info.at[symbol, "最大杠杆"]))
     size = math.floor(e * l * volatility_ratio / (price * coin_value))
-    return max(siz
+    return max(size, 1)  # 防止出现size为情形0，设置最小下单量为1
+
+
+# ===发送钉钉相关函数
+# 计算钉钉时间戳
+def cal_timestamp_sign(secret):
+    # 根据钉钉开发文档，修改推送消息的安全设置https://ding-doc.dingtalk.com/doc#/serverapi2/qf2nxq
+    # 也就是根据这个方法，不只是要有robot_id，还要
