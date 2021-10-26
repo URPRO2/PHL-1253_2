@@ -740,4 +740,8 @@ def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
     # 当账户没有持仓时，是开仓
     price = float(symbol_info.at[symbol, "信号价格"])
     coin_value = coin_value_table[symbol]
-    e = f
+    e = float(symbol_info.loc[symbol, "账户权益"])
+    # 不超过账户最大杠杆
+    l = min(float(leverage), float(symbol_info.at[symbol, "最大杠杆"]))
+    size = math.floor(e * l * volatility_ratio / (price * coin_value))
+    return max(siz
