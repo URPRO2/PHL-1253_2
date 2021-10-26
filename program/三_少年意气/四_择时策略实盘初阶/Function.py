@@ -733,4 +733,11 @@ def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
     :return:
     """
     # 当账户目前有持仓的时候，必定是要平仓，所以直接返回持仓量即可
-    hold_amo
+    hold_amount = symbol_info.at[symbol, "持仓量"]
+    if pd.notna(hold_amount):  # 不为空
+        return hold_amount
+
+    # 当账户没有持仓时，是开仓
+    price = float(symbol_info.at[symbol, "信号价格"])
+    coin_value = coin_value_table[symbol]
+    e = f
