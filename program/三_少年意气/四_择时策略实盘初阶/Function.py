@@ -751,4 +751,10 @@ def cal_order_size(symbol, symbol_info, leverage, volatility_ratio=0.98):
 # 计算钉钉时间戳
 def cal_timestamp_sign(secret):
     # 根据钉钉开发文档，修改推送消息的安全设置https://ding-doc.dingtalk.com/doc#/serverapi2/qf2nxq
-    # 也就是根据这个方法，不只是要有robot_id，还要
+    # 也就是根据这个方法，不只是要有robot_id，还要有secret
+    # 当前时间戳，单位是毫秒，与请求调用时间误差不能超过1小时
+    # python3用int取整
+    timestamp = int(round(time.time() * 1000))
+    # 密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
+    secret_enc = bytes(secret.encode('utf-8'))
+    string_to_sign
