@@ -757,4 +757,7 @@ def cal_timestamp_sign(secret):
     timestamp = int(round(time.time() * 1000))
     # 密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
     secret_enc = bytes(secret.encode('utf-8'))
-    string_to_sign
+    string_to_sign = '{}\n{}'.format(timestamp, secret)
+    string_to_sign_enc = bytes(string_to_sign.encode('utf-8'))
+    hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+    # 得到最终
