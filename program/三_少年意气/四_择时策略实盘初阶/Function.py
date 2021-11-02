@@ -768,4 +768,12 @@ def cal_timestamp_sign(secret):
 # 发送钉钉消息
 def send_dingding_msg(content, robot_id='',
                       secret=''):
- 
+    """
+    :param content:
+    :param robot_id:  你的access_token，即webhook地址中那段access_token。例如如下地址：https://oapi.dingtalk.com/robot/
+n    :param secret: 你的secret，即安全设置加签当中的那个密钥
+    :return:
+    """
+    try:
+        msg = {
+     
