@@ -760,4 +760,12 @@ def cal_timestamp_sign(secret):
     string_to_sign = '{}\n{}'.format(timestamp, secret)
     string_to_sign_enc = bytes(string_to_sign.encode('utf-8'))
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
-    # 得到最终
+    # 得到最终的签名值
+    sign = parse.quote_plus(base64.b64encode(hmac_code))
+    return str(timestamp), str(sign)
+
+
+# 发送钉钉消息
+def send_dingding_msg(content, robot_id='',
+                      secret=''):
+ 
