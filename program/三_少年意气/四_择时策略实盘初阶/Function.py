@@ -776,4 +776,7 @@ n    :param secret: 你的secret，即安全设置加签当中的那个密钥
     """
     try:
         msg = {
-     
+            "msgtype": "text",
+            "text": {"content": content + '\n' + datetime.now().strftime("%m-%d %H:%M:%S")}}
+        headers = {"Content-Type": "application/json;charset=utf-8"}
+        # https://oapi.dingtalk
