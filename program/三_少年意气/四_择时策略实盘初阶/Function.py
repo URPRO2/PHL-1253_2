@@ -782,4 +782,9 @@ n    :param secret: 你的secret，即安全设置加签当中的那个密钥
         # https://oapi.dingtalk.com/robot/send?access_token=XXXXXX&timestamp=XXX&sign=XXX
         timestamp, sign_str = cal_timestamp_sign(secret)
         url = 'https://oapi.dingtalk.com/robot/send?access_token=' + robot_id + \
-              '&timestamp=' + tim
+              '&timestamp=' + timestamp + '&sign=' + sign_str
+        body = json.dumps(msg)
+        requests.post(url, data=body, headers=headers, timeout=10)
+        print('成功发送钉钉')
+    except Exception as e:
+        print("发送钉钉失败:", e
