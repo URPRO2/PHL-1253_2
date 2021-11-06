@@ -797,4 +797,5 @@ def calculate_max_size(price, money, leverage, ratio):
 
 def send_dingding_and_raise_error(content):
     print(content)
-    se
+    send_dingding_msg(content)
+    raise ValueError(content)
