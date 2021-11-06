@@ -14,4 +14,11 @@ import pandas as pd
 from datetime import datetime
 from program.三_少年意气.四_择时策略实盘初阶.Function import *
 from program.三_少年意气.四_择时策略实盘初阶.Config import *
-pd.set_option('display.max_
+pd.set_option('display.max_rows', 1000)
+pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+# 设置命令行输出时的列对齐功能
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+
+
+# 测试时ccxt版本为1
