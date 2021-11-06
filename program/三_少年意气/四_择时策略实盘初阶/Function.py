@@ -787,4 +787,14 @@ n    :param secret: 你的secret，即安全设置加签当中的那个密钥
         requests.post(url, data=body, headers=headers, timeout=10)
         print('成功发送钉钉')
     except Exception as e:
-        print("发送钉钉失败:", e
+        print("发送钉钉失败:", e)
+
+
+# price 价格 money 资金量 leverage 杠杆 ratio 最小变动单位
+def calculate_max_size(price, money, leverage, ratio):
+    return math.floor(money * leverage / price / ratio)
+
+
+def send_dingding_and_raise_error(content):
+    print(content)
+    se
