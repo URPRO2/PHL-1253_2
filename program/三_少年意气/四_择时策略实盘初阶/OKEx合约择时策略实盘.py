@@ -21,4 +21,13 @@ pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
 
 
-# 测试时ccxt版本为1
+# 测试时ccxt版本为1.27.28。若不是此版本，可能会报错，可能性很低。print(ccxt.__version__)可以查看ccxt版本。
+
+# =====配置运行相关参数=====
+
+# =执行的时间间隔
+time_interval = '15m'  # 目前支持5m，15m，30m，1h，2h等。得okex支持的K线才行。最好不要低于5m
+
+# =钉钉
+# 在一个钉钉群中，可以创建多个钉钉机器人。
+# 建
