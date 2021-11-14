@@ -30,4 +30,12 @@ time_interval = '15m'  # 目前支持5m，15m，30m，1h，2h等。得okex支持
 
 # =钉钉
 # 在一个钉钉群中，可以创建多个钉钉机器人。
-# 建
+# 建议单独建立一个报错机器人，该机器人专门发报错信息。请务必将报错机器人在id和secret放到function.send_dingding_msg的默认参数中。
+robot_id = ''
+secret = ''
+robot_id_secret = [robot_id, secret]
+
+# =交易所配置
+OKEX_CONFIG = {
+    'apiKey': '',
+    'secret': 
