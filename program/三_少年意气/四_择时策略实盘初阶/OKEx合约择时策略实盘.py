@@ -51,4 +51,8 @@ exchange = ccxt.okex(OKEX_CONFIG)
 symbol_config = {
     'eth-usdt': {'instrument_id': 'ETH-USDT-200626',  # 合约代码，当更换合约的时候需要手工修改
                  'leverage': '3',  # 控制实际交易的杠杆倍数，在实际交易中可以自己修改。此处杠杆数，必须小于页面上的最大杠杆数限制
-                 'strateg
+                 'strategy_name': 'real_signal_simple_bolling',  # 使用的策略的名称
+                 'para': [20, 2]},  # 策略参数
+    'eos-usdt': {'instrument_id': 'EOS-USDT-200626',
+                 'leverage': '3',
+                 'strategy_name
