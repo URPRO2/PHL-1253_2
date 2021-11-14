@@ -47,3 +47,8 @@ OKEX_CONFIG = {
 exchange = ccxt.okex(OKEX_CONFIG)
 
 # =====配置交易相关参数=====
+# 更新需要交易的合约、策略参数、下单量等配置信息
+symbol_config = {
+    'eth-usdt': {'instrument_id': 'ETH-USDT-200626',  # 合约代码，当更换合约的时候需要手工修改
+                 'leverage': '3',  # 控制实际交易的杠杆倍数，在实际交易中可以自己修改。此处杠杆数，必须小于页面上的最大杠杆数限制
+                 'strateg
