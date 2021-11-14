@@ -38,4 +38,12 @@ robot_id_secret = [robot_id, secret]
 # =交易所配置
 OKEX_CONFIG = {
     'apiKey': '',
-    'secret': 
+    'secret': '',
+    'password': '',
+    'timeout': exchange_timeout,
+    'rateLimit': 10,
+    'hostname': 'okex.me',  # 无法fq的时候启用
+    'enableRateLimit': False}
+exchange = ccxt.okex(OKEX_CONFIG)
+
+# =====配置交易相关参数=====
