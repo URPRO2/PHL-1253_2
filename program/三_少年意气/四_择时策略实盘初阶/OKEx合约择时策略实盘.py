@@ -55,4 +55,13 @@ symbol_config = {
                  'para': [20, 2]},  # 策略参数
     'eos-usdt': {'instrument_id': 'EOS-USDT-200626',
                  'leverage': '3',
-                 'strategy_name
+                 'strategy_name': 'real_signal_simple_bolling',  # 不同币种可以使用不同的策略
+                 'para': [20, 2]},
+}
+
+
+def main():
+
+    # =====获取需要交易币种的历史数据=====
+    max_len = 1000  # 设定最多收集多少根K线，okex不能超过1440根
+    symbol_candle_d
