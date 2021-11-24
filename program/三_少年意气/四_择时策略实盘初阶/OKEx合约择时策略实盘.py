@@ -64,4 +64,8 @@ def main():
 
     # =====获取需要交易币种的历史数据=====
     max_len = 1000  # 设定最多收集多少根K线，okex不能超过1440根
-    symbol_candle_d
+    symbol_candle_data = dict()  # 用于存储K线数据
+    # 遍历获取币种历史数据
+    for symbol in symbol_config.keys():
+        # 获取币种的历史数据，会删除最新一行的数据
+        symbol_candle_data[symbol] = fetch_okex_symbol_history_candle_data(exchange, symbol_config[symbol]['in
