@@ -82,4 +82,11 @@ def main():
 
         # 更新账户信息symbol_info
         symbol_info = update_symbol_info(exchange, symbol_info, symbol_config)
-        print('\nsymbol_info:\n', symbol_info,
+        print('\nsymbol_info:\n', symbol_info, '\n')
+
+        # =获取策略执行时间，并sleep至该时间
+        run_time = sleep_until_run_time(time_interval)
+
+        # =并行获取所有币种最近数据
+        exchange.timeout = 1000  # 即将获取最新数据，临时将timeout设置为1s，加快获取数据速度
+        candle_num = 10  # 只
