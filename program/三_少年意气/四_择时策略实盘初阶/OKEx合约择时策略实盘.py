@@ -89,4 +89,8 @@ def main():
 
         # =并行获取所有币种最近数据
         exchange.timeout = 1000  # 即将获取最新数据，临时将timeout设置为1s，加快获取数据速度
-        candle_num = 10  # 只
+        candle_num = 10  # 只获取最近candle_num根K线数据，可以获得更快的速度
+        # 获取数据
+        recent_candle_data = single_threading_get_data(exchange, symbol_info, symbol_config, time_interval, run_time, candle_num)
+        for symbol in symbol_config.keys():
+            pri
