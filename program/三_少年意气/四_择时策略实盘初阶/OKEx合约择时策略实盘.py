@@ -105,4 +105,9 @@ def main():
             symbol_candle_data[symbol] = df
 
         # =计算每个币种的交易信号
-        symbol_signal = cal
+        symbol_signal = calculate_signal(symbol_info, symbol_config, symbol_candle_data)
+        print('\nsymbol_info:\n', symbol_info)
+        print('本周期交易计划:', symbol_signal)
+
+        # =下单
+        exchange.timeout = exchange_timeout  # 下
