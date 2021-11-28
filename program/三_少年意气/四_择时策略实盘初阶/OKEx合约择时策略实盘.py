@@ -97,4 +97,6 @@ def main():
 
         # 将symbol_candle_data和最新获取的recent_candle_data数据合并
         for symbol in symbol_config.keys():
-            df = symbol_candle_data[symbol].append(recent_candle_data[symbol], ignor
+            df = symbol_candle_data[symbol].append(recent_candle_data[symbol], ignore_index=True)
+            df.drop_duplicates(subset=['candle_begin_time_GMT8'], keep='last', inplace=True)
+            df.sort_values(by='candle_begin_time_GMT8', inplace=True)  # 排序，理论上这步应该可以省略，加快
