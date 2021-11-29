@@ -113,4 +113,9 @@ def main():
         exchange.timeout = exchange_timeout  # 下单时需要增加timeout的时间，将timout恢复正常
         symbol_order = pd.DataFrame()
         if symbol_signal:
-            symbol_order = single_threading_place_order(exchange, symbol_info, symbol_config, symbol_signal)  # 单线程下
+            symbol_order = single_threading_place_order(exchange, symbol_info, symbol_config, symbol_signal)  # 单线程下单
+            print('下单记录：\n', symbol_order)
+
+            # 更新订单信息，查看是否完全成交
+            time.sleep(short_sleep_time)  # 休息一段时间再更新订单信息
+            symbol_order = update_order_info(exchange, symbol_config, symbol_ord
