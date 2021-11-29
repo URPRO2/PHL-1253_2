@@ -110,4 +110,7 @@ def main():
         print('本周期交易计划:', symbol_signal)
 
         # =下单
-        exchange.timeout = exchange_timeout  # 下
+        exchange.timeout = exchange_timeout  # 下单时需要增加timeout的时间，将timout恢复正常
+        symbol_order = pd.DataFrame()
+        if symbol_signal:
+            symbol_order = single_threading_place_order(exchange, symbol_info, symbol_config, symbol_signal)  # 单线程下
