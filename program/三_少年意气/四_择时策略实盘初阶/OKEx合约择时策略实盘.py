@@ -132,4 +132,13 @@ def main():
 
         # 本次循环结束
         print('\n', '-' * 20, '本次循环结束，%f秒后进入下一次循环' % long_sleep_time, '-' * 20, '\n\n')
-        time.sleep(
+        time.sleep(long_sleep_time)
+
+
+if __name__ == '__main__':
+    while True:
+        try:
+            main()
+        except Exception as e:
+            send_dingding_msg('系统出错，10s之后重新运行，出错原因：' + str(e))
+            print(e)
