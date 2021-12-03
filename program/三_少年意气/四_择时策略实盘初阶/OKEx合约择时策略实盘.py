@@ -142,3 +142,4 @@ if __name__ == '__main__':
         except Exception as e:
             send_dingding_msg('系统出错，10s之后重新运行，出错原因：' + str(e))
             print(e)
+            sleep(long_sleep_time)
