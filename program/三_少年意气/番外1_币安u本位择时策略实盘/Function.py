@@ -187,3 +187,214 @@ def usdt_future_exchange_info(exchange, symbol_config):
 def binance_update_account(exchange, symbol_config, symbol_info):
     """
     获取u本位账户的持仓信息、账户余额信息
+    :param exchange:
+    :param symbol_config:
+    :param symbol_info:
+    :return:
+    接口：GET /fapi/v2/account (HMAC SHA256)
+    文档：https://binance-docs.github.io/apidocs/futures/cn/#v2-user_data-2
+    币安的币本位合约，不管是交割，还是永续，共享一个账户。他们的symbol不一样。比如btc的永续合约是BTCUSDT，季度合约是BTCUSDT_210625
+    """
+    # ===获取持仓数据===
+    # 获取账户信息
+    # account_info = exchange.fapiPrivateGetAccount()
+    account_info = retry_wrapper(exchange.fapiPrivateGetAccount, act_name='查看合约账户信息')
+
+    # 将持仓信息转变成dataframe格式
+    positions_df = pd.DataFrame(account_info['positions'], dtype=float)
+    positions_df = positions_df.set_index('symbol')
+    # 筛选交易的币对
+    positions_df = positions_df[positions_df.index.isin(symbol_config.keys())]
+    # 将账户信息转变成dataframe格式
+    assets_df = pd.DataFrame(account_info['assets'], dtype=float)
+    assets_df = assets_df.set_index('asset')
+
+    # 根据持仓信息、账户信息中的值填充symbol_info
+    balance = assets_df.loc['USDT', 'marginBalance']  # 保证金余额
+    symbol_info['账户权益'] = balance
+
+    symbol_info['持仓量'] = positions_df['positionAmt']
+    symbol_info['持仓方向'] = symbol_info['持仓量'].apply(lambda x: 1 if float(x) > 0 else (-1 if float(x) < 0 else 0))
+
+    symbol_info['持仓收益'] = positions_df['unrealizedProfit']
+    symbol_info['持仓均价'] = positions_df['entryPrice']
+
+    # 计算每个币种的分配资金（在无平仓的情况下）
+    profit = symbol_info['持仓收益'].sum()
+    symbol_info['分配资金'] = (balance - profit) * symbol_info['分配比例']
+
+    return symbol_info
+
+
+# ===通过ccxt获取K线数据
+def ccxt_fetch_binance_candle_data(exchange, symbol, time_interval, limit):
+    """
+    获取指定币种的K线信息
+    :param exchange:
+    :param symbol:
+    :param time_interval:
+    :param limit:
+    :return:
+    """
+
+    # 获取数据
+    # data = exchange.fapiPublic_get_klines({'symbol': symbol, 'interval': time_interval, 'limit': limit})
+    data = retry_wrapper(exchange.fapiPublic_get_klines, act_name='获取币种K线数据',
+                         params={'symbol': symbol, 'interval': time_interval, 'limit': limit})
+
+    # 整理数据
+    df = pd.DataFrame(data, dtype=float)
+    df.rename(columns={1: 'open', 2: 'high', 3: 'low', 4: 'close', 5: 'volume'}, inplace=True)
+    df['candle_begin_time'] = pd.to_datetime(df[0], unit='ms')
+    df['candle_begin_time_GMT8'] = df['candle_begin_time'] + timedelta(hours=8)
+    df = df[['candle_begin_time_GMT8', 'open', 'high', 'low', 'close', 'volume']]
+
+    return df
+
+
+# ===单线程获取需要的K线数据，并检测质量。
+def single_threading_get_binance_candle_data(exchange, symbol_config, symbol_info, time_interval, run_time, candle_num):
+    """
+    获取所有币种的k线数据，并初步处理
+    :param exchange:
+    :param symbol_config:
+    :param symbol_info:
+    :param time_interval:
+    :param run_time:
+    :param candle_num:
+    :return:
+    """
+
+    symbol_candle_data = dict()  # 用于存储K线数据
+
+    print('开始获取K线数据')
+    # 遍历每一个币种
+    for symbol in symbol_config.keys():
+        print(symbol, '开始时间：', datetime.now(), end=' ')
+
+        # 获取symbol该品种最新的K线数据
+        df = ccxt_fetch_binance_candle_data(exchange, symbol, time_interval, limit=candle_num)
+
+        # 如果获取数据为空，再次获取
+        # if df.empty:
+            # continue
+
+        # 获取到了最新数据
+        print('结束时间：', datetime.now())
+        symbol_info.at[symbol, '当前价格'] = df.iloc[-1]['close']  # 该品种的最新价格
+        symbol_candle_data[symbol] = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除run_time周期的数据
+
+    return symbol_candle_data
+
+
+# ===获取需要的币种的历史K线数据。
+def get_binance_history_candle_data(exchange, symbol_config, time_interval, candle_num, if_print=True):
+
+    symbol_candle_data = dict()  # 用于存储K线数据
+    print('获取交易币种的历史K线数据')
+
+    # 遍历每一个币种
+    for symbol in symbol_config.keys():
+
+        # 获取symbol该品种最新的K线数据
+        df = ccxt_fetch_binance_candle_data(exchange, symbol, time_interval, limit=candle_num)
+
+        # 为了保险起见，去掉最后一行最新的数据
+        df = df[:-1]
+
+        symbol_candle_data[symbol] = df  # 去除run_time周期的数据
+        time.sleep(medium_sleep_time)
+
+        if if_print:
+            print(symbol)
+            print(symbol_candle_data[symbol].tail(3))
+
+    return symbol_candle_data
+
+
+# ===批量下单
+def place_binance_batch_order(exchange, symbol_order_params):
+
+    num = 5  # 每个批量最多下单的数量
+    for i in range(0, len(symbol_order_params), num):
+        order_list = symbol_order_params[i:i + num]
+        params = {'batchOrders': exchange.json(order_list),
+                  'timestamp': int(time.time() * 1000)}
+        # order_info = exchange.fapiPrivatePostBatchOrders(params)
+        order_info = retry_wrapper(exchange.fapiPrivatePostBatchOrders, params=params, act_name='批量下单')
+
+        print('\n成交订单信息\n', order_info)
+        time.sleep(short_sleep_time)
+
+
+# ==========趋势策略相关函数==========
+def calculate_signal(symbol_info, symbol_config, symbol_candle_data):
+    """
+    计算交易信号
+    :param symbol_info:
+    :param symbol_config:
+    :param symbol_candle_data:
+    :return:
+    """
+    # return变量
+    symbol_signal = {
+        '平多': [],
+        '平空': [],
+        '开多': [],
+        '开空': [],
+        '平多开空': [],
+        '平空开多': [],
+    }
+
+    # 逐个遍历交易对
+    for symbol in symbol_config.keys():
+
+        # 赋值相关数据
+        df = symbol_candle_data[symbol].copy()  # 最新数据
+        now_pos = symbol_info.at[symbol, '持仓方向']  # 当前持仓方向
+        avg_price = symbol_info.at[symbol, '持仓均价']  # 当前持仓均价
+
+        # 需要计算的目标仓位
+        target_pos = None
+
+        # 根据策略计算出目标交易信号。
+        if not df.empty:  # 当原始数据不为空的时候
+            target_pos = getattr(Signals, symbol_config[symbol]['strategy_name'])(df, now_pos, avg_price,
+                                                                                  symbol_config[symbol]['para'])
+            symbol_info.at[symbol, '目标持仓'] = target_pos
+
+        # 根据目标仓位和实际仓位，计算实际操作
+        if now_pos == 1 and target_pos == 0:  # 平多
+            symbol_signal['平多'].append(symbol)
+        elif now_pos == -1 and target_pos == 0:  # 平空
+            symbol_signal['平空'].append(symbol)
+        elif now_pos == 0 and target_pos == 1:  # 开多
+            symbol_signal['开多'].append(symbol)
+        elif now_pos == 0 and target_pos == -1:  # 开空
+            symbol_signal['开空'].append(symbol)
+        elif now_pos == 1 and target_pos == -1:  # 平多，开空
+            symbol_signal['平多开空'].append(symbol)
+        elif now_pos == -1 and target_pos == 1:  # 平空，开多
+            symbol_signal['平空开多'].append(symbol)
+
+        symbol_info.at[symbol, '信号时间'] = datetime.now()  # 计算产生信号的时间
+
+    # 删除没有信号的操作
+    for key in list(symbol_signal.keys()):
+        if not symbol_signal.get(key):
+            del symbol_signal[key]
+
+    return symbol_signal
+
+
+# 根据交易所的限制（最小下单单位、量等），修改下单的数量和价格
+def modify_order_quantity_and_price(symbol, symbol_config, params):
+    """
+    根据交易所的限制（最小下单单位、量等），修改下单的数量和价格
+    :param symbol:
+    :param symbol_config:
+    :param params:
+    :return:
+    """
+
+    # 根据每个币种的精度，修改下单数量的精度
