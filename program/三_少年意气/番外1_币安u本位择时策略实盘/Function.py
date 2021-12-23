@@ -398,3 +398,111 @@ def modify_order_quantity_and_price(symbol, symbol_config, params):
     """
 
     # 根据每个币种的精度，修改下单数量的精度
+    params['quantity'] = round(params['quantity'], symbol_config[symbol]['最小下单量精度'])
+
+    # 买单加价2%，卖单降价2%
+    params['price'] = params['price'] * 1.02 if params['side'] == 'BUY' else params['price'] * 0.98
+    # 根据每个币种的精度，修改下单价格的精度
+    params['price'] = round(params['price'], symbol_config[symbol]['最小下单价精度'])
+
+    return params
+
+
+# 针对某个类型订单，计算下单参数。供cal_all_order_info函数调用
+def cal_order_params(signal_type, symbol, symbol_info, symbol_config):
+    """
+    针对某个类型订单，计算下单参数。供cal_all_order_info函数调用
+    :param signal_type:
+    :param symbol:
+    :param symbol_info:
+    :param symbol_config:
+    :return:
+    """
+
+    params = {
+        'symbol': symbol,
+        'side': binance_order_type[signal_type],
+        'price': symbol_info.at[symbol, '当前价格'],
+        'type': 'LIMIT',
+        'timeInForce': 'GTC',
+    }
+
+    if signal_type in ['平空', '平多']:
+        params['quantity'] = abs(symbol_info.at[symbol, '持仓量'])
+
+    elif signal_type in ['开多', '开空']:
+        params['quantity'] = symbol_info.at[symbol, '分配资金'] * symbol_config[symbol]['leverage'] / \
+                   symbol_info.at[symbol, '当前价格']
+
+    else:
+        close_quantity = abs(symbol_info.at[symbol, '持仓量'])
+        open_quantity = symbol_info.at[symbol, '分配资金'] * symbol_config[symbol]['leverage'] / \
+                        symbol_info.at[symbol, '当前价格']
+        params['quantity'] = close_quantity + open_quantity
+
+    # 修改精度
+    print(symbol, '修改精度前', params)
+    params = modify_order_quantity_and_price(symbol, symbol_config, params)
+    print(symbol, '修改精度后', params)
+
+    return params
+
+
+# 计算所有币种的下单参数
+def cal_all_order_info(symbol_signal, symbol_info, symbol_config, exchange):
+    """
+
+    :param symbol_signal:
+    :param symbol_info:
+    :param symbol_config:
+    :param exchange:
+    :return:
+    """
+
+    symbol_order_params = []
+
+    # 如果没有信号，跳过
+    if not symbol_signal:
+        print('本周期无交易指令，不执行交易操作')
+        return symbol_order_params
+
+    # 如果只有平仓，或者只有开仓，无需重新更新持仓信息symbol_info
+    if set(symbol_signal.keys()).issubset(['平空', '平多']) or set(symbol_signal.keys()).issubset(['开多', '开空']):
+        print('本周期只有平仓或者只有开仓交易指令，无需再次更新账户信息，直接执行交易操作')
+
+    # 如果有其他信号，需重新更新持仓信息symbol_info，然后据此重新计算下单量
+    else:
+        print('本周期有复杂交易指令（例如：平开、平和开、有平和平开、有开和平开），需重新更新账户信息，再执行交易操作')
+
+        # 更新账户信息symbol_info
+        symbol_info = binance_update_account(exchange, symbol_config, symbol_info)
+
+        # 标记出需要把利润算作保证金的仓位。
+        for signal in symbol_signal.keys():
+            for symbol in symbol_signal[signal]:
+                symbol_info.at[symbol, '利润参与保证金'] = 1
+
+        # 计算分配资金
+        all_profit = symbol_info['持仓收益'].sum()  # 所有利润
+        profit = (symbol_info['持仓收益'] * symbol_info['利润参与保证金']).sum()  # 参与保证金的利润
+        balance = symbol_info.iloc[0]['账户权益'] - all_profit  # 初始投入资金
+        balance = balance + profit  # 平仓之后的利润或损失
+        symbol_info['分配资金'] = balance * symbol_info['分配比例']
+        print('\n更新持仓信息、分配资金信息\n', symbol_info)
+
+    # 计算每个交易币种的各个下单参数
+    for signal_type in symbol_signal.keys():
+        for symbol in symbol_signal[signal_type]:
+            params = cal_order_params(signal_type, symbol, symbol_info, symbol_config)
+
+            if params['quantity'] == 0:  # 考察下单量是否为0
+                print('\n', symbol, '下单量为0，忽略')
+            elif params['price'] * params['quantity'] <= 5:  # 和最小下单额5美元比较
+                print('\n', symbol, '下单金额小于5u，忽略')
+            else:
+                # 改成str
+                params['price'] = str(params['price'])
+                params['quantity'] = str(params['quantity'])
+                symbol_order_params.append(params)
+
+    return symbol_order_params
