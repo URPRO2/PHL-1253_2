@@ -94,3 +94,205 @@ def real_signal_simple_bolling(df, now_pos, avg_price, para=[200, 2]):
     # 找出做多信号
     if (close > upper) and (close2 <= upper2):
         signal = 1
+    # 找出做空信号
+    elif (close < lower) and (close2 >= lower2):
+        signal = -1
+    # 找出做多平仓信号
+    elif (close < median) and (close2 >= median2):
+        signal = 0
+    # 找出做空平仓信号
+    elif (close > median) and (close2 <= median2):
+        signal = 0
+
+    return signal
+
+
+# =====简单海龟策略
+# 策略
+"""
+ETH 15m
+[970, 190]    127.251525
+[980, 190]    118.995911
+[940, 190]    117.847937
+[960, 190]    112.464518
+[990, 190]    108.937249
+"""
+def signal_simple_turtle(df, now_pos, avg_price, para=[20, 10]):
+    """
+    今天收盘价突破过去20天中的收盘价和开盘价中的最高价，做多。今天收盘价突破过去10天中的收盘价的最低价，平仓。
+    今天收盘价突破过去20天中的收盘价和开盘价中的的最低价，做空。今天收盘价突破过去10天中的收盘价的最高价，平仓。
+    :param para: [参数1, 参数2]
+    :param df:
+    :return:
+    """
+    n1 = int(para[0])
+    n2 = int(para[1])
+    df = df[:-1]
+    close = df.iloc[-1]['close']
+
+    df['open_close_high'] = df[['open', 'close']].max(axis=1) #开收 的最高价
+    df['open_close_low'] = df[['open', 'close']].min(axis=1) #开收 的最低价
+    # 最近n1日的最高价、最低价
+    df['n1_high'] = df['open_close_high'].rolling(n1, min_periods=1).max()
+    df['n1_low'] = df['open_close_low'].rolling(n1, min_periods=1).min()
+
+    # 最近n2日的最高价、最低价
+    df['n2_high'] = df['open_close_high'].rolling(n2, min_periods=1).max()
+    df['n2_low'] = df['open_close_low'].rolling(n2, min_periods=1).min()
+
+    n1_high = df.iloc[-2]['n1_high']
+    n1_low = df.iloc[-2]['n1_low']
+    n2_high = df.iloc[-2]['n2_high']
+    n2_low = df.iloc[-2]['n2_low']
+
+    signal = None
+    # ===找出做多信号
+    # 当天的收盘价 > n1日的最高价，做多
+    if close >= n1_high:
+        signal = 1
+    elif close <= n2_low:
+        signal = 0
+    elif close <= n1_low:
+        signal = -1
+    elif close >= n2_high:
+        signal = 0
+    return signal
+
+
+
+# 【西瓜蹲】自适应布林+bias+布林强盗止盈止损_BTC: 4.64 (达标)、ETH: 9.00 (达标)、参数1
+# https://bbs.quantclass.cn/thread/4378
+def singal_adaptboll_bandit_bias(df, now_pos, avg_price, para=[547]):
+    # ===策略参数
+    n = int(para[0])
+
+    # ===计算指标
+    # 计算均线
+    df['median'] = df['close'].rolling(n, min_periods=1).mean()
+    # 计算上轨、下轨道
+    df['std'] = df['close'].rolling(n, min_periods=1).std(ddof=0)
+
+    df['z_score'] = abs(df['close'] - df['median']) / df['std']
+    df['m'] = df['z_score'].rolling(window=n).max().shift(1)
+    df['upper'] = df['median'] + df['m'] * df['std']
+    df['lower'] = df['median'] - df['m'] * df['std']
+
+    # 计算bias
+    df['bias'] = df['close'] / df['median'] - 1
+    df['z_score'] = abs(df['close'] / df['median'] - 1)
+    df['bias_pct'] = df['z_score'].rolling(window=n).max().shift(1)
+
+    # ===计算原始布林策略信号
+    # 找出做多信号
+    condition1 = df['close'] > df['upper']  # 当前K线的收盘价 > 上轨
+    condition2 = df['close'].shift(1) <= df['upper'].shift(1)  # 之前K线的收盘价 <= 上轨
+    df.loc[condition1 & condition2, 'signal_long'] = 1  # 将产生做多信号的那根K线的signal设置为1，1代表做多
+
+    # 找出做多平仓信号
+    condition1 = df['close'] < df['median']  # 当前K线的收盘价 < 中轨
+    condition2 = df['close'].shift(1) >= df['median'].shift(1)  # 之前K线的收盘价 >= 中轨
+    df.loc[condition1 & condition2, 'signal_long'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
+
+    # 找出做空信号
+    condition1 = df['close'] < df['lower']  # 当前K线的收盘价 < 下轨
+    condition2 = df['close'].shift(1) >= df['lower'].shift(1)  # 之前K线的收盘价 >= 下轨
+    df.loc[condition1 & condition2, 'signal_short'] = -1  # 将产生做空信号的那根K线的signal设置为-1，-1代表做空
+
+    # 找出做空平仓信号
+    condition1 = df['close'] > df['median']  # 当前K线的收盘价 > 中轨
+    condition2 = df['close'].shift(1) <= df['median'].shift(1)  # 之前K线的收盘价 <= 中轨
+    df.loc[condition1 & condition2, 'signal_short'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
+
+    # ===将long和short合并为signal
+    df['signal_short'].fillna(method='ffill', inplace=True)
+    df['signal_long'].fillna(method='ffill', inplace=True)
+    df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1)
+    df['signal'].fillna(value=0, inplace=True)
+    df['raw_signal'] = df['signal']
+
+    # ===根据bias，修改开仓时间
+    df['temp'] = df['signal']
+
+    # 将原始信号做多时，当bias大于阀值，设置为空
+    condition1 = (df['signal'] == 1)
+    condition2 = (df['bias'] > df['bias_pct'])
+    df.loc[condition1 & condition2, 'temp'] = None
+
+    # 将原始信号做空时，当bias大于阀值，设置为空
+    condition1 = (df['signal'] == -1)
+    condition2 = (df['bias'] < -1 * df['bias_pct'])
+    df.loc[condition1 & condition2, 'temp'] = None
+
+    # 原始信号刚开仓，并且大于阀值，将信号设置为0
+    condition1 = (df['signal'] != df['signal'].shift(1))
+    condition2 = (df['temp'].isnull())
+    df.loc[condition1 & condition2, 'temp'] = 0
+
+    # 使用之前的信号补全原始信号
+    df['temp'].fillna(method='ffill', inplace=True)
+    df['signal'] = df['temp']
+
+    # Bandit start
+    # 计算k线之间的时差，秒为单位!
+    df['candle_begin_time'] = df['candle_begin_time_GMT8']
+    time_diff = (df['candle_begin_time'].values[1] - df['candle_begin_time'].values[0]) / np.timedelta64(1, 's')
+    # 标记开平仓时间
+    df['start_time'] = np.where(df['signal'] != df['signal'].shift(1), df['candle_begin_time'], np.datetime64('NaT'))
+    df['start_time'].fillna(method='ffill', inplace=True)
+    # 当前k线开始时间到开平仓起始时间差，秒为单位
+    df['time_diff'] = df['candle_begin_time'] - df['start_time']
+    df['time_diff'] = df['time_diff'].apply(lambda x: x.total_seconds())
+    # 根据时间差计算从开平仓开始到当前是第几根k线
+    df['cnt'] = df['time_diff'] / time_diff
+    # 计算均线周期，起始为 n ，每过一根k线减去1，直到最小值5
+    df['cnt'] = df['cnt'].apply(lambda x: int(n - x) if int(n - x) > 5 else 5)
+
+    # 按照每根k线不同的均线周期，循环计算均线值
+    close_list = df['close'].values
+    cnt_list = df['cnt'].values
+    ma_list = []
+    for i in range(0, len(close_list)):
+        m = cnt_list[i]
+        if i < m:
+            ma_list.append(close_list[0: i + 1].mean())
+        else:
+            ma_list.append(close_list[i - m + 1: i + 1].mean())
+
+    df['ma'] = ma_list
+
+    # temp 计算新的signal
+    df['temp'] = np.NaN
+    condition1 = (df['signal'] == 1) & (df['close'] > df['upper'])
+    condition2 = (df['signal'] == -1) & (df['close'] < df['lower'])
+    condition3 = (df['signal'] == 1) & (df['close'] < df['ma']) & (df['close'] < df['upper'])
+    condition4 = (df['signal'] == -1) & (df['close'] > df['ma']) & (df['close'] > df['lower'])
+    # 原始signal==1（开多），并且close>upper, 标记为1
+    # 原始signal==-1（开空），并且close<lower, 标记为1
+    # 其他标记为空，用于平仓之后再次突破上轨后再开仓
+    df['temp'] = np.where(condition1 | condition2, 1, np.NaN)
+    # 原始signal==1（开多），并且close<均线同时<upper, 标记为 0
+    # 原始signal==-1（开空），并且close>均线同时>lower, 标记为0
+    # 其他标记为原值
+    df['temp'] = np.where(condition3 | condition4, 0, df['temp'])
+    # 乘以原signal，使得开空的temp变为-1
+    df['temp'] = df['temp'] * df['signal']
+    # 将原始不开仓的k线，在temp也标记为不开仓 0
+    df['temp'] = np.where(df['signal'] == 0, 0, df['temp'])
+    # 将temp用前一个值填充空值
+    df['temp'].fillna(method='ffill', inplace=True)
+    # 将新信号赋值到原始信号
+    df['signal'] = df['temp']
+
+    # ===将signal中的重复值删除
+    temp = df[['signal']]
+    temp = temp[temp['signal'] != temp['signal'].shift(1)]
+    df['signal'] = temp
+
+    df.drop(['raw_signal', 'z_score', 'm', 'std', 'z_score', 'temp', 'bias', 'bias_pct', 'signal_long', 'signal_short',
+             'start_time', 'time_diff', 'cnt'], axis=1, inplace=True)
+    # print(df)
+    # print(df.iloc[-1]['candle_begin_time'])
+    return df.iloc[-1]['signal']
+
+
+# https://bbs.quantclass.cn/thread/4368
