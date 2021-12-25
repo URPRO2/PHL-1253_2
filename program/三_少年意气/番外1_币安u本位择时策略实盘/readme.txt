@@ -10,4 +10,14 @@
 1. 币安可以一次性获取1500根k线，不用像okex那样每次获取200根然后往前推。
 2. 在变单向模式下，不用先平后开。比如目前持有1个btc多仓，策略发出做空2个btc的信号。我不需要像okex先平1个btc，再开2个btc，而是可以直接做空3个btc达到目的。
 3. 币安有批量下单接口（最多5个），会使用该接口下单。
-4. 本程序同时适用u本位的永续合约、交割合约。在symbol_config中设置不同的symbol即可
+4. 本程序同时适用u本位的永续合约、交割合约。在symbol_config中设置不同的symbol即可，例如比特币永续为BTCUSDT，交割为BTCUSDT_210625。
+
+之后版本计划增加的内容
+1. 自动发送钉钉的代码
+2. 增加针对自动减仓的应对
+
+# =====20210506版本说明
+第一个版本
+
+# =====20210507版本说明
+Function.py中的usdt_future_exchange_info函数，df.at[symbol, 'pricePrecision']和df.at[symbol, 'quanti
