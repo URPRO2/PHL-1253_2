@@ -20,4 +20,10 @@
 第一个版本
 
 # =====20210507版本说明
-Function.py中的usdt_future_exchange_info函数，df.at[symbol, 'pricePrecision']和df.at[symbol, 'quanti
+Function.py中的usdt_future_exchange_info函数，df.at[symbol, 'pricePrecision']和df.at[symbol, 'quantityPrecision']的返回值可能为str，强制转化为int
+
+# =====20210513版本说明
+1. 在程序刚开始的时候获取所有的历史数据
+2. 修改在由空转多时，下单量计算的错误。原先空单的数量需要取绝对值。具体是修改cal_order_params函数中close_quality变量
+3. 所有和交易所交互的地方，增加容错处理
+4. 修改获得币对精度的函数usdt_future_exchange_info。
