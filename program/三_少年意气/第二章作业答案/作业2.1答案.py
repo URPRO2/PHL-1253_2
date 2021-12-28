@@ -26,3 +26,10 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 """
 解题思路：
 本作业较为简单，答案基本就是基于课程2.3.7代码的代码稍作修改。
+
+课程2.3.7代码只能抓取指定一天的历史数据。作业要求是抓取某一段时间的全部历史数据，那只需要获取到该段时间每天的日期，然后遍历这些日期抓取每天的数据即可。
+"""
+
+
+# ===来自课程2.3.7的函数save_spot_candle_data_from_exchange
+def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start
