@@ -10,4 +10,19 @@
 import pandas as pd
 import ccxt
 import time
-i
+import os
+import datetime
+pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+
+
+"""
+作业内容：
+抓取币安交易所的历史数据
+    至少抓取最近1个月的数据，建议抓取一年
+    交易对自己选择，至少包括：btc/usdt、eth/usdt、eos/usdt、ltc/usdt
+    时间周期至少包括：5分钟、15分钟
+"""
+
+"""
+解题思路：
+本作业较为简单，答案基本就是基于课程2.3.7代码的代码稍作修改。
