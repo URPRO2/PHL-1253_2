@@ -55,4 +55,10 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
 
     while True:
         # 获取数据
-        df = exchange.fetch_ohlcv(symbol=symbol, timeframe=time_interval, since
+        df = exchange.fetch_ohlcv(symbol=symbol, timeframe=time_interval, since=start_time_since, limit=limit)
+        # 整理数据
+        df = pd.DataFrame(df, dtype=float)  # 将数据转换为dataframe
+        # 合并数据
+        df_list.append(df)
+        # 新的since
+        t = pd.to_datetime(df.iloc[-1][0], u
