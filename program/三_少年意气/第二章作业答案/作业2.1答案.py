@@ -61,4 +61,10 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
         # 合并数据
         df_list.append(df)
         # 新的since
-        t = pd.to_datetime(df.iloc[-1][0], u
+        t = pd.to_datetime(df.iloc[-1][0], unit='ms')
+        start_time_since = exchange.parse8601(str(t))
+        # 判断是否挑出循环
+        if t >= end_time or df.shape[0] <= 1:
+            break
+        # 抓取间隔需要暂停2s，防止抓取过于频繁
+        time.sleep(
