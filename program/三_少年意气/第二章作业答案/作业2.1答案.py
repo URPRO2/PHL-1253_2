@@ -50,4 +50,9 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
 
     # ===开始抓取数据
     df_list = []
-    start_time_since = ex
+    start_time_since = exchange.parse8601(start_time)
+    end_time = pd.to_datetime(start_time) + datetime.timedelta(days=1)
+
+    while True:
+        # 获取数据
+        df = exchange.fetch_ohlcv(symbol=symbol, timeframe=time_interval, since
