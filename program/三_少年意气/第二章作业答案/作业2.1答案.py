@@ -38,4 +38,16 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     :param exchange: ccxt交易所
     :param symbol: 指定交易对，例如'BTC/USDT'
     :param time_interval: K线的时间周期
-    :param start_time: 指定日期，格式为'2020-03
+    :param start_time: 指定日期，格式为'2020-03-16 00:00:00'
+    :param path: 文件保存根目录
+    :return:
+    """
+
+    # ===对火币的limit做特殊处理
+    limit = None
+    if exchange.id == 'huobipro':
+        limit = 2000
+
+    # ===开始抓取数据
+    df_list = []
+    start_time_since = ex
