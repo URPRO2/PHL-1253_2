@@ -67,4 +67,9 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
         if t >= end_time or df.shape[0] <= 1:
             break
         # 抓取间隔需要暂停2s，防止抓取过于频繁
-        time.sleep(
+        time.sleep(1)
+
+    # ===合并整理数据
+    df = pd.concat(df_list, ignore_index=True)
+    df.rename(columns={0: 'MTS', 1: 'open', 2: 'high',
+                       3: 'low', 4: 'close', 5: 'volume'}, inplace=True)  # 
