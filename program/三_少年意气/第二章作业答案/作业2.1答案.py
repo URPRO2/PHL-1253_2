@@ -88,4 +88,10 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     path = os.path.join(path, exchange.id)
     if os.path.exists(path) is False:
         # os.mkdir(path)  # 可以建一级文件夹
-        os.makedirs(path)  
+        os.makedirs(path)  # 可以建多级文件夹
+    # 创建spot文件夹
+    path = os.path.join(path, 'spot')
+    if os.path.exists(path) is False:
+        os.mkdir(path)
+    # 创建日期文件夹
+    path = os.path.join(path, str(pd.to_datet
