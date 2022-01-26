@@ -72,4 +72,9 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     # ===合并整理数据
     df = pd.concat(df_list, ignore_index=True)
     df.rename(columns={0: 'MTS', 1: 'open', 2: 'high',
-                       3: 'low', 4: 'close', 5: 'volume'}, inplace=True)  # 
+                       3: 'low', 4: 'close', 5: 'volume'}, inplace=True)  # 重命名
+    df['candle_begin_time'] = pd.to_datetime(df['MTS'], unit='ms')  # 整理时间
+    df = df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume']]  # 整理列的顺序
+
+    # 选取数据时间段
+    df = df[df['candle_begin_time'].dt.date == p
