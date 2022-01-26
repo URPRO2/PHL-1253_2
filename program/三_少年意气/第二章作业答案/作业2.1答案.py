@@ -81,4 +81,11 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     # 去重、排序
     df.drop_duplicates(subset=['candle_begin_time'], keep='last', inplace=True)
     df.sort_values('candle_begin_time', inplace=True)
-    df.reset_index(drop=True, i
+    df.reset_index(drop=True, inplace=True)
+
+    # ===保存数据到文件
+    # 创建交易所文件夹
+    path = os.path.join(path, exchange.id)
+    if os.path.exists(path) is False:
+        # os.mkdir(path)  # 可以建一级文件夹
+        os.makedirs(path)  
