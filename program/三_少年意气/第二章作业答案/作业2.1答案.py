@@ -77,4 +77,8 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     df = df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume']]  # 整理列的顺序
 
     # 选取数据时间段
-    df = df[df['candle_begin_time'].dt.date == p
+    df = df[df['candle_begin_time'].dt.date == pd.to_datetime(start_time).date()]
+    # 去重、排序
+    df.drop_duplicates(subset=['candle_begin_time'], keep='last', inplace=True)
+    df.sort_values('candle_begin_time', inplace=True)
+    df.reset_index(drop=True, i
