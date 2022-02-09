@@ -94,4 +94,9 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
     if os.path.exists(path) is False:
         os.mkdir(path)
     # 创建日期文件夹
-    path = os.path.join(path, str(pd.to_datet
+    path = os.path.join(path, str(pd.to_datetime(start_time).date()))
+    if os.path.exists(path) is False:
+        os.mkdir(path)
+    # 拼接文件目录
+    file_name = '_'.join([symbol.replace('/', '-'), time_interval]) + '.csv'
+    path 
