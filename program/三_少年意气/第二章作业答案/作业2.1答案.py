@@ -110,4 +110,11 @@ end_date = '2020-04-21'  # 手工设定结束时间
 
 
 # ===获取begin_date到end_date的每一天，放到date_list中
-date_
+date_list = []
+date = pd.to_datetime(begin_date)
+while date <= pd.to_datetime(end_date):
+    date_list.append(str(date))
+    date += datetime.timedelta(days=1)
+
+# 此处需要改为自己的本地路径
+path = '/Users/xingbuxingx/
