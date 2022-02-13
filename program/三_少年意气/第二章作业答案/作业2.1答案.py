@@ -99,4 +99,15 @@ def save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_t
         os.mkdir(path)
     # 拼接文件目录
     file_name = '_'.join([symbol.replace('/', '-'), time_interval]) + '.csv'
-    path 
+    path = os.path.join(path, file_name)
+    # 保存数据
+    df.to_csv(path, index=False)
+
+
+# ===手工确认抓取数据的开始和结束时间
+begin_date = '2019-04-21'  # 手工设定开始时间
+end_date = '2020-04-21'  # 手工设定结束时间
+
+
+# ===获取begin_date到end_date的每一天，放到date_list中
+date_
