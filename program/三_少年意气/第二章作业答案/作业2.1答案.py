@@ -117,4 +117,15 @@ while date <= pd.to_datetime(end_date):
     date += datetime.timedelta(days=1)
 
 # 此处需要改为自己的本地路径
-path = '/Users/xingbuxingx/
+path = '/Users/xingbuxingx/Desktop/数字货币量化课程/2020版数字货币量化投资课程/xbx_coin_2020/data/history_candle_data'
+
+
+# ===开始遍历每一天，抓取每一天的数据
+error_list = []
+for start_time in date_list:
+
+    # 遍历交易所
+    for exchange in [ccxt.binance()]:
+
+        # 获取交易所需要的数据
+        symb
