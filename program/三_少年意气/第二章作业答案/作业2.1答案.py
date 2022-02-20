@@ -135,4 +135,8 @@ for start_time in date_list:
 
             # 遍历时间周期
             for time_interval in ['5m', '15m']:
-  
+                print(exchange.id, symbol, time_interval)
+
+                # 抓取数据并且保存
+                try:
+                    save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_time, pa
