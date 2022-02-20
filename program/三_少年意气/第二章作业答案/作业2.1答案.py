@@ -139,4 +139,12 @@ for start_time in date_list:
 
                 # 抓取数据并且保存
                 try:
-                    save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_time, pa
+                    save_spot_candle_data_from_exchange(exchange, symbol, time_interval, start_time, path)
+                except Exception as e:
+                    print(e)
+                    error_list.append('_'.join([exchange.id, symbol, time_interval]))
+
+
+print(error_list)
+
+
