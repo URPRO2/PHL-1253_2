@@ -128,4 +128,11 @@ for start_time in date_list:
     for exchange in [ccxt.binance()]:
 
         # 获取交易所需要的数据
-        symb
+        symbol_list = ['BTC/USDT', 'ETH/USDT', 'EOS/USDT', 'LTC/USDT', 'BCH/USDT']
+
+        # 遍历交易对
+        for symbol in symbol_list:
+
+            # 遍历时间周期
+            for time_interval in ['5m', '15m']:
+  
