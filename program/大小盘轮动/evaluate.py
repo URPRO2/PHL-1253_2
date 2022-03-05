@@ -18,4 +18,10 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
 
     #开仓（开空，开多）K线
     condition1 = df['pos'] != 0
-    co
+    condition2 = df['pos'] != df['pos'].shift(1)
+    open_pos_condition = condition1 & condition2
+
+    condition3 = df['pos'] != df['pos'].shift(-1)
+    close_pos_condition = condition3 & condition1
+
+    df.loc[open_pos_condition, 'sta
