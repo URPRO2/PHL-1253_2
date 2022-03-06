@@ -24,4 +24,11 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     condition3 = df['pos'] != df['pos'].shift(-1)
     close_pos_condition = condition3 & condition1
 
-    df.loc[open_pos_condition, 'sta
+    df.loc[open_pos_condition, 'start_time'] = df['candle_begin_time']
+    # df['start_time'].fillna(method='ffill',inplace=True)
+    df.loc[df['pos']==0, 'start_time'] = pd.NaT
+
+    # ===计算资金曲线
+    initial_cash = 10000  # 初始资金
+    # ---在开仓时
+ 
