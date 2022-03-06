@@ -31,4 +31,8 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     # ===计算资金曲线
     initial_cash = 10000  # 初始资金
     # ---在开仓时
- 
+    # 以开盘价计算合约数量 （当资金量大可以用5分钟均价）   :   多少张 = 价格 / 单张价格
+    df.loc[open_pos_condition, 'contract_num'] = initial_cash * leverage_rate / ( face_value * df['open'])
+    df['contract_num'] = np.floor(df['contract_num'])  # 取整
+
+    d
