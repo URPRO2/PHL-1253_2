@@ -35,4 +35,5 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     df.loc[open_pos_condition, 'contract_num'] = initial_cash * leverage_rate / ( face_value * df['open'])
     df['contract_num'] = np.floor(df['contract_num'])  # 取整
 
-    d
+    df.loc[open_pos_condition,'open_pos_price'] = df['open'] * (1 + slippage * df['pos'])  # 滑点价
+    df['cash'] = initial_cash - df['open_pos_price'] * face_value * df['contract_num'] * c_rate  # 剩余钱 = 保证金 （扣除手续费）
