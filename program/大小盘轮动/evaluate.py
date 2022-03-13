@@ -44,4 +44,12 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
 
     #=== 在平仓时
     df.loc[close_pos_condition,'close_pos_price'] = df['next_open'] * (1 - slippage * df['pos'])
-    df.loc[close_pos_condition,'close_pos_fee'] = df['close_pos_price'] * face_value * df['contract_num'] 
+    df.loc[close_pos_condition,'close_pos_fee'] = df['close_pos_price'] * face_value * df['contract_num'] * c_rate
+
+
+    #===计算利润
+    # 开仓至今持仓盈亏
+    df['profit'] = face_value * df['contract_num'] * (df['close'] - df['open_pos_price']) * df['pos']
+
+    # 平仓时理论额外处理（
+    df.loc[close_pos_condition, 'profit'] = face_value * df['contract_num']
