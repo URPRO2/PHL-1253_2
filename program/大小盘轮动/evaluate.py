@@ -37,3 +37,10 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
 
     df.loc[open_pos_condition,'open_pos_price'] = df['open'] * (1 + slippage * df['pos'])  # 滑点价
     df['cash'] = initial_cash - df['open_pos_price'] * face_value * df['contract_num'] * c_rate  # 剩余钱 = 保证金 （扣除手续费）
+
+    for _ in ['contract_num', 'open_pos_price', 'cash']:
+        df[_].fillna(method='ffill',inplace=True)
+    df.loc[df['pos'] == 0,['contract_num', 'open_pos_price', 'cash']] = None
+
+    #=== 在平仓时
+    d
