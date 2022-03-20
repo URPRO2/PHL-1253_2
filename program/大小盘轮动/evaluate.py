@@ -68,4 +68,10 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     #是否爆仓
     df.loc[df['margin_ratio'] <= (min_margin_ratio+c_rate),'是否爆仓'] = 1
 
-    #平仓时扣除
+    #平仓时扣除手续费
+    df.loc[close_pos_condition,'net_value'] -= df['close_pos_fee']
+
+    df['是否爆仓'] = df.groupby('start_time')['是否爆仓'].fillna(method='ffill')
+    df.loc[df['是否爆仓'] == 1, 'net_value'] = 0
+
+    df['equity_c
