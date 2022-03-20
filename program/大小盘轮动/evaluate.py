@@ -62,4 +62,10 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     df.loc[df['pos'] == -1, 'price_min'] = df['high']
     df['profit_min'] = face_value * df['contract_num'] * (df['price_min'] - df['open_pos_price']) * df['pos']
     #账户最小净值
-    df['net_value_min'] = df['cash'
+    df['net_value_min'] = df['cash'] + df['profit_min']
+    #计算保证金
+    df['margin_ratio'] = df['net_value_min'] / (face_value * df['contract_num'] * df['price_min'])
+    #是否爆仓
+    df.loc[df['margin_ratio'] <= (min_margin_ratio+c_rate),'是否爆仓'] = 1
+
+    #平仓时扣除
