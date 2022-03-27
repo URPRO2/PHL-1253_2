@@ -76,4 +76,9 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
 
     df['equity_change'] = df['net_value'].pct_change()
     df.loc[open_pos_condition, 'equity_change'] = df.loc[open_pos_condition, 'net_value'] / initial_cash - 1  # 开仓日的收益率
-    df['equity_change'].fillna(value=0, in
+    df['equity_change'].fillna(value=0, inplace=True)
+    df['equity_curve'] = (1 + df['equity_change']).cumprod()
+
+    # =====删除不必要的数据，并存储
+    df.drop(['next_open', 'contract_num', 'open_pos_price', 'cash', 'close_pos_price', 'close_pos_fee',
+  
