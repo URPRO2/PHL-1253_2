@@ -74,4 +74,6 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1/1000,c_rate=5/100
     df['是否爆仓'] = df.groupby('start_time')['是否爆仓'].fillna(method='ffill')
     df.loc[df['是否爆仓'] == 1, 'net_value'] = 0
 
-    df['equity_c
+    df['equity_change'] = df['net_value'].pct_change()
+    df.loc[open_pos_condition, 'equity_change'] = df.loc[open_pos_condition, 'net_value'] / initial_cash - 1  # 开仓日的收益率
+    df['equity_change'].fillna(value=0, in
