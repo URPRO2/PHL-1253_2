@@ -27,4 +27,8 @@ def get_sma_diff_max(ex, symbols, timeframe, limit):
     """
     data = []
     for symbol in symbols:
-        diff = get_sma_diff(symbol,
+        diff = get_sma_diff(symbol, limit, timeframe)
+        data.append([symbol, diff])
+    df = pd.DataFrame(data, dtype=float, columns=['symbol', 'diff'])
+    df.sort_values(by='diff', inplace=True, ascending=False)
+    df.reset_index(drop=True,
