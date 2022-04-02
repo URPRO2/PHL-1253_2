@@ -17,4 +17,14 @@ def get_sma_diff(symbol, limit, timeframe):
     sma = df['close'].mean()
 
     df['diff'] = df['close'].pct_change(19)
-    # ret = (df.iat[-1,
+    # ret = (df.iat[-1, 4] - sma) / sma
+    return df['diff'].values[-1]
+
+
+def get_sma_diff_max(ex, symbols, timeframe, limit):
+    """
+    获取20日涨幅最大的币种
+    """
+    data = []
+    for symbol in symbols:
+        diff = get_sma_diff(symbol,
