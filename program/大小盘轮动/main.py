@@ -41,4 +41,13 @@ def get_sma_diff_max(ex, symbols, timeframe, limit):
 
 def set_sell_all(df):
     for index, row in df.iterrows():
-        symbol = row['asset'] + '/USD
+        symbol = row['asset'] + '/USDT'
+        amout = row['free']
+        p = ex.amount_to_precision(symbol=symbol, amount=amout)
+        if float(p) <= 5:
+            continue
+        v = ex.create_market_order(symbol, 'SELL', amout)
+        print(v)
+
+
+def
