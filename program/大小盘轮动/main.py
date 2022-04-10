@@ -31,4 +31,14 @@ def get_sma_diff_max(ex, symbols, timeframe, limit):
         data.append([symbol, diff])
     df = pd.DataFrame(data, dtype=float, columns=['symbol', 'diff'])
     df.sort_values(by='diff', inplace=True, ascending=False)
-    df.reset_index(drop=True,
+    df.reset_index(drop=True,inplace=True)
+    print(df)
+    if df.at[1, 'diff'] > 0:
+        return df.head(1).values[0]
+    print('所有币种均线低于20')
+    return ''
+
+
+def set_sell_all(df):
+    for index, row in df.iterrows():
+        symbol = row['asset'] + '/USD
