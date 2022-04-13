@@ -50,4 +50,10 @@ def set_sell_all(df):
         print(v)
 
 
-def
+def getUserInfo(ex):
+    future_info = ex.fetch_balance()
+    df = future_info['info']['balances']
+    df = pd.DataFrame(df, dtype=float)
+    df = df[df['free'] > 0.001]
+    df = df[df['asset'] != 'USDT']
+    df['ass
