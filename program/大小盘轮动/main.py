@@ -56,4 +56,15 @@ def getUserInfo(ex):
     df = pd.DataFrame(df, dtype=float)
     df = df[df['free'] > 0.001]
     df = df[df['asset'] != 'USDT']
-    df['ass
+    df['asset'] = df['asset'] + '/USDT'
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+
+def getUserUSDT(ex):
+    balance = ex.fetch_balance()
+    hasUSDT = balance['USDT']['free']  # 目前剩余多少美金
+    return hasUSDT
+
+
+de
