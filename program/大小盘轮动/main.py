@@ -67,4 +67,9 @@ def getUserUSDT(ex):
     return hasUSDT
 
 
-de
+def main(ex, symbols, timeframe, limit):
+    asset, free = get_sma_diff_max(ex, symbols, timeframe, limit)
+    # 更新账户信息symbol_info
+    df = getUserInfo(ex)  # 币
+    if asset not in df['asset'].values:
+        pri
