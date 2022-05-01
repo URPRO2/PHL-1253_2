@@ -72,4 +72,12 @@ def main(ex, symbols, timeframe, limit):
     # 更新账户信息symbol_info
     df = getUserInfo(ex)  # 币
     if asset not in df['asset'].values:
-        pri
+        print(asset)
+        print(df)
+        exit()
+        set_sell_all(df)
+        time.sleep(3)
+        usdt = getUserUSDT(ex)
+        print(usdt)
+        amount = usdt * 0.01 / free
+        v = ex.create_m
