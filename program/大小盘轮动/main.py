@@ -80,4 +80,15 @@ def main(ex, symbols, timeframe, limit):
         usdt = getUserUSDT(ex)
         print(usdt)
         amount = usdt * 0.01 / free
-        v = ex.create_m
+        v = ex.create_market_order(asset, 'BUY', amount)
+        print('下单买入' + asset)
+        print(v)
+    else:
+        print('维持不动')
+
+
+if __name__ == '__main__':
+    ex = ccxt.binance()
+    ex.apiKey = ''
+
+    symbols = ['BTC/USD
