@@ -91,4 +91,7 @@ if __name__ == '__main__':
     ex = ccxt.binance()
     ex.apiKey = ''
 
-    symbols = ['BTC/USD
+    symbols = ['BTC/USDT', 'EOS/USDT', 'ETH/USDT', 'LINK/USDT']
+    timeframe = '12h'
+    limit = 20
+    main(ex, symbols, timeframe, limit)
