@@ -24,4 +24,11 @@ def position_for_OKEx_future(df):
     # 当前周期持仓无法变动的K线
     condition = (df['candle_begin_time'].dt.hour == 16) & (df['candle_begin_time'].dt.minute == 0)
     df.loc[condition, 'pos'] = None
-    # po
+    # pos为空的时，不能买卖，只能和前一周期保持一致。
+    df['pos'].fillna(method='ffill', inplace=True)
+
+    # 在实际操作中，不一定会直接跳过4点这个周期，而是会停止N分钟下单。此时可以注释掉上面的代码。
+
+    # ===将数据存入hdf文件中
+    # 删除无关中间变量
+    df.drop(['signal'], axis=1, inplace=True
