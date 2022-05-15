@@ -31,4 +31,6 @@ def position_for_OKEx_future(df):
 
     # ===将数据存入hdf文件中
     # 删除无关中间变量
-    df.drop(['signal'], axis=1, inplace=True
+    df.drop(['signal'], axis=1, inplace=True)
+
+    return df
