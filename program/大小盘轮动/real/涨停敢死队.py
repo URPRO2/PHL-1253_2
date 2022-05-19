@@ -16,4 +16,13 @@ from datetime import datetime
 pd.set_option('display.max_rows', 1000)
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 # 设置命令行输出时的列对齐功能
-pd.set_option('display.unicode.ambiguous_as_wide', 
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+
+# =====配置运行相关参数=====
+
+# =执行的时间间隔
+time_interval = '1m'  # 目前支持5m，15m，30m，1h，2h等。得okex支持的K线才行。最好不要低于5m
+
+exchange = ccxt.binance()
+exchange.apiKey = 'uyae67z
