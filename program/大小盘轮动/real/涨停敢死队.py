@@ -25,4 +25,9 @@ pd.set_option('display.unicode.east_asian_width', True)
 time_interval = '1m'  # 目前支持5m，15m，30m，1h，2h等。得okex支持的K线才行。最好不要低于5m
 
 exchange = ccxt.binance()
-exchange.apiKey = 'uyae67z
+exchange.apiKey = 'uyae67zOFA38gl93adYhNALlGMmMRswQapow63kzI1lYwKhUZblwLdZrlAzsEPWe'
+exchange.secret = 'SqetI8JCn2do1gkzKlCAQyOJ7CgXG3TqiWZltTrRxhADNdVg3czqUx5uhBtOG0pf'
+# =====配置交易相关参数=====
+# 更新需要交易的合约、策略参数、下单量等配置信息
+
+def m
