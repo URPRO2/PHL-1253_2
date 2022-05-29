@@ -36,4 +36,8 @@ def main():
     df = df.T
 
     df = df[df['symbol'].str.contains('/USDT')]  # 剔除 非 USDT
-    df = df[df['symbol'].str.con
+    df = df[df['symbol'].str.contains('UP/USDT') == False]
+    df = df[df['symbol'].str.contains('DOWN/USDT') == False]  # 剔除期货
+    df = df[df['bid'] != 0]
+    df = df[df['ask'] != 0]  # 剔除0交易量
+    wendingbi = ['USDC/USDT'
