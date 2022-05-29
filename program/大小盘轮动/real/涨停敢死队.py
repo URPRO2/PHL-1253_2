@@ -30,4 +30,10 @@ exchange.secret = 'SqetI8JCn2do1gkzKlCAQyOJ7CgXG3TqiWZltTrRxhADNdVg3czqUx5uhBtOG
 # =====配置交易相关参数=====
 # 更新需要交易的合约、策略参数、下单量等配置信息
 
-def m
+def main():
+    df = exchange.fetch_tickers()
+    df = pd.DataFrame(df, dtype=float)
+    df = df.T
+
+    df = df[df['symbol'].str.contains('/USDT')]  # 剔除 非 USDT
+    df = df[df['symbol'].str.con
