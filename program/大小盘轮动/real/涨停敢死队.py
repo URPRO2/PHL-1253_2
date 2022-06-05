@@ -40,4 +40,8 @@ def main():
     df = df[df['symbol'].str.contains('DOWN/USDT') == False]  # 剔除期货
     df = df[df['bid'] != 0]
     df = df[df['ask'] != 0]  # 剔除0交易量
-    wendingbi = ['USDC/USDT'
+    wendingbi = ['USDC/USDT', 'TUSD/USDT', 'PAX/USDT', 'BUSD/USDT']  # 剔除稳定币
+    df = df[df['symbol'].isin(values=wendingbi) == False]
+
+    # df['价差率'] = (df['ask'] - df['bid']) / df['bid']
+    df.sort_values(by=['vwap'], inplace=True, asce
