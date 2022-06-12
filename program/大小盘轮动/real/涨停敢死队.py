@@ -52,4 +52,12 @@ def main():
     sum = df['percentage'].sum()
     print('所有币种平均涨幅:' + str(sum / df.shape[0]))
 
-    df = df[(df['close'] > 0.02) & (df['close'] < 
+    df = df[(df['close'] > 0.02) & (df['close'] < 1)]
+
+    df.reset_index(inplace=True, drop=True)
+    symbols = list(df['symbol'])
+    print(df)
+    # for i in range(5):
+    #     _price = df.at[i, 'last']
+    #     _price = _price - _price * 0.05
+    #     ret = 
