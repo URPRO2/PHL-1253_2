@@ -44,4 +44,12 @@ def main():
     df = df[df['symbol'].isin(values=wendingbi) == False]
 
     # df['价差率'] = (df['ask'] - df['bid']) / df['bid']
-    df.sort_values(by=['vwap'], inplace=True, asce
+    df.sort_values(by=['vwap'], inplace=True, ascending=False)
+    df.reset_index(inplace=True, drop=True)
+
+    # print(df)
+
+    sum = df['percentage'].sum()
+    print('所有币种平均涨幅:' + str(sum / df.shape[0]))
+
+    df = df[(df['close'] > 0.02) & (df['close'] < 
