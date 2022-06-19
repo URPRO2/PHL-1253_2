@@ -69,4 +69,10 @@ def main():
     #
     # # 更新订单信息，查看是否完全成交
     # time.sleep(short_sleep_time)  # 休息一段时间再更新订单信息
-    # sym
+    # symbol_order = update_order_info(exchange, symbol_config, symbol_order)
+    # print('更新下单记录：', '\n', symbol_order)
+    # ===进入每次的循环
+    # while True:
+    #
+    #     # =获取持仓数据
+    #     # 初始化symbol_info，在每次循环开
