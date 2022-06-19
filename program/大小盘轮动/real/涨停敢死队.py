@@ -64,4 +64,9 @@ def main():
     #     print(ret)
     # =下单
     # symbol_order = pd.DataFrame()
-    # symbol_order = single_threading_place_or
+    # symbol_order = single_threading_place_order(exchange, symbol_info, symbol_config, symbol_signal)  # 单线程下单
+    # print('下单记录：\n', symbol_order)
+    #
+    # # 更新订单信息，查看是否完全成交
+    # time.sleep(short_sleep_time)  # 休息一段时间再更新订单信息
+    # sym
