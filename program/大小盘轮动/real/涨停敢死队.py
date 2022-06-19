@@ -60,4 +60,8 @@ def main():
     # for i in range(5):
     #     _price = df.at[i, 'last']
     #     _price = _price - _price * 0.05
-    #     ret = 
+    #     ret = exchange.create_limit_buy_order(symbol=df.at[i, 'symbol'], amount=10, price=_price)
+    #     print(ret)
+    # =下单
+    # symbol_order = pd.DataFrame()
+    # symbol_order = single_threading_place_or
