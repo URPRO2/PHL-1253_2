@@ -75,4 +75,8 @@ def main():
     # while True:
     #
     #     # =获取持仓数据
-    #     # 初始化symbol_info，在每次循环开
+    #     # 初始化symbol_info，在每次循环开始时都初始化
+    # symbol_info_columns = ['账户权益', '持仓方向', '持仓量', '持仓收益率', '持仓收益', '持仓均价', '当前价格', '最大杠杆']
+    # symbol_info = pd.DataFrame(index=symbol_config.keys(), columns=symbol_info_columns)  # 转化为dataframe
+    #
+    #     #
