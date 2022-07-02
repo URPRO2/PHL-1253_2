@@ -84,4 +84,8 @@ def main():
     #     print('\nsymbol_info:\n', symbol_info, '\n')
     #
     #     # =获取策略执行时间，并sleep至该时间
- 
+    #     run_time = sleep_until_run_time(time_interval)
+    #
+    #     # =并行获取所有币种最近数据
+    #     exchange.timeout = 1000  # 即将获取最新数据，临时将timeout设置为1s，加快获取数据速度
+    #     candle_num = 10  # 只获取最近candle_num根K线数据，可以获得更快
