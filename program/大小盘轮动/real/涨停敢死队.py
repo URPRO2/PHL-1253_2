@@ -92,4 +92,8 @@ def main():
     #     # 获取数据
     #     recent_candle_data = single_threading_get_data(exchange, symbol_info, symbol_config, time_interval, run_time, candle_num)
     #     for symbol in symbol_config.keys():
- 
+    #         print(recent_candle_data[symbol].tail(2))
+    #
+    #     # 将symbol_candle_data和最新获取的recent_candle_data数据合并
+    #     for symbol in symbol_config.keys():
+    #         df = symbol_candle_data[symbol].append(
