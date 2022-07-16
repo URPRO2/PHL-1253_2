@@ -98,4 +98,8 @@ def main():
     #     for symbol in symbol_config.keys():
     #         df = symbol_candle_data[symbol].append(recent_candle_data[symbol], ignore_index=True)
     #         df.drop_duplicates(subset=['candle_begin_time_GMT8'], keep='last', inplace=True)
-    #         df.sort_values(by='candle_begin_time_GMT8', inplace
+    #         df.sort_values(by='candle_begin_time_GMT8', inplace=True)  # 排序，理论上这步应该可以省略，加快速度
+    #         df = df.iloc[-max_len:]  # 保持最大K线数量不会超过max_len个
+    #         df.reset_index(drop=True, inplace=True)
+    #         symbol_candle_data[symbol] = df
+   
