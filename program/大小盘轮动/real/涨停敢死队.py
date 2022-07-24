@@ -102,4 +102,8 @@ def main():
     #         df = df.iloc[-max_len:]  # 保持最大K线数量不会超过max_len个
     #         df.reset_index(drop=True, inplace=True)
     #         symbol_candle_data[symbol] = df
-   
+    #
+    #     # =计算每个币种的交易信号
+    #     symbol_signal = calculate_signal(symbol_info, symbol_config, symbol_candle_data)
+    #     print('\nsymbol_info:\n', symbol_info)
+    #     print('本周期交易计划:', symbol_
