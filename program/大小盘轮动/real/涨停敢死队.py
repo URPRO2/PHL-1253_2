@@ -116,4 +116,8 @@ def main():
     #         print('下单记录：\n', symbol_order)
     #
     #         # 更新订单信息，查看是否完全成交
-    #     
+    #         time.sleep(short_sleep_time)  # 休息一段时间再更新订单信息
+    #         symbol_order = update_order_info(exchange, symbol_config, symbol_order)
+    #         print('更新下单记录：', '\n', symbol_order)
+    #
+    #     # 重新更新账户信息symbol_
