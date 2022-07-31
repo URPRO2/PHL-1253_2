@@ -123,4 +123,8 @@ def main():
     #     # 重新更新账户信息symbol_info
     #     time.sleep(long_sleep_time)  # 休息一段时间再更新
     #     symbol_info = pd.DataFrame(index=symbol_config.keys(), columns=symbol_info_columns)
-    #     symbol_info = update_symbol_info(e
+    #     symbol_info = update_symbol_info(exchange, symbol_info, symbol_config)
+    #     print('\nsymbol_info:\n', symbol_info, '\n')
+    #
+    #     # 发送钉钉
+    #     dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_time, robot_id_secre
