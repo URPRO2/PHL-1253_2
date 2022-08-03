@@ -127,4 +127,12 @@ def main():
     #     print('\nsymbol_info:\n', symbol_info, '\n')
     #
     #     # 发送钉钉
-    #     dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_time, robot_id_secre
+    #     dingding_report_every_loop(symbol_info, symbol_signal, symbol_order, run_time, robot_id_secret)
+    #
+    #     # 本次循环结束
+    #     print('\n', '-' * 20, '本次循环结束，%f秒后进入下一次循环' % long_sleep_time, '-' * 20, '\n\n')
+    #     time.sleep(long_sleep_time)
+
+
+if __name__ == '__main__':
+    main()
