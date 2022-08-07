@@ -15,4 +15,7 @@ pd.set_option('display.unicode.east_asian_width', True)
 btcDf = getSymbolData('BTC-USDT_5m')
 ethDf = getSymbolData('ETH-USDT_5m')
 print(btcDf)
-# btcDf['mean120'] = btcDf['cl
+# btcDf['mean120'] = btcDf['close'].rolling(120, min_periods=1).mean()
+btcDf['mean120'] = btcDf['close'].pct_change(periods=120)
+btcDf['next_open'] = btcDf['open'].shift(-1)  # 下根K线的开盘价
+btcDf['next_open'].fillna(value=btcDf['close'], inplace=True)
