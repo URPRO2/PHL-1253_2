@@ -19,3 +19,8 @@ print(btcDf)
 btcDf['mean120'] = btcDf['close'].pct_change(periods=120)
 btcDf['next_open'] = btcDf['open'].shift(-1)  # 下根K线的开盘价
 btcDf['next_open'].fillna(value=btcDf['close'], inplace=True)
+btcDf = btcDf.loc[120:]
+# ethDf['mean120'] = ethDf['close'].rolling(120, min_periods=1).mean()
+ethDf['mean120'] = ethDf['close'].pct_change(periods=120)
+ethDf['next_open'] = ethDf['open'].shift(-1)  # 下根K线的开盘价
+ethDf['next_open'].fill
