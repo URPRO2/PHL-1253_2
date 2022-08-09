@@ -27,4 +27,7 @@ ethDf['next_open'].fillna(value=ethDf['close'], inplace=True)
 ethDf = ethDf.loc[120:]
 # =====两个df左右合并操作，merge操作
 df_merged = pd.merge(left=btcDf, right=ethDf, left_on='candle_begin_time', right_on='candle_begin_time',
-        
+                     suffixes=['_btc', '_eth'])
+# 计算信号
+df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'signal'] = 1
+df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'open'] = d
