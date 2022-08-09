@@ -30,4 +30,6 @@ df_merged = pd.merge(left=btcDf, right=ethDf, left_on='candle_begin_time', right
                      suffixes=['_btc', '_eth'])
 # 计算信号
 df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'signal'] = 1
-df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'open'] = d
+df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'open'] = df_merged['open_btc']
+df_merged.loc[df_merged['mean120_btc'] > df_merged['mean120_eth'], 'close'] = df_merged['close_btc']
+df_merged.loc[df_merged['mean120_eth'] > df_merged['mean120_btc'], 'sig
