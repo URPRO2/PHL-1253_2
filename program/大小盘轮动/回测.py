@@ -44,4 +44,9 @@ condition2 = df_merged['mean120_eth'] < 0
 df_merged.loc[condition1 & condition2, 'signal'] = 0
 # 计算POS
 df_merged['pos'] = df_merged['signal'].shift()
-df_
+df_merged['pos'].fillna(value=0, inplace=True)  # 将初始行数的pos补全为0
+df_merged.drop(['signal'], axis=1, inplace=True)
+
+# =====找出开仓、平仓的k线
+condition1 = df_merged['pos'] != 0  # 当前周期不为空仓
+condition2 = df_merged['pos'] != df_merged['pos'].sh
