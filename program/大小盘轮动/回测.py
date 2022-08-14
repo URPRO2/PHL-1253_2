@@ -37,4 +37,11 @@ df_merged.loc[df_merged['mean120_eth'] > df_merged['mean120_btc'], 'open'] = df_
 df_merged.loc[df_merged['mean120_eth'] > df_merged['mean120_btc'], 'close'] = df_merged['close_eth']
 df_merged['pctChange'] = (df_merged['close'] - df_merged['open']) / df_merged['open']
 df_merged['next_open'] = df_merged['open'].shift(-1)  # 下根K线的开盘价
-df_merged['next_open'].fillna(value=df_merged['close'], inplace=Tru
+df_merged['next_open'].fillna(value=df_merged['close'], inplace=True)
+
+condition1 = df_merged['mean120_btc'] < 0
+condition2 = df_merged['mean120_eth'] < 0
+df_merged.loc[condition1 & condition2, 'signal'] = 0
+# 计算POS
+df_merged['pos'] = df_merged['signal'].shift()
+df_
