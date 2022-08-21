@@ -49,4 +49,9 @@ df_merged.drop(['signal'], axis=1, inplace=True)
 
 # =====找出开仓、平仓的k线
 condition1 = df_merged['pos'] != 0  # 当前周期不为空仓
-condition2 = df_merged['pos'] != df_merged['pos'].sh
+condition2 = df_merged['pos'] != df_merged['pos'].shift(1)  # 当前周期和上个周期持仓方向不一样。
+open_pos_condition = condition1 & condition2
+
+condition1 = df_merged['pos'] != 0  # 当前周期不为空仓
+condition2 = df_merged['pos'] != df_merged['pos'].shift(-1)  # 当前周期和下个周期持仓方向不一样。
+close_po
