@@ -7,4 +7,11 @@ https://mp.weixin.qq.com/s/hPjVbBKomfMhowc32jUwhA
 import pandas as pd
 import numpy as np
 from function import *
-import matplotlib.pyplo
+import matplotlib.pyplot as plt
+
+
+pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+pd.set_option('display.max_rows', 5000)  # 最多显示数据的行数
+
+# 读取数据
+df_big = pd.read_csv('sh000300.csv', encoding='gbk', parse_
