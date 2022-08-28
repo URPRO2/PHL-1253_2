@@ -59,4 +59,9 @@ close_pos_condition = condition1 & condition2
 # =====对每次交易进行分组
 df_merged.loc[open_pos_condition, 'start_time'] = df_merged['candle_begin_time']
 df_merged['start_time'].fillna(method='ffill', inplace=True)
-df_merged.
+df_merged.loc[df_merged['pos'] == 0, 'start_time'] = pd.NaT
+
+df = df_merged.loc[close_pos_condition]
+df['equity_curve'] = (1 + df['pctChange']).cumprod()
+
+df.to_csv('temp.csv',encoding='gbk',index=False)
