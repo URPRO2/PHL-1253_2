@@ -14,4 +14,10 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 pd.set_option('display.max_rows', 5000)  # 最多显示数据的行数
 
 # 读取数据
-df_big = pd.read_csv('sh000300.csv', encoding='gbk', parse_
+df_big = pd.read_csv('sh000300.csv', encoding='gbk', parse_dates=['candle_end_time'])
+df_small = pd.read_csv('sz399006.csv', encoding='gbk', parse_dates=['candle_end_time'])
+
+# df_big = getSymbolData('BTC-USDT_5m')
+# df_small = getSymbolData('ETH-USDT_5m')
+# 设置参数
+trade_ra
