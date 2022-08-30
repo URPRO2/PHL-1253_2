@@ -20,4 +20,9 @@ df_small = pd.read_csv('sz399006.csv', encoding='gbk', parse_dates=['candle_end_
 # df_big = getSymbolData('BTC-USDT_5m')
 # df_small = getSymbolData('ETH-USDT_5m')
 # 设置参数
-trade_ra
+trade_rate = 0.6 / 10000  # 场内基金万分之0.6，买卖手续费相同，无印花税
+momentum_days = 20  # 计算多少天的动量
+
+# 计算大小盘每天的涨跌幅amplitude
+df_big['big_amp'] = df_big['close'] / df_big['close'].shift(1) - 1
+df_small['small_amp'] = df_small['close'] / df_small[
