@@ -25,4 +25,9 @@ momentum_days = 20  # 计算多少天的动量
 
 # 计算大小盘每天的涨跌幅amplitude
 df_big['big_amp'] = df_big['close'] / df_big['close'].shift(1) - 1
-df_small['small_amp'] = df_small['close'] / df_small[
+df_small['small_amp'] = df_small['close'] / df_small['close'].shift(1) - 1
+# 重命名行
+df_big.rename(columns={'open': 'big_open', 'close': 'big_close'}, inplace=True)
+df_small.rename(columns={'open': 'small_open', 'close': 'small_close'}, inplace=True)
+# 合并数据
+df
