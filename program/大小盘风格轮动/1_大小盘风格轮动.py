@@ -32,4 +32,7 @@ df_small.rename(columns={'open': 'small_open', 'close': 'small_close'}, inplace=
 # 合并数据
 df = pd.merge(left=df_big[['candle_end_time', 'big_open', 'big_close', 'big_amp']], left_on=['candle_end_time'],
               right=df_small[['candle_end_time', 'small_open', 'small_close', 'small_amp']],
- 
+              right_on=['candle_end_time'], how='left')
+# 计算N日的动量momentum
+df['big_mom'] = df['big_close'].pct_change(periods=momentum_days)
+df['small_mom'] = df['small_close'].pct_change(
