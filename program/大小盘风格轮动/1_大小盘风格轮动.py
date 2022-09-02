@@ -30,4 +30,6 @@ df_small['small_amp'] = df_small['close'] / df_small['close'].shift(1) - 1
 df_big.rename(columns={'open': 'big_open', 'close': 'big_close'}, inplace=True)
 df_small.rename(columns={'open': 'small_open', 'close': 'small_close'}, inplace=True)
 # 合并数据
-df
+df = pd.merge(left=df_big[['candle_end_time', 'big_open', 'big_close', 'big_amp']], left_on=['candle_end_time'],
+              right=df_small[['candle_end_time', 'small_open', 'small_close', 'small_amp']],
+ 
