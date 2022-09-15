@@ -46,4 +46,9 @@ df['pos'] = df['style'].shift(1)
 # 删除持仓为nan的天数（创业板2010年才有）
 df.dropna(subset=['pos'], inplace=True)
 # 计算策略的整体涨跌幅strategy_amp
-df.loc[df['pos'] == 'big',
+df.loc[df['pos'] == 'big', 'strategy_amp'] = df['big_amp']
+df.loc[df['pos'] == 'small', 'strategy_amp'] = df['small_amp']
+
+# 调仓时间
+df.loc[df['pos'] != df['pos'].shift(1), 'trade_time'] = df['candle_end_time']
+# 将调仓日的涨跌幅修正为开盘价买入涨跌幅（并算上交易费用，
