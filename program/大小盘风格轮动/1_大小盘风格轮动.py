@@ -40,4 +40,10 @@ df['small_mom'] = df['small_close'].pct_change(periods=momentum_days)
 df.loc[df['big_mom'] > df['small_mom'], 'style'] = 'big'
 df.loc[df['big_mom'] < df['small_mom'], 'style'] = 'small'
 # 相等时维持原来的仓位。
-df['style'].fillna(method='ffil
+df['style'].fillna(method='ffill', inplace=True)
+# 收盘才能确定风格，实际的持仓pos要晚一天。
+df['pos'] = df['style'].shift(1)
+# 删除持仓为nan的天数（创业板2010年才有）
+df.dropna(subset=['pos'], inplace=True)
+# 计算策略的整体涨跌幅strategy_amp
+df.loc[df['pos'] == 'big',
