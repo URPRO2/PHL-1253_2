@@ -35,4 +35,9 @@ df = pd.merge(left=df_big[['candle_end_time', 'big_open', 'big_close', 'big_amp'
               right_on=['candle_end_time'], how='left')
 # 计算N日的动量momentum
 df['big_mom'] = df['big_close'].pct_change(periods=momentum_days)
-df['small_mom'] = df['small_close'].pct_change(
+df['small_mom'] = df['small_close'].pct_change(periods=momentum_days)
+# 风格变换条件
+df.loc[df['big_mom'] > df['small_mom'], 'style'] = 'big'
+df.loc[df['big_mom'] < df['small_mom'], 'style'] = 'small'
+# 相等时维持原来的仓位。
+df['style'].fillna(method='ffil
