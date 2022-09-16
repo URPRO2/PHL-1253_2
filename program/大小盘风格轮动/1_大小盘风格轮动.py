@@ -51,4 +51,7 @@ df.loc[df['pos'] == 'small', 'strategy_amp'] = df['small_amp']
 
 # 调仓时间
 df.loc[df['pos'] != df['pos'].shift(1), 'trade_time'] = df['candle_end_time']
-# 将调仓日的涨跌幅修正为开盘价买入涨跌幅（并算上交易费用，
+# 将调仓日的涨跌幅修正为开盘价买入涨跌幅（并算上交易费用，没有取整数100手，所以略有误差）
+df.loc[(df['trade_time'].notnull()) & (df['pos'] == 'big'), 'strategy_amp_adjust'] = df['big_close'] / (
+        df['big_open'] * (1 + trade_rate)) - 1
+df.loc[(df['trade_time'].notnull()) & (
