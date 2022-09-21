@@ -66,4 +66,12 @@ df.reset_index(drop=True, inplace=True)
 # 计算净值
 df['big_net'] = df['big_close'] / df['big_close'][0]
 df['small_net'] = df['small_close'] / df['small_close'][0]
-df['strategy_net'] = (1 + df['strategy_amp_adjust']).cumpro
+df['strategy_net'] = (1 + df['strategy_amp_adjust']).cumprod()
+
+# 评估策略的好坏
+res = evaluate_investment(df, 'strategy_net', time='candle_end_time')
+print(res)
+
+# 绘制图形
+plt.plot(df['candle_end_time'], df['strategy_net'], label='strategy')
+plt.plot(df['candle_end_
