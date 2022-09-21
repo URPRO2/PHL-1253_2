@@ -62,4 +62,8 @@ df.loc[(df['trade_time'].shift(-1).notnull()), 'strategy_amp_adjust'] = (1 + df[
     'strategy_amp']) * (1 - trade_rate) - 1
 del df['strategy_amp'], df['style']
 
-df.reset_
+df.reset_index(drop=True, inplace=True)
+# 计算净值
+df['big_net'] = df['big_close'] / df['big_close'][0]
+df['small_net'] = df['small_close'] / df['small_close'][0]
+df['strategy_net'] = (1 + df['strategy_amp_adjust']).cumpro
