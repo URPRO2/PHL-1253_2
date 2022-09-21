@@ -74,4 +74,10 @@ print(res)
 
 # 绘制图形
 plt.plot(df['candle_end_time'], df['strategy_net'], label='strategy')
-plt.plot(df['candle_end_
+plt.plot(df['candle_end_time'], df['big_net'], label='big_net')
+plt.plot(df['candle_end_time'], df['small_net'], label='small_net')
+plt.show()
+
+# 保存文件
+print(df.tail(10))
+df.to_csv('大小盘风格切换.csv', encoding='gbk', index=False)
