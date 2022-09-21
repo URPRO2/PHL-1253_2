@@ -56,4 +56,10 @@ df.loc[(df['trade_time'].notnull()) & (df['pos'] == 'big'), 'strategy_amp_adjust
         df['big_open'] * (1 + trade_rate)) - 1
 df.loc[(df['trade_time'].notnull()) & (df['pos'] == 'small'), 'strategy_amp_adjust'] = df['small_close'] / (
         df['small_open'] * (1 + trade_rate)) - 1
-df.loc[df['trade_time'].isnull(), 'strategy_amp_adjust'] = df['
+df.loc[df['trade_time'].isnull(), 'strategy_amp_adjust'] = df['strategy_amp']
+# 扣除卖出手续费
+df.loc[(df['trade_time'].shift(-1).notnull()), 'strategy_amp_adjust'] = (1 + df[
+    'strategy_amp']) * (1 - trade_rate) - 1
+del df['strategy_amp'], df['style']
+
+df.reset_
