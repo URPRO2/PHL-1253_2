@@ -15,4 +15,8 @@ def evaluate_investment(source_data, tittle,time='交易日期'):
     results.loc[0, '累积净值'] = round(temp[tittle].iloc[-1], 2)
 
     # ===计算年化收益
-    annual_return = (temp[tittle].iloc[-
+    annual_return = (temp[tittle].iloc[-1]) ** (
+            '1 days 00:00:00' / (temp[time].iloc[-1] - temp[time].iloc[0]) * 365) - 1
+    results.loc[0, '年化收益'] = str(round(annual_return * 100, 2)) + '%'
+
+    # ===计算最大回撤，最大
