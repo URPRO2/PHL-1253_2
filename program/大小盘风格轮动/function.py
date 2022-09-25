@@ -8,4 +8,11 @@ import pandas as pd
 
 def evaluate_investment(source_data, tittle,time='交易日期'):
     temp = source_data.copy()
-    # ===新建一个datafr
+    # ===新建一个dataframe保存回测指标
+    results = pd.DataFrame()
+
+    # ===计算累积净值
+    results.loc[0, '累积净值'] = round(temp[tittle].iloc[-1], 2)
+
+    # ===计算年化收益
+    annual_return = (temp[tittle].iloc[-
