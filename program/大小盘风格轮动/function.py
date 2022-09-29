@@ -23,4 +23,8 @@ def evaluate_investment(source_data, tittle,time='交易日期'):
     # 计算当日之前的资金曲线的最高点
     temp['max2here'] = temp[tittle].expanding().max()
     # 计算到历史最高值到当日的跌幅，drowdwon
-    temp['d
+    temp['dd2here'] = temp[tittle] / temp['max2here'] - 1
+    # 计算最大回撤，以及最大回撤结束时间
+    end_date, max_draw_down = tuple(temp.sort_values(by=['dd2here']).iloc[0][[time, 'dd2here']])
+    # 计算最大回撤开始时间
+    start_date 
