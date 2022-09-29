@@ -27,4 +27,8 @@ def evaluate_investment(source_data, tittle,time='交易日期'):
     # 计算最大回撤，以及最大回撤结束时间
     end_date, max_draw_down = tuple(temp.sort_values(by=['dd2here']).iloc[0][[time, 'dd2here']])
     # 计算最大回撤开始时间
-    start_date 
+    start_date = temp[temp[time] <= end_date].sort_values(by=tittle, ascending=False).iloc[0][
+        time]
+    # 将无关的变量删除
+    temp.drop(['max2here', 'dd2here'], axis=1, inplace=True)
+    results.loc[0, '最大回撤'] = format(max
