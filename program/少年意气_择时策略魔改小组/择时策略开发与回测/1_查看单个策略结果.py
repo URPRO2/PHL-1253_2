@@ -8,4 +8,8 @@
 """
 
 from datetime import timedelta
-from program.少年意气_择时策略魔改小组.择时策略开发与回测 impor
+from program.少年意气_择时策略魔改小组.择时策略开发与回测 import Signals
+from program.少年意气_择时策略魔改小组.择时策略开发与回测.Position import *
+from program.少年意气_择时策略魔改小组.择时策略开发与回测.Evaluate import *
+from program.少年意气_择时策略魔改小组.择时策略开发与回测.Function import *
+from program.少年意气_择时策略魔
