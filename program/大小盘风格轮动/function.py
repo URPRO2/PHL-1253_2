@@ -36,4 +36,6 @@ def evaluate_investment(source_data, tittle,time='交易日期'):
     results.loc[0, '最大回撤结束时间'] = str(end_date)
 
     # ===年化收益/回撤比：我个人比较关注的一个指标
-    results.loc[0, '年化收益/回撤比'] = round(annual_return 
+    results.loc[0, '年化收益/回撤比'] = round(annual_return / abs(max_draw_down), 2)
+
+    return results.T
