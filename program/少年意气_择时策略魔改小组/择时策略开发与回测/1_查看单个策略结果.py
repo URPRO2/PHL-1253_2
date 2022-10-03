@@ -20,4 +20,9 @@ pd.set_option('display.max_rows', 500)  # 最多显示数据的行数
 # =====手工设定策略参数
 symbol = 'BTC-USDT_5m'
 para = [220, 2.3]
-signal_name = 'signal_m
+signal_name = 'signal_my_bolling'
+rule_type = '4H'
+
+symbol_face_value = {'BTC': 0.01, 'EOS': 10, 'ETH': 0.1, 'LTC': 1, 'XRP': 100}
+c_rate = 5 / 10000  # 手续费，commission fees，默认为万分之5。不同市场手续费的收取方法不同，对结果有影响。比如和股票就不一样。
+slippa
