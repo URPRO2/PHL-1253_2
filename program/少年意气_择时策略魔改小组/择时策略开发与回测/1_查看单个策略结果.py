@@ -31,4 +31,8 @@ min_margin_ratio = 1 / 100  # 最低保证金率，低于就会爆仓
 drop_days = 10  # 币种刚刚上线10天内不交易
 
 # =====读入数据
-df = pd.read_pickle(root_p
+df = pd.read_pickle(root_path + '/data/%s.pkl' % symbol)
+# 任何原始数据读入都进行一下排序、去重，以防万一
+df.sort_values(by=['candle_begin_time'], inplace=True)
+df.drop_duplicates(subset=['candle_begin_time'], inplace=True)
+df.reset_index(inplace=True
