@@ -42,4 +42,11 @@ period_df = df.resample(rule=rule_type, on='candle_begin_time', label='left', cl
     {'open': 'first',
      'high': 'max',
      'low': 'min',
-     'close': 
+     'close': 'last',
+     'volume': 'sum',
+     'quote_volume': 'sum',
+     'trade_num': 'sum',
+     'taker_buy_base_asset_volume': 'sum',
+     'taker_buy_quote_asset_volume': 'sum',
+     })
+period_df.dropna(subset=['
