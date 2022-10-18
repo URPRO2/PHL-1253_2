@@ -55,4 +55,14 @@ period_df.reset_index(inplace=True)
 df = period_df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume', 'trade_num',
                 'taker_buy_base_asset_volume', 'taker_buy_quote_asset_volume']]
 df = df[df['candle_begin_time'] >= pd.to_datetime('2017-01-01')]
-df.reset_index(in
+df.reset_index(inplace=True, drop=True)
+
+# =====计算交易信号
+df = getattr(Signals, signal_name)(df, para=para)
+
+# =====计算实际持仓
+df = position_for_OKEx_future(df)
+
+# =====计算资金曲线
+# 选取相关时间。币种上线10天之后的日期
+t = df.iloc[0]['candle_b
