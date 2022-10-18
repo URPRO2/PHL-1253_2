@@ -65,4 +65,11 @@ df = position_for_OKEx_future(df)
 
 # =====计算资金曲线
 # 选取相关时间。币种上线10天之后的日期
-t = df.iloc[0]['candle_b
+t = df.iloc[0]['candle_begin_time'] + timedelta(days=drop_days)
+df = df[df['candle_begin_time'] > t]
+
+df = df[df['candle_begin_time'] >= pd.to_datetime('2018-01-01')]
+
+
+# 计算资金曲线
+face_value = symbol_face_value[symbol.
