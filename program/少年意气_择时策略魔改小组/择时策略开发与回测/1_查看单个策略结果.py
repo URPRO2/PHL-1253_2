@@ -74,4 +74,9 @@ df = df[df['candle_begin_time'] >= pd.to_datetime('2018-01-01')]
 # 计算资金曲线
 face_value = symbol_face_value[symbol.split('-')[0]]
 df = equity_curve_for_OKEx_USDT_future_next_open(df, slippage=slippage, c_rate=c_rate, leverage_rate=leverage_rate,
-                                                 face_value=face_value, min_marg
+                                                 face_value=face_value, min_margin_ratio=min_margin_ratio)
+# print(df)
+print('策略最终收益：', df.iloc[-1]['equity_curve'])
+# 输出资金曲线文件
+df_output = df[
+    ['candle_begin_time', 'open', 'high', 'low', 'close', 'signal', 'pos', 'quote_volume', '
