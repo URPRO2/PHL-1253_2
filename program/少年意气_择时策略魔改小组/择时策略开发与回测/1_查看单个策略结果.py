@@ -79,4 +79,8 @@ df = equity_curve_for_OKEx_USDT_future_next_open(df, slippage=slippage, c_rate=c
 print('策略最终收益：', df.iloc[-1]['equity_curve'])
 # 输出资金曲线文件
 df_output = df[
-    ['candle_begin_time', 'open', 'high', 'low', 'close', 'signal', 'pos', 'quote_volume', '
+    ['candle_begin_time', 'open', 'high', 'low', 'close', 'signal', 'pos', 'quote_volume', 'median', 'upper', 'lower',
+     'equity_curve']]
+df_output.rename(columns={'median': 'line_median', 'upper': 'line_upper', 'lower': 'line_lower',
+                          'quote_volume': 'b_bar_quote_volume',
+                  
