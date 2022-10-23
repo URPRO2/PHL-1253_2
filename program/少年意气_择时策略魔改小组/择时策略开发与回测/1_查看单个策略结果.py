@@ -83,4 +83,6 @@ df_output = df[
      'equity_curve']]
 df_output.rename(columns={'median': 'line_median', 'upper': 'line_upper', 'lower': 'line_lower',
                           'quote_volume': 'b_bar_quote_volume',
-                  
+                          'equity_curve': 'r_line_equity_curve'}, inplace=True)
+df_output.to_csv(root_path + '/data/output/equity_curve/%s_%s_%s_%s.csv' % (signal_name, symbol.split('-')[0],
+                                                      
