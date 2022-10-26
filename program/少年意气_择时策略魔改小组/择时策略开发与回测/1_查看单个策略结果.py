@@ -93,4 +93,9 @@ trade = transfer_equity_curve_to_trade(df)
 print('逐笔交易：\n', trade)
 
 # 加入下面一行
-gen_echarts_data(df, trade, 
+gen_echarts_data(df, trade, signal_name, symbol, rule_type)
+
+# 计算各类统计指标
+r, monthly_return = strategy_evaluate(df, trade)
+print(r)
+print(monthly_return)
