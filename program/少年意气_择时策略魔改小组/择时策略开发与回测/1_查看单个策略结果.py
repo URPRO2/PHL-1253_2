@@ -85,4 +85,12 @@ df_output.rename(columns={'median': 'line_median', 'upper': 'line_upper', 'lower
                           'quote_volume': 'b_bar_quote_volume',
                           'equity_curve': 'r_line_equity_curve'}, inplace=True)
 df_output.to_csv(root_path + '/data/output/equity_curve/%s_%s_%s_%s.csv' % (signal_name, symbol.split('-')[0],
-                                                      
+                                                                            rule_type, str(para)), index=False)
+
+# =====策略评价
+# 计算每笔交易
+trade = transfer_equity_curve_to_trade(df)
+print('逐笔交易：\n', trade)
+
+# 加入下面一行
+gen_echarts_data(df, trade, 
