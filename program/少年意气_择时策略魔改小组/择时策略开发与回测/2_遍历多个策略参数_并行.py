@@ -78,3 +78,43 @@ if __name__ == '__main__':
                 period_df = df.resample(rule=rule_type, on='candle_begin_time', label='left', closed='left').agg(
                     {'open': 'first',
                      'high': 'max',
+                     'low': 'min',
+                     'close': 'last',
+                     'volume': 'sum',
+                     'quote_volume': 'sum',
+                     'trade_num': 'sum',
+                     'taker_buy_base_asset_volume': 'sum',
+                     'taker_buy_quote_asset_volume': 'sum',
+                     })
+                period_df.dropna(subset=['open'], inplace=True)  # 去除一天都没有交易的周期
+                period_df = period_df[period_df['volume'] > 0]  # 去除成交量为0的交易周期
+                period_df.reset_index(inplace=True)
+                df = period_df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume', 'trade_num',
+                                'taker_buy_base_asset_volume', 'taker_buy_quote_asset_volume']]
+                df = df[df['candle_begin_time'] >= pd.to_datetime('2018-01-01')]
+                df.reset_index(inplace=True, drop=True)
+
+                # ===获取策略参数组合
+                para_list = getattr(Signals, signal_name+'_para_list')()
+
+                # ===并行回测
+                start_time = datetime.now()  # 标记开始时间
+
+                # 利用partial指定参数值
+                part = partial(calculate_by_one_loop, df=df, signal_name=signal_name, symbol=symbol, rule_type=rule_type)
+
+                with Pool(max(cpu_count() - 1, 1)) as pool:
+                    # 使用并行批量获得data frame的一个列表
+                    df_list = pool.map(part, para_list)
+                    print('读入完成, 开始合并', datetime.now() - start_time)
+                    # 合并为一个大的DataFrame
+                    para_curve_df = pd.concat(df_list, ignore_index=True)
+
+                # ===输出
+                para_curve_df.sort_values(by='年化收益回撤比', ascending=False, inplace=True)
+                print(para_curve_df.head(10))
+
+                # ===存储参数数据
+                p = root_path + '/data/output/para/%s-%s-%s-%s-%s.csv' % (signal_name, symbol, leverage_rate, rule_type, tag)
+                pd.DataFrame(columns=[description]).to_csv(p, index=False)
+                para_curve_df.to_csv(p, index=False, mode='a')
