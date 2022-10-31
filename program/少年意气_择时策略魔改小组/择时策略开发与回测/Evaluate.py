@@ -109,3 +109,5 @@ def equity_curve_for_OKEx_USDT_future_next_open(df, slippage=1 / 1000, c_rate=5 
     df.drop(['next_open', 'contract_num', 'open_pos_price', 'cash', 'close_pos_price', 'close_pos_fee',
              'profit', 'net_value', 'price_min', 'profit_min', 'net_value_min', 'margin_ratio', '是否爆仓'],
             axis=1, inplace=True)
+
+    return df
