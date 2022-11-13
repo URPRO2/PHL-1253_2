@@ -52,4 +52,9 @@ def signal_simple_bolling(df, para=[200, 2]):
     # 找出做空信号
     condition1 = df['close'] < df['lower']  # 当前K线的收盘价 < 下轨
     condition2 = df['close'].shift(1) >= df['lower'].shift(1)  # 之前K线的收盘价 >= 下轨
-    df.loc[condition1 & condition2, 'signal_short'] = -1  # 将
+    df.loc[condition1 & condition2, 'signal_short'] = -1  # 将产生做空信号的那根K线的signal设置为-1，-1代表做空
+
+    # 找出做空平仓信号
+    condition1 = df['close'] > df['median']  # 当前K线的收盘价 > 中轨
+    condition2 = df['close'].shift(1) <= df['median'].shift(1)  # 之前K线的收盘价 <= 中轨
+    df.loc[condition1 & conditio
