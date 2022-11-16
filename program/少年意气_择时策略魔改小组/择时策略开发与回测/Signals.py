@@ -67,4 +67,12 @@ def signal_simple_bolling(df, para=[200, 2]):
 
     # ===删除无关变量
     # df.drop(['median', 'std', 'upper', 'lower', 'signal_long', 'signal_short'], axis=1, inplace=True)
-  
+    df.drop(['std', 'signal_long', 'signal_short'], axis=1, inplace=True)
+
+    return df
+
+
+# 策略参数组合
+def signal_simple_bolling_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 10 for i in list(np.arange(3, 50+2, 2))]):
+    """
+    
