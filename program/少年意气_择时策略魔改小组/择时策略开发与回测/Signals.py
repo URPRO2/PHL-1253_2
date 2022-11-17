@@ -87,4 +87,16 @@ def signal_simple_bolling_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 1
     para_list = []
 
     for m in m_list:
-     
+        for n in n_list:
+            para = [m, n]
+            para_list.append(para)
+
+    return para_list
+
+
+# =====作者邢不行
+# 策略
+def signal_xingbuxing(df, para=[200, 2, 0.05]):
+    """
+    针对原始布林策略进行修改。
+    bias
