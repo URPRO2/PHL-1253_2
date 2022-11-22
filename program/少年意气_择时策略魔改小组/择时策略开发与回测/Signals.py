@@ -99,4 +99,13 @@ def signal_simple_bolling_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 1
 def signal_xingbuxing(df, para=[200, 2, 0.05]):
     """
     针对原始布林策略进行修改。
-    bias
+    bias = close / 均线 - 1
+    当开仓的时候，如果bias过大，即价格离均线过远，那么就先不开仓。等价格和均线距离小于bias_pct之后，才按照原计划开仓
+    :param df:
+    :param para: n,m,bias_pct
+    :return:
+    """
+
+    # ===策略参数
+    n = int(para[0])
+    m = floa
