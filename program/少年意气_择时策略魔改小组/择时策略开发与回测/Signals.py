@@ -108,4 +108,12 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
 
     # ===策略参数
     n = int(para[0])
-    m = floa
+    m = float(para[1])
+    bias_pct = float(para[2])
+
+    # ===计算指标
+    # 计算均线
+    df['median'] = df['close'].rolling(n, min_periods=1).mean()
+    # 计算上轨、下轨道
+    df['std'] = df['close'].rolling(n, min_periods=1).std(ddof=0)
+    df['upper'] = df['med
