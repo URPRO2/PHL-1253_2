@@ -116,4 +116,11 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
     df['median'] = df['close'].rolling(n, min_periods=1).mean()
     # 计算上轨、下轨道
     df['std'] = df['close'].rolling(n, min_periods=1).std(ddof=0)
-    df['upper'] = df['med
+    df['upper'] = df['median'] + m * df['std']
+    df['lower'] = df['median'] - m * df['std']
+    # 计算bias
+    df['bias'] = df['close'] / df['median'] - 1
+
+    # ===计算原始布林策略信号
+    # 找出做多信号
+    condition1 = df['close'] >
