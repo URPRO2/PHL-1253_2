@@ -139,4 +139,9 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
 
     # 找出做空平仓信号
     condition1 = df['close'] > df['median']  # 当前K线的收盘价 > 中轨
-    condition2 = df['close'].shift(1) <= df['median'].shift
+    condition2 = df['close'].shift(1) <= df['median'].shift(1)  # 之前K线的收盘价 <= 中轨
+    df.loc[condition1 & condition2, 'signal_short'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
+
+    # ===将long和short合并为signal
+    df['signal_short'].fillna(method='ffill', inplace=True)
+    df['signal_long'].fillna(metho
