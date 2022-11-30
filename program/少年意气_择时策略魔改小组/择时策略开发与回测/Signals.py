@@ -144,4 +144,10 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
 
     # ===将long和short合并为signal
     df['signal_short'].fillna(method='ffill', inplace=True)
-    df['signal_long'].fillna(metho
+    df['signal_long'].fillna(method='ffill', inplace=True)
+    df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1)
+    df['signal'].fillna(value=0, inplace=True)
+    df['raw_signal'] = df['signal']
+
+    # ===根据bias，修改开仓时间
+    df['temp'] 
