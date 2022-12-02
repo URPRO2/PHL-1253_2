@@ -150,4 +150,12 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
     df['raw_signal'] = df['signal']
 
     # ===根据bias，修改开仓时间
-    df['temp'] 
+    df['temp'] = df['signal']
+
+    # 将原始信号做多时，当bias大于阀值，设置为空
+    condition1 = (df['signal'] == 1)
+    condition2 = (df['bias'] > bias_pct)
+    df.loc[condition1 & condition2, 'temp'] = None
+
+    # 将原始信号做空时，当bias大于阀值，设置为空
+    con
