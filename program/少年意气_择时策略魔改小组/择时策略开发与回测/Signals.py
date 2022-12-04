@@ -163,4 +163,10 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
     df.loc[condition1 & condition2, 'temp'] = None
 
     # 原始信号刚开仓，并且大于阀值，将信号设置为0
-    condition1 = (df['signal'
+    condition1 = (df['signal'] != df['signal'].shift(1))
+    condition2 = (df['temp'].isnull())
+    df.loc[condition1 & condition2, 'temp'] = 0
+
+    # 使用之前的信号补全原始信号
+    df['temp'].fillna(method='ffill', inplace=True)
+    d
