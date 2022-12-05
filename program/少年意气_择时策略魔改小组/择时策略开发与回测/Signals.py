@@ -169,4 +169,11 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
 
     # 使用之前的信号补全原始信号
     df['temp'].fillna(method='ffill', inplace=True)
-    d
+    df['signal'] = df['temp']
+
+    # ===将signal中的重复值删除
+    temp = df[['signal']]
+    temp = temp[temp['signal'] != temp['signal'].shift(1)]
+    df['signal'] = temp
+
+    df.drop(['raw_signal', 'median', 'std
