@@ -176,4 +176,10 @@ def signal_xingbuxing(df, para=[200, 2, 0.05]):
     temp = temp[temp['signal'] != temp['signal'].shift(1)]
     df['signal'] = temp
 
-    df.drop(['raw_signal', 'median', 'std
+    df.drop(['raw_signal', 'median', 'std', 'upper', 'lower', 'bias', 'temp', 'signal_long', 'signal_short'], axis=1, inplace=True)
+
+    return df
+
+
+# 策略参数组合
+def signal_xingbuxing_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 10 for i in list(np.arange(3
