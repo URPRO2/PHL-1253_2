@@ -191,4 +191,11 @@ def signal_xingbuxing_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 10 fo
     :return:
     """
     print('参数遍历范围：')
-    prin
+    print('m_list', list(m_list))
+    print('n_list', list(n_list))
+    print('bias_pct_list', list(bias_pct_list))
+
+    para_list = []
+    for bias_pct in bias_pct_list:
+        for m in m_list:
+            for n i
