@@ -198,4 +198,15 @@ def signal_xingbuxing_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 10 fo
     para_list = []
     for bias_pct in bias_pct_list:
         for m in m_list:
-            for n i
+            for n in n_list:
+                para = [m, n, bias_pct]
+                para_list.append(para)
+
+    return para_list
+
+
+
+def signal_my_bolling(df, para=[200, 2]):
+    """
+    :param df:
+    :par
