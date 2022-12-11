@@ -209,4 +209,12 @@ def signal_xingbuxing_para_list(m_list=range(20, 1000+20, 20), n_list=[i / 10 fo
 def signal_my_bolling(df, para=[200, 2]):
     """
     :param df:
-    :par
+    :param para: n, m
+    :return:
+
+    # 布林线策略
+    # 布林线中轨：n天收盘价的移动平均线
+    # 布林线上轨：n天收盘价的移动平均线 + m * n天收盘价的标准差
+    # 布林线上轨：n天收盘价的移动平均线 - m * n天收盘价的标准差
+    # 当收盘价由下向上穿过上轨的时候，做多；然后由上向下穿过中轨的时候，平仓。
+    # 当收盘价由上
