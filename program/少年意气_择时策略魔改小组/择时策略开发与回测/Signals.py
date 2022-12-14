@@ -235,4 +235,8 @@ def signal_my_bolling(df, para=[200, 2]):
 
     # ===计算信号
     # 找出做多信号
-    condition1 = df['close'] > df['
+    condition1 = df['close'] > df['upper']  # 当前K线的收盘价 > 上轨
+    condition2 = df['close'].shift(1) <= df['upper'].shift(1)  # 之前K线的收盘价 <= 上轨
+    df.loc[condition1 & condition2, 'signal_long'] = 1  # 将产生做多信号的那根K线的signal设置为1，1代表做多
+
+    # 找出做多平
