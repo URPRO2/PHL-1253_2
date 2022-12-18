@@ -255,4 +255,7 @@ def signal_my_bolling(df, para=[200, 2]):
     df.loc[condition1 & condition2, 'signal_short'] = 0  # 将产生平仓信号当天的signal设置为0，0代表平仓
 
     # 合并做多做空信号，去除重复信号
-    df['signal'] = df[['signal_long', 'signal_sh
+    df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1, min_count=1, skipna=True)  # 若你的pandas版本是最新的，请使用本行代码代替上面一行
+    temp = df[df['signal'].notnull()][['signal']]
+    temp = temp[temp['signal'] != temp['signal'].shift(1)]
+    df['signal'] = temp['signal
