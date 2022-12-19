@@ -258,4 +258,12 @@ def signal_my_bolling(df, para=[200, 2]):
     df['signal'] = df[['signal_long', 'signal_short']].sum(axis=1, min_count=1, skipna=True)  # 若你的pandas版本是最新的，请使用本行代码代替上面一行
     temp = df[df['signal'].notnull()][['signal']]
     temp = temp[temp['signal'] != temp['signal'].shift(1)]
-    df['signal'] = temp['signal
+    df['signal'] = temp['signal']
+
+
+    # -==== append
+    df['lower'] = df['close'].rolling(730, min_periods=1).mean()
+    df['upper'] = df['close'].rolling(730, min_periods=1).mean() * 5
+
+    # ===删除无关变量
+    # df.drop(['median', 'std', 'upper', 'lower
