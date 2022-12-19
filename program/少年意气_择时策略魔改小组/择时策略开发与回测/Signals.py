@@ -266,4 +266,7 @@ def signal_my_bolling(df, para=[200, 2]):
     df['upper'] = df['close'].rolling(730, min_periods=1).mean() * 5
 
     # ===删除无关变量
-    # df.drop(['median', 'std', 'upper', 'lower
+    # df.drop(['median', 'std', 'upper', 'lower', 'signal_long', 'signal_short'], axis=1, inplace=True)
+    df.drop(['std', 'signal_long', 'signal_short'], axis=1, inplace=True)
+
+    return df
