@@ -13,4 +13,12 @@ import itertools
 
 # ======= 策略评价 =========
 # 将资金曲线数据，转化为交易数据
-def transfer_equity_c
+def transfer_equity_curve_to_trade(equity_curve):
+    """
+    将资金曲线数据，转化为一笔一笔的交易
+    :param equity_curve: 资金曲线函数计算好的结果，必须包含pos
+    :return:
+    """
+    # =选取开仓、平仓条件
+    condition1 = equity_curve['pos'] != 0
+    condition2 = equity_curve['pos'] != equit
