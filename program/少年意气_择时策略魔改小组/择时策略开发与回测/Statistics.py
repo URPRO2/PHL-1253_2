@@ -21,4 +21,9 @@ def transfer_equity_curve_to_trade(equity_curve):
     """
     # =选取开仓、平仓条件
     condition1 = equity_curve['pos'] != 0
-    condition2 = equity_curve['pos'] != equit
+    condition2 = equity_curve['pos'] != equity_curve['pos'].shift(1)
+    open_pos_condition = condition1 & condition2
+
+    # =计算每笔交易的start_time
+    if 'start_time' not in equity_curve.columns:
+        equity_curve.loc[open_pos_condition, 'start_time'] = equity_curve['candle_
