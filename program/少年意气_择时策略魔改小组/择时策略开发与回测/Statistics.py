@@ -26,4 +26,9 @@ def transfer_equity_curve_to_trade(equity_curve):
 
     # =计算每笔交易的start_time
     if 'start_time' not in equity_curve.columns:
-        equity_curve.loc[open_pos_condition, 'start_time'] = equity_curve['candle_
+        equity_curve.loc[open_pos_condition, 'start_time'] = equity_curve['candle_begin_time']
+        equity_curve['start_time'].fillna(method='ffill', inplace=True)
+        equity_curve.loc[equity_curve['pos'] == 0, 'start_time'] = pd.NaT
+
+    # =对每次交易进行分组，遍历每笔交易
+    trade = pd
