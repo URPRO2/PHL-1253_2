@@ -31,4 +31,12 @@ def transfer_equity_curve_to_trade(equity_curve):
         equity_curve.loc[equity_curve['pos'] == 0, 'start_time'] = pd.NaT
 
     # =对每次交易进行分组，遍历每笔交易
-    trade = pd
+    trade = pd.DataFrame()  # 计算结果放在trade变量中
+
+    for _index, group in equity_curve.groupby('start_time'):
+
+        # 记录每笔交易
+        # 本次交易方向
+        trade.loc[_index, 'signal'] = group['pos'].iloc[0]
+
+    
