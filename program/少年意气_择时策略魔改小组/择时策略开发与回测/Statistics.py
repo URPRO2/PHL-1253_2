@@ -39,4 +39,10 @@ def transfer_equity_curve_to_trade(equity_curve):
         # 本次交易方向
         trade.loc[_index, 'signal'] = group['pos'].iloc[0]
 
-    
+        # 本次交易杠杆倍数
+        if 'leverage_rate' in group:
+            trade.loc[_index, 'leverage_rate'] = group['leverage_rate'].iloc[0]
+
+        g = group[group['pos'] != 0]  # 去除pos=0的行
+        # 本次交易结束那根K线的开始时间
+        trade.l
