@@ -45,4 +45,8 @@ def transfer_equity_curve_to_trade(equity_curve):
 
         g = group[group['pos'] != 0]  # 去除pos=0的行
         # 本次交易结束那根K线的开始时间
-        trade.l
+        trade.loc[_index, 'end_bar'] = g.iloc[-1]['candle_begin_time']
+        # 开仓价格
+        trade.loc[_index, 'start_price'] = g.iloc[0]['open']
+        # 平仓信号的价格
+        trade.loc[_index, 'end_price
