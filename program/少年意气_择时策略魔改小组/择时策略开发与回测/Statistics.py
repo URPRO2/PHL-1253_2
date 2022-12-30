@@ -49,4 +49,10 @@ def transfer_equity_curve_to_trade(equity_curve):
         # 开仓价格
         trade.loc[_index, 'start_price'] = g.iloc[0]['open']
         # 平仓信号的价格
-        trade.loc[_index, 'end_price
+        trade.loc[_index, 'end_price'] = g.iloc[-1]['close']
+        # 持仓k线数量
+        trade.loc[_index, 'bar_num'] = g.shape[0]
+        # 本次交易收益
+        trade.loc[_index, 'change'] = (group['equity_change'] + 1).prod() - 1
+        # 本次交易结束时资金曲线
+        trade.loc[_inde
