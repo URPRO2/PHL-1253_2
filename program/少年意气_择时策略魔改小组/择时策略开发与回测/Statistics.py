@@ -55,4 +55,12 @@ def transfer_equity_curve_to_trade(equity_curve):
         # 本次交易收益
         trade.loc[_index, 'change'] = (group['equity_change'] + 1).prod() - 1
         # 本次交易结束时资金曲线
-        trade.loc[_inde
+        trade.loc[_index, 'end_equity_curve'] = g.iloc[-1]['equity_curve']
+        # 本次交易中资金曲线最低值
+        trade.loc[_index, 'min_equity_curve'] = g['equity_curve'].min()
+
+    return trade
+
+
+# 计算策略评价指标
+def strategy_evaluate(equ
