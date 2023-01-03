@@ -63,4 +63,14 @@ def transfer_equity_curve_to_trade(equity_curve):
 
 
 # 计算策略评价指标
-def strategy_evaluate(equ
+def strategy_evaluate(equity_curve, trade):
+    """
+    :param equity_curve: 带资金曲线的df
+    :param trade: transfer_equity_curve_to_trade的输出结果，每笔交易的df
+    :return:
+    """
+
+    # ===新建一个dataframe保存回测指标
+    results = pd.DataFrame()
+
+    # ==
