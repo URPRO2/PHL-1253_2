@@ -73,4 +73,9 @@ def strategy_evaluate(equity_curve, trade):
     # ===新建一个dataframe保存回测指标
     results = pd.DataFrame()
 
-    # ==
+    # ===计算累积净值
+    results.loc[0, '累积净值'] = round(equity_curve['equity_curve'].iloc[-1], 2)
+
+    # ===计算年化收益
+    annual_return = (equity_curve['equity_curve'].iloc[-1] / equity_curve['equity_curve'].iloc[0]) ** (
+        '1 days 00:
