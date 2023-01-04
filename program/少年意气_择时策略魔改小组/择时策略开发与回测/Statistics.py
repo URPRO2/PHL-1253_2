@@ -78,4 +78,7 @@ def strategy_evaluate(equity_curve, trade):
 
     # ===计算年化收益
     annual_return = (equity_curve['equity_curve'].iloc[-1] / equity_curve['equity_curve'].iloc[0]) ** (
-        '1 days 00:
+        '1 days 00:00:00' / (equity_curve['candle_begin_time'].iloc[-1] - equity_curve['candle_begin_time'].iloc[0]) * 365) - 1
+    results.loc[0, '年化收益'] = str(round(annual_return, 2)) + ' 倍'
+
+    # ===计算最大回撤，最大回撤的含义：《如何通过3
