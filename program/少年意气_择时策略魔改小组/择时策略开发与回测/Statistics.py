@@ -85,4 +85,6 @@ def strategy_evaluate(equity_curve, trade):
     # 计算当日之前的资金曲线的最高点
     equity_curve['max2here'] = equity_curve['equity_curve'].expanding().max()
     # 计算到历史最高值到当日的跌幅，drowdwon
-    equit
+    equity_curve['dd2here'] = equity_curve['equity_curve'] / equity_curve['max2here'] - 1
+    # 计算最大回撤，以及最大回撤结束时间
+    end_date, max_draw_down = tuple(equity_curve.sort_values(by=['dd2here']).iloc[0]
