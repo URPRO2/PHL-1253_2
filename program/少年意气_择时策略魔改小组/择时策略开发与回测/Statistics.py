@@ -87,4 +87,8 @@ def strategy_evaluate(equity_curve, trade):
     # 计算到历史最高值到当日的跌幅，drowdwon
     equity_curve['dd2here'] = equity_curve['equity_curve'] / equity_curve['max2here'] - 1
     # 计算最大回撤，以及最大回撤结束时间
-    end_date, max_draw_down = tuple(equity_curve.sort_values(by=['dd2here']).iloc[0]
+    end_date, max_draw_down = tuple(equity_curve.sort_values(by=['dd2here']).iloc[0][['candle_begin_time', 'dd2here']])
+    # 计算最大回撤开始时间
+    start_date = equity_curve[equity_curve['candle_begin_time'] <= end_date].sort_values(by='equity_curve', ascending=False).iloc[0]['candle_begin_time']
+    # 将无关的变量删除
+    equity_curve.d
