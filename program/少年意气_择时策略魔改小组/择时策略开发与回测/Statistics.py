@@ -91,4 +91,10 @@ def strategy_evaluate(equity_curve, trade):
     # 计算最大回撤开始时间
     start_date = equity_curve[equity_curve['candle_begin_time'] <= end_date].sort_values(by='equity_curve', ascending=False).iloc[0]['candle_begin_time']
     # 将无关的变量删除
-    equity_curve.d
+    equity_curve.drop(['max2here', 'dd2here'], axis=1, inplace=True)
+    results.loc[0, '最大回撤'] = format(max_draw_down, '.2%')
+    results.loc[0, '最大回撤开始时间'] = str(start_date)
+    results.loc[0, '最大回撤结束时间'] = str(end_date)
+
+    # ===年化收益/回撤比
+    re
