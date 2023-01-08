@@ -97,4 +97,8 @@ def strategy_evaluate(equity_curve, trade):
     results.loc[0, '最大回撤结束时间'] = str(end_date)
 
     # ===年化收益/回撤比
-    re
+    results.loc[0, '年化收益/回撤比'] = round(abs(annual_return / max_draw_down), 2)
+
+    # ===统计每笔交易
+    results.loc[0, '盈利笔数'] = len(trade.loc[trade['change'] > 0])  # 盈利笔数
+    results.loc[0, '亏损笔数'] = len(trade.loc[trade['cha
