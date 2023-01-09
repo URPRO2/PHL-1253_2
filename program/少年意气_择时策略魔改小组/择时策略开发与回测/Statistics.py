@@ -101,4 +101,8 @@ def strategy_evaluate(equity_curve, trade):
 
     # ===统计每笔交易
     results.loc[0, '盈利笔数'] = len(trade.loc[trade['change'] > 0])  # 盈利笔数
-    results.loc[0, '亏损笔数'] = len(trade.loc[trade['cha
+    results.loc[0, '亏损笔数'] = len(trade.loc[trade['change'] <= 0])  # 亏损笔数
+    results.loc[0, '胜率'] = format(results.loc[0, '盈利笔数'] / len(trade), '.2%')  # 胜率
+
+    results.loc[0, '每笔交易平均盈亏'] = format(trade['change'].mean(), '.2%')  # 每笔交易平均盈亏
+    results.loc[0, '
