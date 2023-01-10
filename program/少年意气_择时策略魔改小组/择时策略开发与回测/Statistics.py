@@ -113,4 +113,7 @@ def strategy_evaluate(equity_curve, trade):
 
     # ===统计持仓时间，会比实际时间少一根K线的是距离
     trade['持仓时间'] = trade['end_bar'] - trade.index
-    max_days, max_seconds = trade['持仓时间'].max().days, trade
+    max_days, max_seconds = trade['持仓时间'].max().days, trade['持仓时间'].max().seconds
+    max_hours = max_seconds // 3600
+    max_minute = (max_seconds - max_hours * 3600) // 60
+    results.loc[0, '单笔最长持有时间'] = str(max_days) + ' 天 ' + str(max_hours) + ' 小时 ' + str(max_minute
