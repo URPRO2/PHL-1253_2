@@ -108,4 +108,9 @@ def strategy_evaluate(equity_curve, trade):
     results.loc[0, '盈亏收益比'] = round(trade.loc[trade['change'] > 0]['change'].mean() / \
                                     trade.loc[trade['change'] < 0]['change'].mean() * (-1), 2)  # 盈亏比
 
-    results.loc[0, '单笔最大盈利'] = format(trade['change'].max(), '.2%')  #
+    results.loc[0, '单笔最大盈利'] = format(trade['change'].max(), '.2%')  # 单笔最大盈利
+    results.loc[0, '单笔最大亏损'] = format(trade['change'].min(), '.2%')  # 单笔最大亏损
+
+    # ===统计持仓时间，会比实际时间少一根K线的是距离
+    trade['持仓时间'] = trade['end_bar'] - trade.index
+    max_days, max_seconds = trade['持仓时间'].max().days, trade
