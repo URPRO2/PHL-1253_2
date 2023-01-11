@@ -116,4 +116,9 @@ def strategy_evaluate(equity_curve, trade):
     max_days, max_seconds = trade['持仓时间'].max().days, trade['持仓时间'].max().seconds
     max_hours = max_seconds // 3600
     max_minute = (max_seconds - max_hours * 3600) // 60
-    results.loc[0, '单笔最长持有时间'] = str(max_days) + ' 天 ' + str(max_hours) + ' 小时 ' + str(max_minute
+    results.loc[0, '单笔最长持有时间'] = str(max_days) + ' 天 ' + str(max_hours) + ' 小时 ' + str(max_minute) + ' 分钟'  # 单笔最长持有时间
+
+    min_days, min_seconds = trade['持仓时间'].min().days, trade['持仓时间'].min().seconds
+    min_hours = min_seconds // 3600
+    min_minute = (min_seconds - min_hours * 3600) // 60
+    results.
