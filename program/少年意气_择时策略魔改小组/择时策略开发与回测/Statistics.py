@@ -124,4 +124,6 @@ def strategy_evaluate(equity_curve, trade):
     results.loc[0, '单笔最短持有时间'] = str(min_days) + ' 天 ' + str(min_hours) + ' 小时 ' + str(min_minute) + ' 分钟'  # 单笔最短持有时间
 
     mean_days, mean_seconds = trade['持仓时间'].mean().days, trade['持仓时间'].mean().seconds
-    mea
+    mean_hours = mean_seconds // 3600
+    mean_minute = (mean_seconds - mean_hours * 3600) // 60
+    results.loc[0, '平均持仓周期'] = str(mean_days) + ' 天 ' + str(mean_hours) + ' 小时 ' + str(mean_minute) + ' 分钟'  # 平均持仓周期
