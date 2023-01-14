@@ -131,4 +131,8 @@ def strategy_evaluate(equity_curve, trade):
     # ===连续盈利亏算
     results.loc[0, '最大连续盈利笔数'] = max(
         [len(list(v)) for k, v in itertools.groupby(np.where(trade['change'] > 0, 1, np.nan))])  # 最大连续盈利笔数
-    results.loc[0, '最大连续亏损笔数
+    results.loc[0, '最大连续亏损笔数'] = max(
+        [len(list(v)) for k, v in itertools.groupby(np.where(trade['change'] < 0, 1, np.nan))])  # 最大连续亏损笔数
+
+    # ===每月收益率
+    equity_curve.set_index('candle_begin_time', inplace=True)
