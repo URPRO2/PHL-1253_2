@@ -127,3 +127,8 @@ def strategy_evaluate(equity_curve, trade):
     mean_hours = mean_seconds // 3600
     mean_minute = (mean_seconds - mean_hours * 3600) // 60
     results.loc[0, '平均持仓周期'] = str(mean_days) + ' 天 ' + str(mean_hours) + ' 小时 ' + str(mean_minute) + ' 分钟'  # 平均持仓周期
+
+    # ===连续盈利亏算
+    results.loc[0, '最大连续盈利笔数'] = max(
+        [len(list(v)) for k, v in itertools.groupby(np.where(trade['change'] > 0, 1, np.nan))])  # 最大连续盈利笔数
+    results.loc[0, '最大连续亏损笔数
