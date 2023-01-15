@@ -136,3 +136,11 @@ def strategy_evaluate(equity_curve, trade):
 
     # ===每月收益率
     equity_curve.set_index('candle_begin_time', inplace=True)
+    monthly_return = equity_curve[['equity_change']].resample(rule='M').apply(lambda x: (1 + x).prod() - 1)
+
+    return results.T, monthly_return
+
+
+def return_drawdown_ratio(equity_curve):
+    """
+    :para
