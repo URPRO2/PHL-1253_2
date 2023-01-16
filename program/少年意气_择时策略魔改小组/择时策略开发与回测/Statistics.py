@@ -143,4 +143,10 @@ def strategy_evaluate(equity_curve, trade):
 
 def return_drawdown_ratio(equity_curve):
     """
-    :para
+    :param equity_curve: 带资金曲线的df
+    :param trade: transfer_equity_curve_to_trade的输出结果，每笔交易的df
+    :return:
+    """
+
+    # ===计算年化收益
+    annual_return = (equity_curve['equity_curve'].iloc[-1] / equity_curve['equ
