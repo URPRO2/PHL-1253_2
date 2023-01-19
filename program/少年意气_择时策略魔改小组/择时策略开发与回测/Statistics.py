@@ -152,4 +152,8 @@ def return_drawdown_ratio(equity_curve):
     annual_return = (equity_curve['equity_curve'].iloc[-1] / equity_curve['equity_curve'].iloc[0]) ** (
         '1 days 00:00:00' / (equity_curve['candle_begin_time'].iloc[-1] - equity_curve['candle_begin_time'].iloc[0]) * 365) - 1
 
-    # ===计算最大回撤，最大回撤的含义：《如何通过3行代码计算最大回撤》https://mp.weixin.qq.com/s/Dwt4lkKR_PEn
+    # ===计算最大回撤，最大回撤的含义：《如何通过3行代码计算最大回撤》https://mp.weixin.qq.com/s/Dwt4lkKR_PEnWRprLlvPVw
+    # 计算当日之前的资金曲线的最高点
+    equity_curve['max2here'] = equity_curve['equity_curve'].expanding().max()
+    # 计算到历史最高值到当日的跌幅，drowdwon
+    equity_curve['dd2here'] = equity_curve['equity_curve'
