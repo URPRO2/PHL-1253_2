@@ -113,3 +113,52 @@ if __name__ == '__main__':
                 para_list = getattr(Signals, signal_name+'_para_list')()
 
                 # ===并行回测
+                start_time = datetime.now()  # 标记开始时间
+
+                # 利用partial指定参数值
+                part = partial(calculate_by_one_loop, df=df, signal_name=signal_name, symbol=symbol, rule_type=rule_type)
+
+            
+                
+                # 将各参数范围加入para_ranges中
+                para_ranges = []
+                minval=np.min(para_list,axis=0)
+                maxval=np.max(para_list,axis=0)
+                for i in range(minval.shape[0]):
+                    para_ranges.append([minval[i],maxval[i]])
+
+                # Define population.
+                indv_template = BinaryIndividual(ranges=para_ranges, eps=0.001)
+                population = Population(indv_template=indv_template, size=50).init()
+
+                # Create genetic operators.
+                #selection = RouletteWheelSelection()
+                selection = TournamentSelection()
+                crossover = UniformCrossover(pc=0.8, pe=0.5)
+                mutation = FlipBitBigMutation(pm=0.1, pbm=0.55, alpha=0.6)
+
+                # Create genetic algorithm engine.
+                # Here we pass all built-in analysis to engine constructor.
+                engine = GAEngine(population=population, selection=selection,
+                                crossover=crossover, mutation=mutation,
+                                analysis=[ConsoleOutput, FitnessStore])
+
+                # Define fitness function.
+                @engine.fitness_register
+                def fitness(indv):
+                    para = indv.solution
+                    return float(part(para).loc[0, '年化收益回撤比'])
+                # ng:遗传代数，越大，计算结果越好，也更费算力
+                engine.run(ng=100)
+                
+               
+
+
+                # # ===输出
+                para_curve_df.sort_values(by='年化收益回撤比', ascending=False, inplace=True)
+                print(para_curve_df.head(10))
+
+                # ===存储参数数据
+                p = root_path + '/data/output/para/%s-%s-%s-%s-%s.csv' % (signal_name, symbol, leverage_rate, rule_type, tag)
+                pd.DataFrame(columns=[description]).to_csv(p, index=False,encoding="utf_8_sig")
+                para_curve_df.to_csv(p, index=False, mode='a',encoding="utf_8_sig")
