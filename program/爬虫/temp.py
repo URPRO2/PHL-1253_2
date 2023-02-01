@@ -275,3 +275,65 @@ class LeagueEngine:
             pank = r['xjw']['bet_type_name']
             pankv = r['xjw']['market_and_bet_type_param']
             pankv = ' ' + str(pankv)
+            x.append(r['xjw']['bet_name'] + pank + pankv)
+            x.append(str(r['xjw']['koef']))
+            x.append(str(r['xjw']['val']))
+            v = '\n'.join(str(xx) for xx in x)
+            ary.append(v)
+            # -------------------------
+        return '\n\n———————————'.join(str(xx) for xx in ary)
+
+    def test_data(self):
+        while True:
+            ret = self.request_data()
+            if len(ret) == 0:
+                sleep(3)
+                continue
+            return ret[0]
+
+    def updateTime(self, t):
+        interval = datetime.timedelta(hours=-12)
+        d = datetime.datetime.fromtimestamp(t)
+        d = d + interval
+        return d.timestamp()
+
+    def saveData(self):
+
+        def time_format(t):
+            interval = datetime.timedelta(hours=-12)
+            d = datetime.datetime.fromtimestamp(t)
+            # r = d.strftime('%Y-%m-%d %H:%M:%S')
+            r = d.strftime('%H:%M')
+            return r
+
+        config = configparser.ConfigParser()
+        config.read(self._path)
+
+
+        sort_by='percent'
+        url = 'http://' + self.URL + '/bet/api/v1/arbs/pro_search?access_token=' + self.token + '&locale=cn'
+        data = {
+            'sort_by': sort_by,
+            'koef_format': 'decimal',
+        }
+        r = self.session.post(url, data=data, headers=self.headers)
+        r_data = json.loads(r.text)
+        print(r_data)
+        bets = r_data['bets']
+        for d in bets:
+            if d['bookmaker_id'] == 5:  # hgw
+                time = time_format(d['started_at'])
+                if time not in config:
+                    config.add_section(time)
+                v = 'hgw' + d['bookmaker_event_name']
+                if v not in config[time]:
+                    config.set(time, v, '2')
+            config.write(open(self._path, 'w'))
+
+
+
+if __name__ == '__main__':
+    wx = wechat2.WeChat()
+    wx.TOUSER = 'ZhouJian'
+    le = LeagueEngine()
+    le.saveData()
