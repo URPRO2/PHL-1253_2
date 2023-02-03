@@ -24,4 +24,8 @@ class WeChat:
 
     def get_access_token(self):
         try:
-       
+            with open('./tmp/wechat.config', 'r') as f:
+                t, access_token = f.read().split()
+        except:
+            with open('./tmp/wechat.config', 'w') as f:
+                acces
