@@ -49,4 +49,10 @@ class WeChat:
             "msgtype": "text",
             "agentid": self.AGENTID,
             "text": {
- 
+                "content": message
+                },
+            "safe": "0"
+            }
+        send_msges=(bytes(json.dumps(send_values), 'utf-8'))
+        respone = requests.post(send_url, send_msges)
+       
