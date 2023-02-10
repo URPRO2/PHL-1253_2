@@ -55,4 +55,10 @@ class WeChat:
             }
         send_msges=(bytes(json.dumps(send_values), 'utf-8'))
         respone = requests.post(send_url, send_msges)
-       
+        respone = respone.json()   #当返回的数据是json串的时候直接用.json即可将respone转换成字典
+        return respone["errmsg"]
+
+if __name__ == '__main__':
+    wx = WeChat()
+    wx.TOUSER = 'ZhouJian'
+    # wx.send_data("这是程序发送的第1条消
