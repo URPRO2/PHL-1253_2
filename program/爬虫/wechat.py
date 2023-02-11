@@ -61,4 +61,5 @@ class WeChat:
 if __name__ == '__main__':
     wx = WeChat()
     wx.TOUSER = 'ZhouJian'
-    # wx.send_data("这是程序发送的第1条消
+    # wx.send_data("这是程序发送的第1条消息！\n Python程序调用企业微信API,从自建应用“告警测试应用”发送给管理员的消息！")
+    # wx.send_data("[这是一个链接](http://work.weixin.qq.com/api/doc)")
