@@ -32,4 +32,9 @@ exchange.secret = ''
 execute_num = 0
 spot_symbol_name = {'type1': coin + 'USDT', 'type2': coin + '/USDT'}
 future_symbol_name = {'type1': coin + 'USD_' + future_date}
-w
+while True:
+    # ===计算价差
+    # 获取现货卖一数据。因为现货是买入，取卖一。
+    # noinspection PyUnresolvedReferences
+    spot_sell1_price = exchange.fapiPublicGetTickerBookTicker(params={'symbol': spot_symbol_name['type1']})['askPrice']
+  
