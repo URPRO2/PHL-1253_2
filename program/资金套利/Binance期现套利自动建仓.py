@@ -37,4 +37,7 @@ while True:
     # 获取现货卖一数据。因为现货是买入，取卖一。
     # noinspection PyUnresolvedReferences
     spot_sell1_price = exchange.fapiPublicGetTickerBookTicker(params={'symbol': spot_symbol_name['type1']})['askPrice']
-  
+    # 获取期货买一数据。因为期货是卖出，取买一。
+    # noinspection PyUnresolvedReferences
+    future_buy1_price = exchange.dapiPublicGetTickerBookTicker(params={'symbol': future_symbol_name['type1']})[0][
+        'bidPric
