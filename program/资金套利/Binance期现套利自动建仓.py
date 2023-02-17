@@ -40,4 +40,12 @@ while True:
     # 获取期货买一数据。因为期货是卖出，取买一。
     # noinspection PyUnresolvedReferences
     future_buy1_price = exchange.dapiPublicGetTickerBookTicker(params={'symbol': future_symbol_name['type1']})[0][
-        'bidPric
+        'bidPrice']
+
+    # 计算价差
+    r = float(future_buy1_price) / float(spot_sell1_price) - 1
+    print('现货价格：%.4f，期货价格：%.4f，价差：%.4f%%' % (float(spot_sell1_price), float(future_buy1_price), r * 100))
+
+    # ===判断价差是否满足要求
+    if r < r_threshold:
+  
