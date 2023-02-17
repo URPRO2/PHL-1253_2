@@ -48,4 +48,10 @@ while True:
 
     # ===判断价差是否满足要求
     if r < r_threshold:
-  
+        print('利差小于目标阀值，不入金')
+    else:
+        print('利差大于目标阀值，开始入金')
+
+        # 计算开空合约的数量、买入现货币的数量
+        future_contract_num = int(execute_amount / contact_size[coin])  # 买入合约张数
+        future_coin_
