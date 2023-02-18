@@ -56,4 +56,9 @@ while True:
         future_contract_num = int(execute_amount / contact_size[coin])  # 买入合约张数
         future_coin_num = future_contract_num * contact_size[coin] / float(future_buy1_price)  # 合约对应币数量
         future_fee = future_coin_num * future_fee_rate  # 需要取整
-        spot_amount = future_coin_num / (1 - spot_fee_rate) + fu
+        spot_amount = future_coin_num / (1 - spot_fee_rate) + future_fee  # 需要取整
+        print('交易计划：开空合约张数：', future_contract_num, '对应币数量', future_coin_num, '合约手续费', future_fee,
+              '需要买入现货数量', spot_amount, '\n')
+
+        # 买币
+        price = float(spot_sell1
