@@ -61,4 +61,6 @@ while True:
               '需要买入现货数量', spot_amount, '\n')
 
         # 买币
-        price = float(spot_sell1
+        price = float(spot_sell1_price) * 1.02
+        spot_order_info = binance_spot_place_order(exchange=exchange, symbol=spot_symbol_name['type2'],
+                                                   long_or_short='买入', price=price, amount=
