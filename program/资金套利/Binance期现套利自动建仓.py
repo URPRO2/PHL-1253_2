@@ -63,4 +63,9 @@ while True:
         # 买币
         price = float(spot_sell1_price) * 1.02
         spot_order_info = binance_spot_place_order(exchange=exchange, symbol=spot_symbol_name['type2'],
-                                                   long_or_short='买入', price=price, amount=
+                                                   long_or_short='买入', price=price, amount=spot_amount)
+
+        # 做空合约
+        price = float(future_buy1_price) * 0.98
+        price = round(price, coin_precision)
+        future_order_info = binance_future_place_order(exchange=exchange, symbol=fut
