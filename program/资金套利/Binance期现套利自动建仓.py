@@ -73,4 +73,9 @@ while True:
 
         # 获取币币账户买入币的数量
         time.sleep(2)
-   
+        balance = exchange.fetch_balance()
+        num = balance[coin]['free']
+        print('待转账的币的数量：', num)
+
+        # 将币币交易所买到的币转到合约账户
+        binance_account_transfer(exchange=exchange, currency=coin, amount=num, from_account
