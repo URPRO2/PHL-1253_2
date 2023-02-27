@@ -88,4 +88,9 @@ while True:
         print(future_order_info)
 
     # ===循环结束
-    print('*' * 20, '本次循环结束，暂停'
+    print('*' * 20, '本次循环结束，暂停', '*' * 20, '\n')
+    time.sleep(2)
+
+    if execute_num >= max_execute_num:
+        print('达到最大下单次数，完成建仓计划，退出程序')
+        break
